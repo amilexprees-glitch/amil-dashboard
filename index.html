@@ -162,7 +162,7 @@ th{background:var(--panel);color:#bae6fd;position:sticky;top:0;z-index:2}
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
           <div>
             <h3 style="margin:0;color:#fbbf24">🧾 استخراج أرقام التليفون من البوالص وكتابة اسم المندوب في عمود M (13)</h3>
-            <p style="color:var(--muted);margin:4px 0 0;font-size:12.5px">يقرأ الأرقام من الصور ويطابقها ويكتب اسم المندوب في <b>عمود M (13)</b></p>
+            <p style="color:var(--muted);margin:4px 0 0;font-size:12.5px">يقرأ الأرقام من الصور ويطابقها مع عمود الرقم (G) ويكتب اسم المندوب في <b>عمود M (13)</b></p>
           </div>
           <span class="tag" style="background:rgba(245,158,11,.18);color:#fbbf24">عمود M (13)</span>
         </div>
@@ -243,7 +243,7 @@ th{background:var(--panel);color:#bae6fd;position:sticky;top:0;z-index:2}
           <div class="sheet-wrap" style="max-height:220px">
             <table>
               <thead>
-                <tr><th>الورقة</th><th>التاريخ</th><th>الراسل</th><th>العميل</th><th>الهاتف</th><th>السعر (J)</th><th>المحصل (K)</th><th>الحالة (L)</th><th>المندوب (M)</th><th>ملاحظات (N)</th></tr>
+                <tr><th>الورقة</th><th>التاريخ (B)</th><th>الراسل (D)</th><th>الاسم (F)</th><th>الرقم (G)</th><th>السعر (J)</th><th>الوارد (K)</th><th>تاكيد (L)</th><th>المندوب (M)</th><th>ملاحظات (N)</th></tr>
               </thead>
               <tbody id="shipments-search-body"></tbody>
             </table>
@@ -253,7 +253,7 @@ th{background:var(--panel);color:#bae6fd;position:sticky;top:0;z-index:2}
         <div class="sheet-wrap" style="max-height:48vh">
           <table>
             <thead>
-              <tr><th>الورقة</th><th>التاريخ</th><th>الراسل</th><th>العميل</th><th>الهاتف</th><th>السعر (J)</th><th>المحصل (K)</th><th>الحالة (L)</th><th>المندوب (M)</th><th>ملاحظات (N)</th></tr>
+              <tr><th>الورقة</th><th>التاريخ (B)</th><th>الراسل (D)</th><th>الاسم (F)</th><th>الرقم (G)</th><th>السعر (J)</th><th>الوارد (K)</th><th>تاكيد (L)</th><th>المندوب (M)</th><th>ملاحظات (N)</th></tr>
             </thead>
             <tbody id="shipments-all-body"></tbody>
           </table>
@@ -354,6 +354,26 @@ const DEFAULT_MONTH_SHEETS = [
   "1/8/2026", "1/9/2026", "1/10/2026", "1/11/2026", "1/12/2026"
 ];
 
+/* خريطة الأعمدة حسب الشيت (A=0 .. N=13):
+   0: التسلسل | 1: التاريخ | 2: المكرر | 3: الراسل | 4: الكود | 5: الاسم | 6: الرقم | 7: المحافظة | 8: العنوان | 9: السعر | 10: الوارد | 11: تاكيد | 12: المندوب | 13: ملاحظات
+*/
+const COL = {
+  SEQ: 0,
+  DATE: 1,
+  DUP: 2,
+  SENDER: 3,
+  CODE: 4,
+  NAME: 5,
+  PHONE: 6,
+  GOV: 7,
+  ADDR: 8,
+  PRICE: 9,
+  COLLECTED: 10,
+  CONFIRM: 11,
+  REP: 12,
+  NOTES: 13
+};
+
 let allSheetsMap = {};
 let sheetNamesList = [];
 let selectedSheetName = "ALL";
@@ -405,10 +425,14 @@ function initDefaultSheets() {
   applyCurrentSheetView();
 }
 
-async function loadSheetData() {
+async function loadSheetData(specificSheet) {
   $('#connection-status').textContent = "جاري المزامنة...";
+  const targetQuery = specificSheet && specificSheet !== "ALL"
+    ? `${WEB_APP_URL}?sheet=${encodeURIComponent(specificSheet)}&_t=${Date.now()}`
+    : `${WEB_APP_URL}?_t=${Date.now()}`;
+
   try {
-    const resp = await fetch(`${WEB_APP_URL}?_t=${Date.now()}`, { cache: "no-store" });
+    const resp = await fetch(targetQuery, { cache: "no-store" });
     const res = await resp.json();
     const hasRows =
       (res.sheets && Object.values(res.sheets).some(arr => Array.isArray(arr) && arr.length > 1)) ||
@@ -417,18 +441,18 @@ async function loadSheetData() {
 
     if (hasRows) {
       localStorage.setItem('ami_v53_cache', JSON.stringify(res));
-      ingestServerResponse(res);
+      ingestServerResponse(res, specificSheet);
       $('#connection-status').textContent = "متصل 🟢";
       return;
     }
     throw new Error("Empty payload");
   } catch (err) {
-    const gvizOk = await fetchFromGoogleSheetDirect();
+    const gvizOk = await fetchFromGoogleSheetDirect(specificSheet);
     if (gvizOk) return;
 
     const cached = localStorage.getItem('ami_v53_cache');
     if (cached) {
-      ingestServerResponse(JSON.parse(cached));
+      ingestServerResponse(JSON.parse(cached), specificSheet);
       $('#connection-status').textContent = "بيانات محفوظة 🟡";
     } else {
       initDefaultSheets();
@@ -437,8 +461,11 @@ async function loadSheetData() {
   }
 }
 
-async function fetchFromGoogleSheetDirect() {
-  const sheetToTry = selectedSheetName !== "ALL" ? selectedSheetName : "1/11/2026";
+async function fetchFromGoogleSheetDirect(specificSheet) {
+  const sheetToTry = (specificSheet && specificSheet !== "ALL")
+    ? specificSheet
+    : (selectedSheetName !== "ALL" ? selectedSheetName : "1/11/2026");
+
   try {
     const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetToTry)}&_t=${Date.now()}`;
     const txt = await fetch(url).then(r => r.text());
@@ -448,9 +475,10 @@ async function fetchFromGoogleSheetDirect() {
     const rawRows = (parsed.table?.rows || []).map(r => (r.c || []).map(cell => (cell ? (cell.f || cell.v || "") : "")));
     if (rawRows.length > 0) {
       const sheetMatrix = [cols, ...rawRows];
-      const payload = { sheets: { [sheetToTry]: sheetMatrix } };
+      allSheetsMap[sheetToTry] = sheetMatrix;
+      const payload = { sheets: allSheetsMap };
       localStorage.setItem('ami_v53_cache', JSON.stringify(payload));
-      ingestServerResponse(payload);
+      ingestServerResponse(payload, sheetToTry);
       $('#connection-status').textContent = "متصل بالشيت 🟢";
       return true;
     }
@@ -460,18 +488,26 @@ async function fetchFromGoogleSheetDirect() {
   }
 }
 
-function ingestServerResponse(res) {
+function ingestServerResponse(res, specificSheet) {
   cloudRepsData = res.repsData || {};
-  const merged = {};
+  const merged = Object.assign({}, allSheetsMap);
 
   if (res.sheets && typeof res.sheets === "object" && Object.keys(res.sheets).length > 0) {
     for (const sName of Object.keys(res.sheets)) {
-      merged[sName] = res.sheets[sName] || [[]];
+      if (Array.isArray(res.sheets[sName]) && res.sheets[sName].length > 0) {
+        merged[sName] = res.sheets[sName];
+      }
     }
   } else if (Array.isArray(res.shipments) && res.shipments.length > 0) {
-    merged["1/11/2026"] = res.shipments;
+    const destSheet = (specificSheet && specificSheet !== "ALL")
+      ? specificSheet
+      : (selectedSheetName !== "ALL" ? selectedSheetName : "1/11/2026");
+    merged[destSheet] = res.shipments;
   } else if (Array.isArray(res.data) && res.data.length > 0) {
-    merged["1/11/2026"] = res.data;
+    const destSheet = (specificSheet && specificSheet !== "ALL")
+      ? specificSheet
+      : (selectedSheetName !== "ALL" ? selectedSheetName : "1/11/2026");
+    merged[destSheet] = res.data;
   }
 
   DEFAULT_MONTH_SHEETS.forEach(mName => {
@@ -533,7 +569,7 @@ function selectMonthSheet(sheetName) {
   }
   applyCurrentSheetView();
   if (sheetName !== "ALL" && (!allSheetsMap[sheetName] || allSheetsMap[sheetName].length <= 1)) {
-    fetchFromGoogleSheetDirect();
+    loadSheetData(sheetName);
   }
 }
 
@@ -556,12 +592,12 @@ function applyCurrentSheetView() {
 
   combinedRows.forEach((item, idx) => {
     const row = item.data;
-    const rawRep = String(row[12] || "").trim();
+    const rawRep = String(row[COL.REP] || "").trim();
     if (!rawRep) unassignedCount++;
 
     const cleanRep = rawRep ? (rawRep.replace(/[0-9٠-٩]/g, '').trim() || rawRep) : "";
-    const colJ = parseNum(row[9]);
-    const colK = row[10];
+    const colJ = parseNum(row[COL.PRICE]);
+    const colK = row[COL.COLLECTED];
     const colR = parseNum(row[17]) || parseNum(row[16]);
     const netCol = parseNum(row[19]);
     const isDelivered = colK !== "" && colK !== null && !isNaN(parseFloat(normalizeDigits(colK)));
@@ -570,13 +606,13 @@ function applyCurrentSheetView() {
     if (isDelivered) {
       deliveredCount++;
       totalSalesK += amtK;
-      const sender = String(row[3] || "غير محدد").trim();
+      const sender = String(row[COL.SENDER] || "غير محدد").trim();
       if (!sendersMap[sender]) sendersMap[sender] = { total: 0, delivered: 0, amount: 0 };
       sendersMap[sender].delivered++;
       sendersMap[sender].amount += amtK;
     }
 
-    const senderAll = String(row[3] || "غير محدد").trim();
+    const senderAll = String(row[COL.SENDER] || "غير محدد").trim();
     if (!sendersMap[senderAll]) sendersMap[senderAll] = { total: 0, delivered: 0, amount: 0 };
     sendersMap[senderAll].total++;
 
@@ -594,7 +630,7 @@ function applyCurrentSheetView() {
         globalRepsData[cleanRep].days[dayKey] = {
           dayName: rawRep,
           sheetName: item.sheetName,
-          date: row[1] || item.sheetName,
+          date: row[COL.DATE] || item.sheetName,
           count: 0,
           deliveredCount: 0,
           amountJ: 0,
@@ -666,15 +702,15 @@ function renderRowsIntoTable(items, selector) {
     const r = item.data;
     h += `<tr>
       <td><span class="tag">${item.sheetName}</span></td>
-      <td>${r[1] || ""}</td>
-      <td>${r[3] || ""}</td>
-      <td>${r[4] || ""}</td>
-      <td dir="ltr">${r[5] || r[6] || ""}</td>
-      <td>${r[9] || 0}</td>
-      <td style="color:#22c55e;font-weight:700">${r[10] || ""}</td>
-      <td>${r[11] || ""}</td>
-      <td style="color:#f59e0b;font-weight:800">${r[12] || "—"}</td>
-      <td>${r[13] || ""}</td>
+      <td>${r[COL.DATE] || ""}</td>
+      <td>${r[COL.SENDER] || ""}</td>
+      <td>${r[COL.NAME] || ""}</td>
+      <td dir="ltr">${r[COL.PHONE] || ""}</td>
+      <td>${r[COL.PRICE] || 0}</td>
+      <td style="color:#22c55e;font-weight:700">${r[COL.COLLECTED] || ""}</td>
+      <td>${r[COL.CONFIRM] || ""}</td>
+      <td style="color:#f59e0b;font-weight:800">${r[COL.REP] || "—"}</td>
+      <td>${r[COL.NOTES] || ""}</td>
     </tr>`;
   });
   $(selector).innerHTML = h || `<tr><td colspan="10" style="text-align:center;color:var(--muted)">لا توجد بيانات</td></tr>`;
@@ -875,9 +911,10 @@ function checkPhoneInTargetSheet(phone, sheetName) {
   const short10 = phone.slice(1);
   const rows = allSheetsMap[sheetName] || [];
   for (let i = 1; i < rows.length; i++) {
-    const rowStr = normalizeDigits((rows[i][5] || "") + " " + (rows[i][6] || "") + " " + (rows[i][4] || ""));
-    if (rowStr.includes(phone) || rowStr.includes(short10)) {
-      return { found: true, rowIndex: i + 1, client: rows[i][4] || "" };
+    const phoneCol = normalizeDigits(rows[i][COL.PHONE] || "");
+    const fallbackCols = normalizeDigits((rows[i][COL.NAME] || "") + " " + (rows[i][COL.ADDR] || ""));
+    if (phoneCol.includes(phone) || phoneCol.includes(short10) || fallbackCols.includes(phone) || fallbackCols.includes(short10)) {
+      return { found: true, rowIndex: i + 1, client: rows[i][COL.NAME] || "" };
     }
   }
   return { found: false };
@@ -997,6 +1034,7 @@ async function saveOCRToSheet() {
         sheetName: targetSheet,
         repName: rep,
         phones: validPhones,
+        phoneColumnIndex: COL.PHONE,
         column: 13
       })
     }).then(r => r.json());
@@ -1004,7 +1042,7 @@ async function saveOCRToSheet() {
     const updated = res.updatedCount ?? validPhones.length;
     toast(`✅ تم حفظ ${rep} في عمود M لـ ${updated} صف`);
     $('#ocr-progress-text').textContent = `✅ تم حفظ ${rep} في عمود M (13) بنجاح`;
-    await loadSheetData();
+    await loadSheetData(targetSheet);
   } catch (err) {
     toast("تم إرسال الطلب - تحقق من الشيت");
     $('#ocr-progress-text').textContent = "⚠️ تحقق من نشر إصدار جديد (New version) في Code.gs";
@@ -1026,7 +1064,7 @@ function resetOCR() {
 
 initDefaultSheets();
 loadSheetData();
-setInterval(loadSheetData, 20000);
+setInterval(() => loadSheetData(selectedSheetName), 20000);
 </script>
 </body>
 </html>
