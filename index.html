@@ -129,7 +129,7 @@ th{background:var(--panel);color:#bae6fd;position:sticky;top:0;z-index:2}
       </div>
       <div style="display:flex;gap:8px;align-items:center">
         <span class="tag" id="connection-status">جاري التحميل...</span>
-        <button class="btn btn-p" onclick="loadSheetData()">🔄 تحديث</button>
+        <button class="btn btn-p" onclick="loadSheetData(selectedSheetName)">🔄 تحديث</button>
       </div>
     </div>
 
@@ -354,9 +354,6 @@ const DEFAULT_MONTH_SHEETS = [
   "1/8/2026", "1/9/2026", "1/10/2026", "1/11/2026", "1/12/2026"
 ];
 
-/* خريطة الأعمدة حسب الشيت (A=0 .. N=13):
-   0: التسلسل | 1: التاريخ | 2: المكرر | 3: الراسل | 4: الكود | 5: الاسم | 6: الرقم | 7: المحافظة | 8: العنوان | 9: السعر | 10: الوارد | 11: تاكيد | 12: المندوب | 13: ملاحظات
-*/
 const COL = {
   SEQ: 0,
   DATE: 1,
@@ -425,6 +422,19 @@ function initDefaultSheets() {
   applyCurrentSheetView();
 }
 
+function detectSheetFromRows(rows) {
+  if (!Array.isArray(rows) || rows.length < 2) return null;
+  for (let i = 1; i < Math.min(rows.length, 25); i++) {
+    const dStr = String(rows[i][COL.DATE] || "").trim();
+    const m = dStr.match(/\b(\d{1,2})[\/\-](\d{1,2})[\/\-](202\d)\b/);
+    if (m) {
+      const candidate = `1/${parseInt(m[2], 10)}/${m[3]}`;
+      if (DEFAULT_MONTH_SHEETS.includes(candidate)) return candidate;
+    }
+  }
+  return null;
+}
+
 async function loadSheetData(specificSheet) {
   $('#connection-status').textContent = "جاري المزامنة...";
   const targetQuery = specificSheet && specificSheet !== "ALL"
@@ -445,15 +455,25 @@ async function loadSheetData(specificSheet) {
       $('#connection-status').textContent = "متصل 🟢";
       return;
     }
+    if (specificSheet && specificSheet !== "ALL") {
+      allSheetsMap[specificSheet] = [[]];
+      applyCurrentSheetView();
+      $('#connection-status').textContent = "متصل 🟢";
+      return;
+    }
     throw new Error("Empty payload");
   } catch (err) {
     const gvizOk = await fetchFromGoogleSheetDirect(specificSheet);
     if (gvizOk) return;
 
     const cached = localStorage.getItem('ami_v53_cache');
-    if (cached) {
+    if (cached && (!specificSheet || specificSheet === "ALL")) {
       ingestServerResponse(JSON.parse(cached), specificSheet);
       $('#connection-status').textContent = "بيانات محفوظة 🟡";
+    } else if (specificSheet && specificSheet !== "ALL") {
+      allSheetsMap[specificSheet] = [[]];
+      applyCurrentSheetView();
+      $('#connection-status').textContent = "ورقة فارغة أو غير منشورة";
     } else {
       initDefaultSheets();
       $('#connection-status').textContent = "تحقق من صلاحية الشيت 🔴";
@@ -476,10 +496,16 @@ async function fetchFromGoogleSheetDirect(specificSheet) {
     if (rawRows.length > 0) {
       const sheetMatrix = [cols, ...rawRows];
       allSheetsMap[sheetToTry] = sheetMatrix;
-      const payload = { sheets: allSheetsMap };
-      localStorage.setItem('ami_v53_cache', JSON.stringify(payload));
-      ingestServerResponse(payload, sheetToTry);
+      buildMonthSheetControls();
+      applyCurrentSheetView();
       $('#connection-status').textContent = "متصل بالشيت 🟢";
+      return true;
+    }
+    if (specificSheet && specificSheet !== "ALL") {
+      allSheetsMap[specificSheet] = [[]];
+      buildMonthSheetControls();
+      applyCurrentSheetView();
+      $('#connection-status').textContent = "متصل 🟢";
       return true;
     }
     return false;
@@ -494,20 +520,18 @@ function ingestServerResponse(res, specificSheet) {
 
   if (res.sheets && typeof res.sheets === "object" && Object.keys(res.sheets).length > 0) {
     for (const sName of Object.keys(res.sheets)) {
-      if (Array.isArray(res.sheets[sName]) && res.sheets[sName].length > 0) {
+      if (Array.isArray(res.sheets[sName])) {
         merged[sName] = res.sheets[sName];
       }
     }
-  } else if (Array.isArray(res.shipments) && res.shipments.length > 0) {
-    const destSheet = (specificSheet && specificSheet !== "ALL")
-      ? specificSheet
-      : (selectedSheetName !== "ALL" ? selectedSheetName : "1/11/2026");
-    merged[destSheet] = res.shipments;
-  } else if (Array.isArray(res.data) && res.data.length > 0) {
-    const destSheet = (specificSheet && specificSheet !== "ALL")
-      ? specificSheet
-      : (selectedSheetName !== "ALL" ? selectedSheetName : "1/11/2026");
-    merged[destSheet] = res.data;
+  } else {
+    const rows = Array.isArray(res.shipments) ? res.shipments : (Array.isArray(res.data) ? res.data : []);
+    if (rows.length > 0) {
+      const detected = res.sheetName || detectSheetFromRows(rows) || "1/11/2026";
+      if (!specificSheet || specificSheet === "ALL" || specificSheet === detected) {
+        merged[detected] = rows;
+      }
+    }
   }
 
   DEFAULT_MONTH_SHEETS.forEach(mName => {
