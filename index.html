@@ -212,7 +212,7 @@ th{background:var(--panel);color:#bae6fd;position:sticky;top:0;z-index:2}
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
           <div>
             <h3 style="margin:0">📦 إدارة الشحنات والاسكنر</h3>
-            <p style="color:var(--muted);margin:3px 0 0;font-size:12.5px">اسكنر + كاميرا + فتح الشيت المباشر</p>
+            <p style="color:var(--muted);margin:3px 0 0;font-size:12.5px">اسكنر + كاميرا + بيانات الشيت المباشرة + شيت جوجل المدمج</p>
           </div>
           <a href="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit" target="_blank" class="btn btn-p btn-sm" style="text-decoration:none">🔗 فتح الشيت في تبويب جديد ↗</a>
         </div>
@@ -250,13 +250,17 @@ th{background:var(--panel);color:#bae6fd;position:sticky;top:0;z-index:2}
           </div>
         </div>
 
-        <div class="sheet-wrap" style="max-height:55vh">
+        <div class="sheet-wrap" style="max-height:48vh">
           <table>
             <thead>
               <tr><th>الورقة</th><th>التاريخ</th><th>الراسل</th><th>العميل</th><th>الهاتف</th><th>السعر (J)</th><th>المحصل (K)</th><th>الحالة (L)</th><th>المندوب (M)</th><th>ملاحظات (N)</th></tr>
             </thead>
             <tbody id="shipments-all-body"></tbody>
           </table>
+        </div>
+
+        <div class="sheet-wrap" style="height:58vh;margin-top:14px;padding:0;overflow:hidden">
+          <iframe src="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit?gid=687102612#gid=687102612&embedded=true" width="100%" height="100%" style="border:none"></iframe>
         </div>
       </div>
     </section>
@@ -401,7 +405,6 @@ function initDefaultSheets() {
   applyCurrentSheetView();
 }
 
-// قراءة البيانات من Apps Script مع مسار احتياطي تلقائي من Google Sheets GViz إذا لزم الأمر
 async function loadSheetData() {
   $('#connection-status').textContent = "جاري المزامنة...";
   try {
@@ -434,7 +437,6 @@ async function loadSheetData() {
   }
 }
 
-// قراءة مباشرة من الشيت كمسار احتياطي ذكي إذا لم يُرجع doGet صفوفاً
 async function fetchFromGoogleSheetDirect() {
   const sheetToTry = selectedSheetName !== "ALL" ? selectedSheetName : "1/11/2026";
   try {
