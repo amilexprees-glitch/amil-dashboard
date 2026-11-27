@@ -3,1092 +3,281 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AMIAl EXPRESS - نظام الإدارة V5.3</title>
-<meta name="theme-color" content="#020617"/>
+<title>AMIAl EXPRESS - V7.1 FIXED SHEETS</title>
+<meta name="theme-color" content="#0f172a"/>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <style>
-:root{
-  --bg:#020617;
-  --panel:#0f172a;
-  --card:#1e293b;
-  --muted:#94a3b8;
-  --text:#f1f5f9;
-  --accent:#38bdf8;
-  --accent2:#22c55e;
-  --warn:#f59e0b;
-  --danger:#ef4444;
-  --line:rgba(148,163,184,.16);
-}
-*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,Arial,sans-serif}
-body{margin:0;background:var(--bg);color:var(--text);overflow-x:hidden}
-.app{display:grid;grid-template-columns:265px 1fr;min-height:100vh}
-
-.sidebar{background:#030816;border-left:1px solid var(--line);padding:18px;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;justify-content:space-between}
-.brand{display:flex;gap:11px;align-items:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
-.logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#38bdf8,#22c55e);display:grid;place-items:center;font-size:21px;font-weight:900;color:#020617}
-.nav{display:grid;gap:7px}
-.nav button{all:unset;cursor:pointer;background:rgba(15,23,42,.85);border:1px solid var(--line);padding:11px 13px;border-radius:12px;display:flex;gap:10px;align-items:center;font-weight:700;font-size:13.5px;transition:.18s}
-.nav button:hover{background:var(--card);border-color:rgba(56,189,248,.4)}
-.nav button.active{background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(34,197,94,.16));border-color:#38bdf8;color:#fff}
-
+:root{--bg:#0f172a;--card:#1e2937;--muted:#94a3b8;--text:#e5e7eb;--accent:#38bdf8;--accent2:#22c55e;--warn:#f59e0b;--danger:#ef4444;--line:rgba(148,163,184,.16)}
+*{box-sizing:border-box;font-family:Segoe UI,Tahoma,Arial,sans-serif}
+body{margin:0;background:#0f172a;color:var(--text)}
+.app{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
+.sidebar{background:#020617;border-left:1px solid var(--line);padding:20px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{display:flex;gap:12px;align-items:center}.logo{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,#38bdf8,#22c55e);display:grid;place-items:center;font-size:24px;font-weight:900;color:#00111f}
+.nav{display:grid;gap:9px;margin-top:16px}.nav button{all:unset;cursor:pointer;background:#111827;border:1px solid var(--line);padding:13px;border-radius:14px;display:flex;gap:10px;align-items:center;font-weight:700}
+.nav button.active{background:linear-gradient(135deg,rgba(56,189,248,.2),rgba(34,197,94,.14));border-color:#38bdf8}
 .main{padding:20px;overflow:auto}
-.hero{background:linear-gradient(135deg,rgba(56,189,248,.13),rgba(34,197,94,.07));border:1px solid var(--line);padding:16px 20px;border-radius:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.toolbar-sheets{background:var(--panel);border:1px solid var(--line);padding:12px 16px;border-radius:14px;margin-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.sheet-pills{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.sheet-pill{border:1px solid var(--line);background:var(--card);color:var(--text);padding:6px 12px;border-radius:999px;cursor:pointer;font-size:12px;font-weight:700;transition:.15s}
-.sheet-pill:hover{border-color:var(--accent)}
-.sheet-pill.active{background:linear-gradient(135deg,#38bdf8,#22c55e);color:#020617;border-color:transparent}
-
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:14px}
-.stat{background:var(--card);border:1px solid var(--line);padding:16px;border-radius:14px}
-.stat .label{color:var(--muted);font-size:12px;font-weight:600}
-.stat .value{font-size:20px;font-weight:900;margin-top:6px}
-
+.hero{background:linear-gradient(135deg,rgba(56,189,248,.15),rgba(34,197,94,.09));border:1px solid var(--line);padding:20px;border-radius:20px}
+.sheet-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.sheet-btn{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#111827;color:#fff;cursor:pointer;font-weight:800;font-size:13px}
+.sheet-btn.active{background:linear-gradient(135deg,#38bdf8,#22c55e);color:#00111f}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}
+.stat{background:#1e2937;border:1px solid var(--line);padding:14px;border-radius:16px}
+.stat .label{color:var(--muted);font-size:12px}.stat .value{font-size:19px;font-weight:900;margin-top:6px}
 .content{display:none}.content.active{display:block}
-.card{background:var(--card);border:1px solid var(--line);padding:18px;border-radius:16px}
-.sheet-wrap{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:8px;overflow:auto;max-height:68vh}
-table{width:100%;border-collapse:collapse;min-width:920px}
-th,td{padding:10px;border-bottom:1px solid rgba(148,163,184,.12);text-align:right;white-space:nowrap;font-size:13px}
-th{background:var(--panel);color:#bae6fd;position:sticky;top:0;z-index:2}
-
-.io-strip{display:grid;grid-template-columns:1.3fr .7fr;gap:12px;margin:14px 0}
-.io-box{background:var(--panel);border:1px solid var(--line);padding:12px 14px;border-radius:12px;display:flex;flex-direction:column;gap:8px}
-.io-header{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800}
-
-.filter-input,.select-input{width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;color:#fff;margin-bottom:10px;font-size:13px}
-.filter-input:focus,.select-input:focus{outline:none;border-color:var(--accent)}
-.btn{border:none;padding:9px 14px;border-radius:10px;cursor:pointer;font-weight:800;font-size:12.5px;display:inline-flex;gap:6px;align-items:center;transition:.15s}
-.btn-sm{padding:6px 11px;font-size:12px;border-radius:8px}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.btn-p{background:linear-gradient(135deg,#38bdf8,#22c55e);color:#020617}
-.btn-g{background:rgba(255,255,255,.07);color:#fff;border:1px solid var(--line)}
-.btn-wa{background:#25D366;color:#020617}
-.btn-red{background:#ef4444;color:#fff}
-.btn-amber{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#020617}
-.input-sub{width:80px;padding:6px;background:var(--bg);border:1px solid #334155;color:#fff;border-radius:7px;text-align:center}
-.input-pend{width:125px;padding:6px;background:var(--bg);border:1px solid #f59e0b;color:#f59e0b;border-radius:7px}
-.input-sign{width:100px;padding:6px;background:var(--bg);border:1px solid #334155;color:#fff;border-radius:7px}
-.input-wa{width:120px;padding:6px;background:var(--bg);border:1px solid #25D366;color:#25D366;border-radius:7px;text-align:center}
-.row-verified{background:rgba(34,197,94,.12)!important}
-
-.ocr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;margin-top:14px}
-.ocr-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;font-size:12px}
-.ocr-card img{width:100%;height:105px;object-fit:cover;border-radius:8px;cursor:pointer}
-.ocr-card.ok{border-color:#22c55e;background:rgba(34,197,94,.06)}
-.ocr-card.fail{border-color:#ef4444;background:rgba(239,68,68,.06)}
-.phone-edit-input{width:100%;margin-top:6px;padding:6px;border-radius:7px;border:1px solid #334155;background:#020617;color:#22c55e;font-weight:800;text-align:center;font-size:12.5px}
-
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);display:none;justify-content:center;align-items:center;z-index:9999;padding:14px}
-.modal-card{background:var(--card);border:1px solid var(--line);padding:20px;border-radius:16px;width:100%;max-width:440px}
-.tag{display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(56,189,248,.15);color:#7dd3fc;font-size:12px;font-weight:700}
-.progress{height:9px;background:var(--bg);border-radius:999px;overflow:hidden;border:1px solid var(--line)}.progress i{display:block;height:100%;background:linear-gradient(90deg,#f59e0b,#22c55e);transition:width .2s}
-.toast{position:fixed;bottom:20px;right:50%;transform:translateX(50%);background:#020617;border:1px solid #38bdf8;color:#fff;padding:10px 20px;border-radius:999px;display:none;z-index:10000;font-weight:700;font-size:13px}
-
-@media(max-width:1024px){
-  .app{grid-template-columns:1fr}
-  .sidebar{position:relative;height:auto}
-  .io-strip{grid-template-columns:1fr}
-}
+.card{background:#1e2937;border:1px solid var(--line);padding:18px;border-radius:18px}
+.sheet-wrap{background:#020617;border:1px solid var(--line);border-radius:14px;padding:10px;overflow:auto;max-height:75vh}
+table{width:100%;border-collapse:collapse;min-width:1000px}
+th,td{padding:11px 10px;border-bottom:1px solid rgba(148,163,184,.13);text-align:right;white-space:nowrap;font-size:13.5px}
+th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
+.filter-input,.select-input{width:100%;padding:12px;background:#0f172a;border:1px solid var(--line);border-radius:11px;color:#fff;margin-bottom:12px}
+.btn{border:none;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:800;font-size:13px;display:inline-flex;gap:6px;align-items:center}
+.btn-p{background:linear-gradient(135deg,#38bdf8,#22c55e);color:#00111f}.btn-g{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line)}.btn-wa{background:#25D366;color:#fff}.btn-red{background:#ef4444;color:#fff}.btn-amber{background:#f59e0b;color:#00111f}
+.tag{display:inline-block;padding:5px 10px;border-radius:999px;background:rgba(56,189,248,.15);color:#7dd3fc;font-size:12px}
+.live-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;margin-top:14px}
+.live-card{background:#0f172a;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.live-card.online{border-color:#22c55e;box-shadow:0 0 0 1px rgba(34,197,94,.4)}
+.live-header{display:flex;gap:10px;align-items:center;padding:12px}
+.live-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22c55e);display:grid;place-items:center;font-size:20px;font-weight:900;color:#00111f;flex-shrink:0;position:relative}
+.live-dot{position:absolute;bottom:0;left:0;width:14px;height:14px;border-radius:50%;border:2px solid #0f172a}
+.live-preview{height:150px;background:#020617;position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px}
+.mini-order{background:rgba(255,255,255,.08);border-radius:8px;padding:6px 8px;margin:4px 0;font-size:11px;display:flex;justify-content:space-between}
+.input-sub{width:78px;padding:7px;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:7px;text-align:center}
+.input-pend{width:130px;padding:7px;background:#0f172a;border:1px solid #f59e0b;color:#f59e0b;border-radius:7px}
+.input-sign{width:100px;padding:7px;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:7px}
+.input-wa{width:120px;padding:7px;background:#0f172a;border:1px solid #25D366;color:#25D366;border-radius:7px;text-align:center}
+.ocr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
+.ocr-card{background:#0f172a;border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center;font-size:12px}
+.ocr-card img{width:100%;height:90px;object-fit:cover;border-radius:8px}
+.ocr-card.ok{border-color:#22c55e}.ocr-card.fail{border-color:#ef4444}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;justify-content:center;align-items:center;z-index:9999;padding:14px}
+.modal-card{background:#1e293b;padding:20px;border-radius:16px;width:100%;max-width:460px;max-height:92vh;overflow:auto}
+.progress{height:8px;background:#0f172a;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,#38bdf8,#22c55e)}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#020617;border:1px solid #38bdf8;padding:12px 18px;border-radius:999px;display:none;z-index:10000;font-weight:700;font-size:13px}
+.order-mini{border-radius:12px;padding:10px;margin:6px 0;border-right:5px solid #f59e0b;background:#1e293b}
+.order-mini.delivered{border-color:#22c55e}.order-mini.partial{border-color:#0ea5e9}.order-mini.returned{border-color:#ef4444}
+.search-big{width:100%;padding:14px 14px 14px 44px;background:#0f172a;border:2px solid #38bdf8;border-radius:14px;color:#fff;font-size:15px;font-weight:700;outline:none}
+.debug-box{background:#020617;border:1px solid #f59e0b;border-radius:12px;padding:10px;font-size:12px;line-height:1.7;margin-top:10px}
+@media(max-width:1000px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}}
 </style>
 </head>
 <body>
-
 <div class="app">
-  <aside class="sidebar">
-    <div>
-      <div class="brand">
-        <div class="logo">A</div>
-        <div>
-          <h1 style="margin:0;font-size:17px">AMIAl EXPRESS</h1>
-          <p style="margin:2px 0 0;color:var(--muted);font-size:11.5px">نظام الإدارة V5.3</p>
-        </div>
-      </div>
-
-      <div class="nav">
-        <button class="active" data-tab="dashboard">🏠 الرئيسية</button>
-        <button data-tab="ocr">🧾 استخراج أرقام البوالص (OCR)</button>
-        <button data-tab="shipments">📦 إدارة الشحنات والاسكنر</button>
-        <button data-tab="reps">🧑‍💼 حسابات المناديب</button>
-        <button data-tab="profits">📈 الأرباح</button>
-        <button data-tab="branches">🏢 الرواسل</button>
-      </div>
-    </div>
-
-    <div style="margin-top:16px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.22);padding:12px;border-radius:12px;font-size:12px;line-height:1.6">
-      <b>📑 الورقة النشطة:</b><br>
-      <span id="sidebar-active-sheet" style="color:#38bdf8;font-weight:800">كل أوراق الأشهر</span><br>
-      <span id="range-info" style="color:#22c55e">0 صف</span>
-    </div>
-  </aside>
-
-  <main class="main">
-    <div class="hero">
-      <div>
-        <h2 style="margin:0;font-size:19px">لوحة التحكم - AMIAl EXPRESS</h2>
-        <p style="color:var(--muted);margin:4px 0 0;font-size:12.5px">التحكم بأوراق الأشهر • حسابات المناديب • تعيين المندوب في عمود M (13)</p>
-      </div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <span class="tag" id="connection-status">جاري التحميل...</span>
-        <button class="btn btn-p" onclick="loadSheetData(selectedSheetName)">🔄 تحديث</button>
-      </div>
-    </div>
-
-    <div class="toolbar-sheets">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-        <b style="font-size:13px;color:#bae6fd">📅 اختيار ورقة الشهر:</b>
-        <select id="monthSheetSelect" class="select-input" style="width:auto;min-width:200px;margin:0;padding:7px 11px" onchange="selectMonthSheet(this.value)"></select>
-      </div>
-      <div id="monthSheetPills" class="sheet-pills"></div>
-    </div>
-
-    <section id="dashboard" class="content active">
-      <div class="stats">
-        <div class="stat"><div class="label">إجمالي الشحنات بالورقة</div><div class="value" id="stat-total-orders">0</div></div>
-        <div class="stat"><div class="label">تم التسليم (K)</div><div class="value" id="stat-delivered-count" style="color:#38bdf8">0</div></div>
-        <div class="stat"><div class="label">إجمالي التحصيل (K)</div><div class="value" id="stat-sales">0 ج.م</div></div>
-        <div class="stat"><div class="label">شحن المناديب (R)</div><div class="value" id="stat-expenses" style="color:#ef4444">0 ج.م</div></div>
-        <div class="stat"><div class="label">صافي ربح المكتب</div><div class="value" id="stat-net-profit" style="color:#22c55e">0 ج.م</div></div>
-      </div>
-
-      <div class="stats">
-        <div class="stat"><div class="label">صافي (سبت + أحد + اثنين)</div><div class="value" id="stat-group-1">0 ج.م</div></div>
-        <div class="stat"><div class="label">صافي (ثلاثاء + أربعاء + خميس)</div><div class="value" id="stat-group-2">0 ج.م</div></div>
-        <div class="stat"><div class="label">بدون مندوب (عمود M فارغ)</div><div class="value" id="stat-unassigned" style="color:#f59e0b">0</div></div>
-      </div>
-    </section>
-
-    <section id="ocr" class="content">
-      <div class="card" style="border-color:rgba(245,158,11,.4)">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-          <div>
-            <h3 style="margin:0;color:#fbbf24">🧾 استخراج أرقام التليفون من البوالص وكتابة اسم المندوب في عمود M (13)</h3>
-            <p style="color:var(--muted);margin:4px 0 0;font-size:12.5px">يقرأ الأرقام من الصور ويطابقها مع عمود الرقم (G) ويكتب اسم المندوب في <b>عمود M (13)</b></p>
-          </div>
-          <span class="tag" style="background:rgba(245,158,11,.18);color:#fbbf24">عمود M (13)</span>
-        </div>
-
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:14px;background:var(--panel);padding:14px;border-radius:12px;border:1px solid var(--line)">
-          <div>
-            <label style="font-size:12.5px;font-weight:700;display:block;margin-bottom:6px">1 - اختر ورقة الشهر:</label>
-            <select id="ocrTargetSheet" class="select-input" style="margin-bottom:0"></select>
-          </div>
-
-          <div>
-            <label style="font-size:12.5px;font-weight:700;display:block;margin-bottom:6px">2 - اسم المندوب (يُكتب في عمود M):</label>
-            <input type="text" id="ocrRepCustom" placeholder="اكتب اسم المندوب هنا..." class="filter-input" style="margin-bottom:0">
-          </div>
-
-          <div>
-            <label style="font-size:12.5px;font-weight:700;display:block;margin-bottom:6px">3 - اختر صور البوالص:</label>
-            <input type="file" id="ocrFiles" accept="image/*" multiple class="filter-input" style="margin-bottom:6px" onchange="previewOCRFiles()">
-            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)">
-              <span>الحد الأقصى:</span>
-              <input type="number" id="ocrLimit" value="30" min="1" max="100" style="width:65px;padding:4px;background:var(--bg);border:1px solid var(--line);color:#fff;border-radius:6px;text-align:center">
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-          <button class="btn btn-amber" onclick="startOCR()">🧠 بدء قراءة الإيصالات واستخراج أرقام التليفون</button>
-          <button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في الشيت (عمود M - 13)</button>
-          <button class="btn btn-g" onclick="resetOCR()">مسح الصور</button>
-        </div>
-
-        <div style="margin-top:12px">
-          <div style="display:flex;justify-content:space-between;font-size:12px">
-            <span id="ocr-progress-text">جاهز...</span>
-            <span id="ocr-count">0 / 0</span>
-          </div>
-          <div class="progress" style="margin-top:6px"><i id="ocr-bar" style="width:0%"></i></div>
-        </div>
-
-        <div id="ocr-preview" class="ocr-grid"></div>
-        <div id="ocr-results" style="margin-top:14px"></div>
-      </div>
-    </section>
-
-    <section id="shipments" class="content">
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-          <div>
-            <h3 style="margin:0">📦 إدارة الشحنات والاسكنر</h3>
-            <p style="color:var(--muted);margin:3px 0 0;font-size:12.5px">اسكنر + كاميرا + بيانات الشيت المباشرة + شيت جوجل المدمج</p>
-          </div>
-          <a href="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit" target="_blank" class="btn btn-p btn-sm" style="text-decoration:none">🔗 فتح الشيت في تبويب جديد ↗</a>
-        </div>
-
-        <div class="io-strip">
-          <div class="io-box" style="border-color:rgba(56,189,248,.35)">
-            <div class="io-header">
-              <span>⚡ اسكنر الباركود</span>
-              <span id="scan-result" style="font-size:11.5px;color:#22c55e"></span>
-            </div>
-            <input id="barcodeScannerInput" placeholder="امسح الباركود + Enter" class="filter-input" style="margin:0;padding:8px 10px;border-color:#38bdf8" onkeypress="handleBarcodeScan(event)">
-          </div>
-
-          <div class="io-box" style="border-color:rgba(34,197,94,.35)">
-            <div class="io-header">
-              <span>📷 كاميرا الإيصالات</span>
-              <button class="btn btn-p btn-sm" onclick="openDirectCameraModal()">📷 التقاط</button>
-            </div>
-            <span style="font-size:11.5px;color:var(--muted)">التقط إيصال وسيتم حفظه فوراً</span>
-          </div>
-        </div>
-
-        <div id="search-results-box" style="display:none;margin-bottom:12px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-            <b style="font-size:12.5px;color:#38bdf8">نتائج البحث:</b>
-            <button class="btn btn-g btn-sm" onclick="document.getElementById('search-results-box').style.display='none'">إخفاء</button>
-          </div>
-          <div class="sheet-wrap" style="max-height:220px">
-            <table>
-              <thead>
-                <tr><th>الورقة</th><th>التاريخ (B)</th><th>الراسل (D)</th><th>الاسم (F)</th><th>الرقم (G)</th><th>السعر (J)</th><th>الوارد (K)</th><th>تاكيد (L)</th><th>المندوب (M)</th><th>ملاحظات (N)</th></tr>
-              </thead>
-              <tbody id="shipments-search-body"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="sheet-wrap" style="max-height:48vh">
-          <table>
-            <thead>
-              <tr><th>الورقة</th><th>التاريخ (B)</th><th>الراسل (D)</th><th>الاسم (F)</th><th>الرقم (G)</th><th>السعر (J)</th><th>الوارد (K)</th><th>تاكيد (L)</th><th>المندوب (M)</th><th>ملاحظات (N)</th></tr>
-            </thead>
-            <tbody id="shipments-all-body"></tbody>
-          </table>
-        </div>
-
-        <div class="sheet-wrap" style="height:58vh;margin-top:14px;padding:0;overflow:hidden">
-          <iframe src="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit?gid=687102612#gid=687102612&embedded=true" width="100%" height="100%" style="border:none"></iframe>
-        </div>
-      </div>
-    </section>
-
-    <section id="reps" class="content">
-      <div class="card">
-        <h3>🧑‍💼 حسابات المناديب</h3>
-        <input id="repFilterInput" class="filter-input" placeholder="🔍 ابحث باسم المندوب..." onkeyup="filterRepsTable()">
-        <div class="sheet-wrap">
-          <table>
-            <thead>
-              <tr><th>المندوب</th><th>إجمالي</th><th>المسلمة</th><th>قيمة البضاعة (J)</th><th>المحصل (K)</th><th>شحن المندوب (R)</th><th>نسبة التسليم</th><th>التفاصيل</th></tr>
-            </thead>
-            <tbody id="reps-table-body"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section id="rep-detail-page" class="content">
-      <button class="btn btn-red btn-sm" onclick="backToRepsList()" style="margin-bottom:12px">← عودة</button>
-      <div class="card" id="print-area">
-        <h3 id="pageRepTitle" style="color:#38bdf8;margin-top:0"></h3>
-        <div class="sheet-wrap">
-          <table>
-            <thead>
-              <tr><th>المندوب</th><th>التاريخ</th><th>العدد</th><th>المسلمة</th><th>المحصل (K)</th><th>شحن المندوب (R)</th><th>الصافي</th><th>الوارد (نقدي/إنستا)</th><th>صورة</th><th>المعلقات</th><th>المحاسب</th><th>واتساب</th><th>إجراءات</th></tr>
-            </thead>
-            <tbody id="page-detail-table-body"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section id="profits" class="content">
-      <div class="card">
-        <h3>📈 الأرباح</h3>
-        <div class="stats">
-          <div class="stat"><div class="label">إجمالي التحصيل (K)</div><div class="value" id="profit-sales-val">0 ج.م</div></div>
-          <div class="stat"><div class="label">شحن المكتب</div><div class="value" id="profit-net-office" style="color:#38bdf8">0 ج.م</div></div>
-          <div class="stat"><div class="label">شحن المندوب</div><div class="value" id="profit-expenses-val" style="color:#ef4444">0 ج.م</div></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="branches" class="content">
-      <div class="card">
-        <h3>🏢 الرواسل</h3>
-        <div class="sheet-wrap">
-          <table>
-            <thead>
-              <tr><th>الراسل</th><th>العدد</th><th>المسلمة</th><th>الإجمالي</th></tr>
-            </thead>
-            <tbody id="senders-table-body"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  </main>
+<aside class="sidebar">
+<div class="brand"><div class="logo">A</div><div><h1 style="margin:0;font-size:19px">AMIAl EXPRESS</h1><p style="margin:0;color:var(--muted);font-size:12px">النظام الرئيسي V7.1 FIXED</p></div></div>
+<div class="nav">
+<button class="active" data-tab="dashboard">🏠 الرئيسية</button>
+<button data-tab="reps-live">📱🟢 المناديب - لايف + التطبيق <span class="tag" id="liveCount" style="background:#22c55e;color:#fff">0 أونلاين</span></button>
+<button data-tab="shipments">📦 إدخال المناديب</button>
+<button data-tab="reps">🧑‍💼 تحليل المناديب</button>
+<button data-tab="profits">📈 الأرباح</button>
+<button data-tab="branches">🏢 الرواسل</button>
+<button data-tab="ocr">🧾 قراءة الإيصالات OCR</button>
+</div>
+<div style="margin-top:16px;background:#111827;border:1px solid var(--line);padding:12px;border-radius:14px;font-size:12px;line-height:1.7"><b>📄 الورقة النشطة:</b><div id="currentSheetLabel" style="color:#38bdf8;font-weight:900;font-size:15px">1/11/2026</div><div id="sheetDebug" style="color:#22c55e">جاهز...</div></div>
+</aside>
+<main class="main">
+<div class="hero">
+<h2 style="margin:0">النظام الرئيسي - AMIAl EXPRESS</h2><p style="color:var(--muted)">القراءة من الورقة نفسها - تشخيص فوري لو الاسم غلط</p>
+<div style="margin-top:14px"><b>📅 اختر ورقة الشهر - القراءة من الورقة نفسها:</b></div>
+<div class="sheet-bar" id="sheetBar">
+<button class="sheet-btn" data-sheet="1/4/2026" onclick="selectSheet('1/4/2026')">1/4/2026 - أبريل</button>
+<button class="sheet-btn" data-sheet="1/5/2026" onclick="selectSheet('1/5/2026')">1/5/2026 - مايو</button>
+<button class="sheet-btn" data-sheet="1/6/2026" onclick="selectSheet('1/6/2026')">1/6/2026 - يونيو</button>
+<button class="sheet-btn" data-sheet="1/7/2026" onclick="selectSheet('1/7/2026')">1/7/2026 - يوليو</button>
+<button class="sheet-btn" data-sheet="1/8/2026" onclick="selectSheet('1/8/2026')">1/8/2026 - أغسطس</button>
+<button class="sheet-btn" data-sheet="1/9/2026" onclick="selectSheet('1/9/2026')">1/9/2026 - سبتمبر</button>
+<button class="sheet-btn" data-sheet="1/10/2026" onclick="selectSheet('1/10/2026')">1/10/2026 - أكتوبر</button>
+<button class="sheet-btn active" data-sheet="1/11/2026" onclick="selectSheet('1/11/2026')">1/11/2026 - نوفمبر</button>
+<button class="sheet-btn" data-sheet="1/12/2026" onclick="selectSheet('1/12/2026')">1/12/2026 - ديسمبر</button>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><span class="tag" id="connection-status">متصل 🟢</span><span class="tag" id="sheet-count">—</span><button class="btn btn-p" onclick="loadSheetData()">🔄 تحديث الورقة</button></div>
+<div class="debug-box" id="sheetDebugBox">🔍 <b>تشخيص القراءة:</b><br><span id="debugText">بانتظار أول تحميل...</span><br><div id="realSheetNames" style="margin-top:6px"></div></div>
 </div>
 
-<div id="cameraModal" class="modal-overlay">
-  <div class="modal-card">
-    <h3 style="margin-top:0">📸 التقاط إيصال</h3>
-    <div style="background:#000;border-radius:12px;overflow:hidden;margin:10px 0">
-      <video id="cameraStream" autoplay playsinline style="width:100%;height:230px;object-fit:cover"></video>
-      <canvas id="snapshotCanvas" style="display:none"></canvas>
-    </div>
-    <button class="btn btn-p" style="width:100%;justify-content:center" onclick="takeSnapshot()">📸 التقاط وحفظ</button>
-    <button class="btn btn-red" style="width:100%;justify-content:center;margin-top:8px" onclick="closeCameraModal()">إغلاق</button>
-  </div>
-</div>
+<section id="dashboard" class="content active">
+<div class="stats"><div class="stat"><div class="label">التسليم في ورقة <span class="sheet-name-label">1/11/2026</span></div><div class="value" id="stat-delivered-count" style="color:#38bdf8">0</div></div><div class="stat"><div class="label">المبيعات K</div><div class="value" id="stat-sales">0</div></div><div class="stat"><div class="label">شحن المندوب R</div><div class="value" id="stat-expenses" style="color:#ef4444">0</div></div><div class="stat"><div class="label">صافي الربح</div><div class="value" id="stat-net-profit" style="color:#22c55e">0</div></div></div>
+<div class="stats"><div class="stat"><div class="label">صافي (سبت+أحد+اثنين)</div><div class="value" id="stat-group-1">0</div></div><div class="stat"><div class="label">صافي (ثلاثاء+أربعاء+خميس)</div><div class="value" id="stat-group-2">0</div></div></div>
+<div class="card"><h3>🟢 المناديب - نظرة سريعة</h3><div id="liveQuick"></div><button class="btn btn-p" style="margin-top:10px" onclick="showTab('reps-live')">عرض كل المناديب →</button></div>
+</section>
 
-<div id="actionModal" class="modal-overlay">
-  <div class="modal-card">
-    <h3 id="modalTitle" style="margin-top:0">إجراءات</h3>
-    <button class="btn btn-p" style="width:100%;margin:8px 0;justify-content:center" onclick="executePrint()">🖨️ طباعة</button>
-    <button class="btn btn-wa" style="width:100%;justify-content:center" onclick="executeExcel()">📥 تصدير Excel</button>
-    <button class="btn btn-red" style="width:100%;margin-top:8px;justify-content:center" onclick="closeActionModal()">إغلاق</button>
-  </div>
-</div>
+<section id="reps-live" class="content">
+<div class="card">
+<h3 style="margin:0">📱🟢 المناديب - لايف + التطبيق (أيقونة واحدة)</h3>
+<p style="color:var(--muted)">كل المناديب من الشيت الحقيقي - اختر أي مندوب من القايمة أو ابحث عنه</p>
 
+<!-- اختيار أي مندوب - بدل التجربة -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+<div><label style="font-size:13px;font-weight:800">👤 اختر أي مندوب (كل المناديب ظاهرة):</label><select id="repPicker" class="select-input" onchange="onPickRep()"><option value="">-- اختر مندوب من القايمة --</option></select></div>
+<div><label style="font-size:13px;font-weight:800">📱 افتحه في الأبليكيشن:</label><div style="display:flex;gap:6px"><button class="btn btn-p" style="flex:1;justify-content:center" onclick="openPickedInApp()">📱 فتح المختار في الأبليكيشن</button><button class="btn btn-wa" onclick="openPickedWhatsApp()">💬 واتساب</button></div></div>
+</div>
+<div style="background:#0f172a;border:1px dashed #38bdf8;border-radius:12px;padding:10px;font-size:12px;margin-top:8px">💡 المندوب المختار: <b id="pickedRepLabel" style="color:#38bdf8">لم تختر بعد</b> - دوس على أي كارت تحت أو اختر من القايمة، هتتفتح صفحته كاملة هنا ومربوطة بالأبليكيشن بتاعه (نفس الاسم + نفس الورقة).</div>
+
+<div style="position:relative;margin-top:14px"><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:18px">🔍</span><input id="liveSearch" class="search-big" placeholder="🔍 ابحث عن أي مندوب: اكتب ماهر، حبيبة، أحمد، محمد..." oninput="renderLiveAll()"/><button onclick="document.getElementById('liveSearch').value='';renderLiveAll()" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);background:#1e293b;border:1px solid #334155;color:#fff;padding:6px 10px;border-radius:8px;cursor:pointer">مسح ✕</button></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-p" onclick="setLiveFilter('all')">🌐 الكل (<span id="countAll">0</span>)</button><button class="btn btn-g" onclick="setLiveFilter('online')">🟢 أونلاين (<span id="countOnline">0</span>)</button><button class="btn btn-g" onclick="setLiveFilter('offline')">⚫ أوفلاين (<span id="countOffline">0</span>)</button><button class="btn btn-g" onclick="refreshLive()">🔄 تحديث اللايف</button><button class="btn btn-amber" onclick="openAllMaps()">🗺️ فتح كل المواقع على الخريطة</button></div>
+
+<div id="selectedRepApp" style="display:none;margin-top:14px;background:#0b1120;border:2px solid #38bdf8;border-radius:16px;padding:14px"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><h3 id="selectedRepTitle" style="margin:0;color:#38bdf8">تطبيق المندوب</h3><button class="btn btn-red" onclick="closeSelectedRep()">✕ إغلاق</button></div><div id="selectedRepBody" style="margin-top:12px"></div><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:10px" id="openInRealAppBtn" onclick="openPickedInApp()">📱 فتح نفس المندوب في تطبيق المناديب الحقيقي (rep-app.html)</button></div>
+
+<div style="margin-top:14px;font-size:13px;color:var(--muted)">عرض <span id="showingCount" style="color:#38bdf8;font-weight:900">0</span> مندوب من إجمالي <span id="totalRepsCount" style="color:#22c55e;font-weight:900">0</span> في ورقة <span class="sheet-name-label">1/11/2026</span></div>
+<div class="live-grid" id="liveGrid"></div>
+<div id="liveEmpty" style="display:none;text-align:center;color:#94a3b8;padding:30px">لا يوجد مندوب بهذا الاسم في ورقة <span class="sheet-name-label">1/11/2026</span></div>
+</div>
+</section>
+
+<section id="shipments" class="content"><div class="card"><h3>📦 إدخال المناديب - ورقة <span class="sheet-name-label">1/11/2026</span></h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0"><div style="background:#0f172a;border:1px solid #38bdf8;padding:14px;border-radius:14px"><b>⚡ اسكنر الباركود</b><input id="barcodeScannerInput" placeholder="امسح + Enter" class="filter-input" style="margin:8px 0 0" onkeypress="handleBarcodeScan(event)"><div id="scan-result" style="color:#22c55e;font-size:12px"></div></div><div style="background:#0f172a;border:1px solid #22c55e;padding:14px;border-radius:14px"><b>📷 كاميرا</b><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:8px" onclick="openDirectCameraModal()">📷 فتح الكاميرا</button></div></div></div><div class="sheet-wrap" style="height:60vh;margin-top:12px"><iframe id="sheetFrame" src="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit?gid=687102612#gid=687102612&embedded=true" width="100%" height="100%" style="border:none"></iframe></div></section>
+<section id="reps" class="content"><div class="card"><h3>تحليل المناديب - <span class="sheet-name-label">1/11/2026</span></h3><input id="repFilterInput" class="filter-input" placeholder="🔍 بحث..." onkeyup="filterRepsTable()"><div class="sheet-wrap"><table><thead><tr><th>المندوب</th><th>إجمالي</th><th>المسلمة</th><th>السعر</th><th>شحن المندوب</th><th>النسبة</th><th>التفاصيل</th></tr></thead><tbody id="reps-table-body"></tbody></table></div></div></section>
+<section id="rep-detail-page" class="content"><button class="btn btn-red" onclick="backToRepsList()" style="margin-bottom:12px">← عودة</button><div class="card"><h3 id="pageRepTitle"></h3><div class="sheet-wrap"><table><thead><tr><th>المندوب</th><th>التاريخ</th><th>عدد</th><th>المسلمة</th><th>السعر</th><th>شحن المندوب</th><th>الصافي</th><th>الوارد</th><th>صورة</th><th>المعلقات</th><th>المحاسب</th><th>واتساب</th><th>إجراءات</th></tr></thead><tbody id="page-detail-table-body"></tbody></table></div></div></section>
+<section id="profits" class="content"><div class="card"><h3>الأرباح - <span class="sheet-name-label">1/11/2026</span></h3><div class="stats"><div class="stat"><div class="label">شحن المكتب</div><div class="value" id="profit-net-office">0</div></div><div class="stat"><div class="label">شحن المندوب</div><div class="value" id="profit-expenses-val" style="color:#ef4444">0</div></div></div></div></section>
+<section id="branches" class="content"><div class="card"><h3>الرواسل</h3><div class="sheet-wrap"><table><thead><tr><th>الراسل</th><th>العدد</th><th>الإجمالي</th></tr></thead><tbody id="senders-table-body"></tbody></table></div></div></section>
+<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة الإيصالات OCR</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"><div><label>📅 ورقة الشهر:</label><select id="ocrSheet" class="select-input"><option value="1/11/2026">1/11/2026 - نوفمبر</option><option value="1/10/2026">1/10/2026 - أكتوبر</option><option value="1/12/2026">1/12/2026 - ديسمبر</option></select></div><div><label>👤 المندوب:</label><select id="ocrRepName" class="select-input"><option value="ماهر26">ماهر26</option></select></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><label>عدد الصور:</label><input type="number" id="ocrLimit" value="20" class="filter-input"></div><div><label>اختر الصور:</label><input type="file" id="ocrFiles" accept="image/*" multiple class="filter-input" onchange="previewOCRFiles()"></div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-amber" onclick="startOCR()">🧠 بدء القراءة</button><button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في ورقة الشهر (عمود M - 13)</button></div><div style="margin-top:12px"><span id="ocr-progress-text">جاهز...</span><div class="progress" style="margin-top:6px"><i id="ocr-bar" style="width:0%"></i></div></div><div id="ocr-preview" class="ocr-grid"></div><div id="ocr-results" style="margin-top:12px"></div></div></section>
+</main>
+</div>
+<div id="cameraModal" class="modal-overlay"><div class="modal-card"><h3>📸 التقاط إيصال</h3><video id="cameraStream" autoplay playsinline style="width:100%;height:230px;background:#000;border-radius:12px"></video><canvas id="snapshotCanvas" style="display:none"></canvas><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:10px" onclick="takeSnapshot()">📸 التقاط</button><button class="btn btn-red" style="width:100%;justify-content:center;margin-top:8px" onclick="closeCameraModal()">إغلاق</button></div></div>
 <div id="toast" class="toast"></div>
-
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwEnunQZiWmXe7wUj8MRZb0kJSRL2QZ3QYjq7V1dIlN4-wxZ5DDbIafpg9MVAlaudHebA/exec";
-const SHEET_ID = "1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI";
-
-const DEFAULT_MONTH_SHEETS = [
-  "1/4/2026", "1/5/2026", "1/6/2026", "1/7/2026",
-  "1/8/2026", "1/9/2026", "1/10/2026", "1/11/2026", "1/12/2026"
-];
-
-const COL = {
-  SEQ: 0,
-  DATE: 1,
-  DUP: 2,
-  SENDER: 3,
-  CODE: 4,
-  NAME: 5,
-  PHONE: 6,
-  GOV: 7,
-  ADDR: 8,
-  PRICE: 9,
-  COLLECTED: 10,
-  CONFIRM: 11,
-  REP: 12,
-  NOTES: 13
-};
-
-let allSheetsMap = {};
-let sheetNamesList = [];
-let selectedSheetName = "ALL";
-let cloudRepsData = {};
-let globalRepsData = {};
-let activeRepDetailName = null;
-let videoStream = null;
-let currentAction = {};
-let ocrResults = [];
-
-const $ = s => document.querySelector(s);
-
-function toast(msg) {
-  const t = $('#toast');
-  t.textContent = msg;
-  t.style.display = 'block';
-  clearTimeout(window._toastTimer);
-  window._toastTimer = setTimeout(() => t.style.display = 'none', 3000);
+const WEB_APP_URL="https://script.google.com/macros/s/AKfycbwEnunQZiWmXe7wUj8MRZb0kJSRL2QZ3QYjq7V1dIlN4-wxZ5DDbIafpg9MVAlaudHebA/exec";
+let currentSheet="1/11/2026", liveFilter="all", selectedRep=null, realSheetNames=[];
+let globalRepsData={},rawSheetRows=[],cloudRepsData={},activeRepDetailName=null,videoStream=null,ocrResults=[];
+const $=s=>document.querySelector(s);
+function toast(m){let t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2800)}
+function parseNum(v){if(v==null||v==="")return 0;let n=parseFloat(String(v).replace(/[^0-9.-]/g,""));return isNaN(n)?0:n}
+function showTab(tab){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));let btn=document.querySelector(`[data-tab="${tab}"]`);if(btn)btn.classList.add('active');document.getElementById(tab).classList.add('active')}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+function selectSheet(sheetName){
+  currentSheet=sheetName;
+  document.querySelectorAll('.sheet-btn').forEach(b=>b.classList.toggle('active',b.dataset.sheet===sheetName));
+  document.querySelectorAll('.sheet-name-label').forEach(el=>el.textContent=sheetName);
+  $('#currentSheetLabel').textContent=sheetName;
+  let ocrSel=$('#ocrSheet');if(ocrSel)ocrSel.value=sheetName;
+  $('#sheetDebug').textContent=`جاري قراءة ورقة: ${sheetName}...`;
+  loadSheetData();toast("تم اختيار ورقة: "+sheetName);
 }
-
-function normalizeDigits(str) {
-  const map = {'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9'};
-  return String(str || "").replace(/[٠-٩]/g, d => map[d]);
-}
-
-function parseNum(v) {
-  if (v == null || v === "") return 0;
-  const n = parseFloat(normalizeDigits(v).replace(/[^0-9.-]/g, ""));
-  return isNaN(n) ? 0 : n;
-}
-
-function switchTab(tabId) {
-  document.querySelectorAll('.nav button').forEach(x => x.classList.toggle('active', x.dataset.tab === tabId));
-  document.querySelectorAll('.content').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById(tabId);
-  if (el) el.classList.add('active');
-}
-
-document.querySelectorAll('.nav button').forEach(b => {
-  b.addEventListener('click', () => switchTab(b.dataset.tab));
-});
-
-function initDefaultSheets() {
-  DEFAULT_MONTH_SHEETS.forEach(name => {
-    if (!allSheetsMap[name]) allSheetsMap[name] = [[]];
-  });
-  sheetNamesList = Object.keys(allSheetsMap);
-  buildMonthSheetControls();
-  applyCurrentSheetView();
-}
-
-function detectSheetFromRows(rows) {
-  if (!Array.isArray(rows) || rows.length < 2) return null;
-  for (let i = 1; i < Math.min(rows.length, 25); i++) {
-    const dStr = String(rows[i][COL.DATE] || "").trim();
-    const m = dStr.match(/\b(\d{1,2})[\/\-](\d{1,2})[\/\-](202\d)\b/);
-    if (m) {
-      const candidate = `1/${parseInt(m[2], 10)}/${m[3]}`;
-      if (DEFAULT_MONTH_SHEETS.includes(candidate)) return candidate;
-    }
-  }
-  return null;
-}
-
-async function loadSheetData(specificSheet) {
-  $('#connection-status').textContent = "جاري المزامنة...";
-  const targetQuery = specificSheet && specificSheet !== "ALL"
-    ? `${WEB_APP_URL}?sheet=${encodeURIComponent(specificSheet)}&_t=${Date.now()}`
-    : `${WEB_APP_URL}?_t=${Date.now()}`;
-
-  try {
-    const resp = await fetch(targetQuery, { cache: "no-store" });
-    const res = await resp.json();
-    const hasRows =
-      (res.sheets && Object.values(res.sheets).some(arr => Array.isArray(arr) && arr.length > 1)) ||
-      (Array.isArray(res.shipments) && res.shipments.length > 1) ||
-      (Array.isArray(res.data) && res.data.length > 1);
-
-    if (hasRows) {
-      localStorage.setItem('ami_v53_cache', JSON.stringify(res));
-      ingestServerResponse(res, specificSheet);
-      $('#connection-status').textContent = "متصل 🟢";
-      return;
-    }
-    if (specificSheet && specificSheet !== "ALL") {
-      allSheetsMap[specificSheet] = [[]];
-      applyCurrentSheetView();
-      $('#connection-status').textContent = "متصل 🟢";
-      return;
-    }
-    throw new Error("Empty payload");
-  } catch (err) {
-    const gvizOk = await fetchFromGoogleSheetDirect(specificSheet);
-    if (gvizOk) return;
-
-    const cached = localStorage.getItem('ami_v53_cache');
-    if (cached && (!specificSheet || specificSheet === "ALL")) {
-      ingestServerResponse(JSON.parse(cached), specificSheet);
-      $('#connection-status').textContent = "بيانات محفوظة 🟡";
-    } else if (specificSheet && specificSheet !== "ALL") {
-      allSheetsMap[specificSheet] = [[]];
-      applyCurrentSheetView();
-      $('#connection-status').textContent = "ورقة فارغة أو غير منشورة";
-    } else {
-      initDefaultSheets();
-      $('#connection-status').textContent = "تحقق من صلاحية الشيت 🔴";
-    }
-  }
-}
-
-async function fetchFromGoogleSheetDirect(specificSheet) {
-  const sheetToTry = (specificSheet && specificSheet !== "ALL")
-    ? specificSheet
-    : (selectedSheetName !== "ALL" ? selectedSheetName : "1/11/2026");
-
-  try {
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetToTry)}&_t=${Date.now()}`;
-    const txt = await fetch(url).then(r => r.text());
-    const jsonStr = txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1);
-    const parsed = JSON.parse(jsonStr);
-    const cols = (parsed.table?.cols || []).map(c => c.label || "");
-    const rawRows = (parsed.table?.rows || []).map(r => (r.c || []).map(cell => (cell ? (cell.f || cell.v || "") : "")));
-    if (rawRows.length > 0) {
-      const sheetMatrix = [cols, ...rawRows];
-      allSheetsMap[sheetToTry] = sheetMatrix;
-      buildMonthSheetControls();
-      applyCurrentSheetView();
-      $('#connection-status').textContent = "متصل بالشيت 🟢";
-      return true;
-    }
-    if (specificSheet && specificSheet !== "ALL") {
-      allSheetsMap[specificSheet] = [[]];
-      buildMonthSheetControls();
-      applyCurrentSheetView();
-      $('#connection-status').textContent = "متصل 🟢";
-      return true;
-    }
-    return false;
-  } catch (e) {
-    return false;
-  }
-}
-
-function ingestServerResponse(res, specificSheet) {
-  cloudRepsData = res.repsData || {};
-  const merged = Object.assign({}, allSheetsMap);
-
-  if (res.sheets && typeof res.sheets === "object" && Object.keys(res.sheets).length > 0) {
-    for (const sName of Object.keys(res.sheets)) {
-      if (Array.isArray(res.sheets[sName])) {
-        merged[sName] = res.sheets[sName];
+// إصلاح القراءة - يطلب قايمة الأوراق الحقيقية أولاً
+async function loadSheetData(){
+  $('#connection-status').textContent="جاري تحميل ورقة "+currentSheet+"...";
+  $('#debugText').textContent=`طلب ورقة: ${currentSheet} ...`;
+  try{
+    // 1 - هات قايمة الأوراق الحقيقية من السيرفر
+    let listUrl=`${WEB_APP_URL}?action=listSheets&_t=${Date.now()}`;
+    let listRes=await fetch(listUrl).then(r=>r.json()).catch(()=>null);
+    if(listRes && listRes.sheets){
+      realSheetNames=listRes.sheets;
+      $('#realSheetNames').innerHTML=`<b>الأوراق الحقيقية في الشيت:</b> ${realSheetNames.map(n=>`<span class="tag" style="cursor:pointer" onclick="selectSheet('${n}')">${n}</span>`).join(" ")}<br><span style="color:#94a3b8">دوس على أي اسم عشان تفتحه - لو اسمك مش موجود، يبقى اسم الورقة في الشيت مختلف.</span>`;
+      // لو الورقة المطلوبة مش موجودة بالظبط، دور على أقرب واحدة
+      if(!realSheetNames.includes(currentSheet)){
+        let found=realSheetNames.find(n=>n.includes(currentSheet.split("/")[1])||n.includes(currentSheet));
+        $('#debugText').innerHTML=`⚠️ ورقة <b>${currentSheet}</b> مش موجودة بالاسم ده!<br>الأوراق الموجودة: ${realSheetNames.join(" | ")}<br>${found?`هفتح أقرب ورقة: <b>${found}</b>`:''}`;
+        if(found){currentSheet=found;document.querySelectorAll('.sheet-name-label').forEach(el=>el.textContent=found);$('#currentSheetLabel').textContent=found;}
       }
     }
-  } else {
-    const rows = Array.isArray(res.shipments) ? res.shipments : (Array.isArray(res.data) ? res.data : []);
-    if (rows.length > 0) {
-      const detected = res.sheetName || detectSheetFromRows(rows) || "1/11/2026";
-      if (!specificSheet || specificSheet === "ALL" || specificSheet === detected) {
-        merged[detected] = rows;
-      }
-    }
+    // 2 - هات بيانات الورقة الصحيحة
+    let url=`${WEB_APP_URL}?sheetName=${encodeURIComponent(currentSheet)}&sheet=${encodeURIComponent(currentSheet)}&action=getSheet&_t=${Date.now()}`;
+    let res=await fetch(url).then(r=>r.json());
+    let rows=res.rows||res.shipments||res.data||[];
+    if(!rows.length && res.sheets && res.sheets[currentSheet]) rows=res.sheets[currentSheet];
+    $('#debugText').innerHTML=`✅ السيرفر رد: ورقة = <b>${res.sheetName||currentSheet}</b> | صفوف = <b>${rows.length}</b> | أول صف = ${rows[0]?JSON.stringify(rows[0]).slice(0,120):'فاضي'}`;
+    $('#sheetDebug').textContent=`✅ تم قراءة ورقة ${res.sheetName||currentSheet} - ${rows.length} صف`;
+    localStorage.setItem('ami_main_'+currentSheet,JSON.stringify(res));
+    processData(res,rows);
+    $('#connection-status').textContent="متصل 🟢 - "+currentSheet;
+  }catch(e){
+    $('#debugText').textContent=`❌ فشل الاتصال: ${e.message} - جرب بيانات محفوظة`;
+    let c=localStorage.getItem('ami_main_'+currentSheet);
+    if(c){let res=JSON.parse(c);processData(res,res.rows||res.shipments||[]);$('#sheetDebug').textContent="بيانات محفوظة 🟡"}
   }
-
-  DEFAULT_MONTH_SHEETS.forEach(mName => {
-    if (!merged[mName]) merged[mName] = [[]];
+}
+function processData(res,rowsInput){
+  let rows=rowsInput&&rowsInput.length?rowsInput.slice(1):(res.shipments?res.shipments.slice(1):[]);
+  rawSheetRows=res.shipments||res.rows||[];
+  cloudRepsData=res.repsData||{};
+  if(res.sheets&&res.sheets[currentSheet])rows=res.sheets[currentSheet].slice(1);
+  let td=0,ts=0,tno=0,tr=0,g1=0,g2=0;globalRepsData={};let sm={};
+  rows.forEach((row,idx)=>{let rawRep=String(row[12]||"").trim();if(!rawRep)return;let clean=rawRep.replace(/[0-9]/g,'').trim()||rawRep;let colJ=parseNum(row[9]);let colK=row[10];let colR=parseNum(row[17])||parseNum(row[16]);let net=parseNum(row[19]);
+  if(!globalRepsData[clean])globalRepsData[clean]={days:{},totalCount:0,deliveredCount:0,totalAmountJ:0,totalRepShippingR:0};
+  if(!globalRepsData[clean].days[rawRep])globalRepsData[clean].days[rawRep]={dayName:rawRep,date:row[1]||"",count:0,deliveredCount:0,amountJ:0,deliveredSalesK:0,shippingR:0};
+  globalRepsData[clean].days[rawRep].count++;globalRepsData[clean].totalCount++;
+  let isD=colK!==""&&colK!=null&&!isNaN(parseFloat(colK));
+  if(isD){let amt=parseNum(colK);td++;ts+=amt;globalRepsData[clean].days[rawRep].deliveredCount++;globalRepsData[clean].days[rawRep].deliveredSalesK+=amt;globalRepsData[clean].deliveredCount++;let sender=row[3]||"غير محدد";if(!sm[sender])sm[sender]={count:0,total:0};sm[sender].count++;sm[sender].total+=amt}
+  globalRepsData[clean].days[rawRep].amountJ+=colJ;globalRepsData[clean].totalAmountJ+=colJ;globalRepsData[clean].days[rawRep].shippingR+=colR;globalRepsData[clean].totalRepShippingR+=colR;tno+=net;tr+=colR;if(idx%2===0)g1+=net-colR;else g2+=net-colR;});
+  $('#stat-delivered-count').textContent=td;$('#stat-sales').textContent=ts.toLocaleString()+" ج.م";$('#stat-expenses').textContent=tr.toLocaleString()+" ج.م";$('#stat-net-profit').textContent=(tno-tr).toLocaleString()+" ج.م";$('#stat-group-1').textContent=g1.toLocaleString()+" ج.م";$('#stat-group-2').textContent=g2.toLocaleString()+" ج.م";$('#profit-net-office').textContent=tno.toLocaleString()+" ج.م";$('#profit-expenses-val').textContent=tr.toLocaleString()+" ج.م";$('#sheet-count').textContent=`📄 ${currentSheet} • ${rows.length} صف`;
+  let rh="";for(let r in globalRepsData){let d=globalRepsData[r];let rate=d.totalCount?Math.round(d.deliveredCount/d.totalCount*100):0;rh+=`<tr><td><b>${r}</b></td><td>${d.totalCount}</td><td style="color:#22c55e;font-weight:800">${d.deliveredCount}</td><td>${d.totalAmountJ.toLocaleString()} ج.م</td><td style="color:#ef4444">${d.totalRepShippingR.toLocaleString()} ج.م</td><td>${rate}%</td><td><button class="btn btn-p" onclick="openRepDetailPage('${r}')">📂 فتح</button></td></tr>`}
+  $('#reps-table-body').innerHTML=rh||`<tr><td colspan="7" style="text-align:center">لا توجد بيانات في ورقة ${currentSheet} - تحقق من صندوق التشخيص فوق: هل اسم الورقة في الشيت هو ${currentSheet} فعلاً؟</td></tr>`;
+  let sh="";for(let s in sm)sh+=`<tr><td>${s}</td><td>${sm[s].count}</td><td>${sm[s].total.toLocaleString()} ج.م</td></tr>`;$('#senders-table-body').innerHTML=sh;
+  // ملء قايمة اختيار أي مندوب + OCR من المناديب الحقيقيين
+  let picker=$('#repPicker');let curPicker=picker.value;picker.innerHTML=`<option value="">-- اختر مندوب من القايمة (${Object.keys(globalRepsData).length} مندوب) --</option>`+Object.keys(globalRepsData).map(n=>`<option value="${n}">${n} - ${globalRepsData[n].deliveredCount}/${globalRepsData[n].totalCount} تم</option>`).join("");if(curPicker)picker.value=curPicker;
+  let sel=$('#ocrRepName');if(sel){let cur=sel.value;sel.innerHTML=Object.keys(globalRepsData).map(n=>`<option value="${n}">${n}</option>`).join("");if(cur)sel.value=cur}
+  if(activeRepDetailName&&globalRepsData[activeRepDetailName])renderRepDetailTable(activeRepDetailName,false);
+  renderLiveAll();
+}
+function setLiveFilter(f){liveFilter=f;renderLiveAll()}
+function getLiveDataForRep(repName){try{let live=JSON.parse(localStorage.getItem('amial_live_reps')||"[]");return live.find(r=>r.name===repName||r.name.replace(/[0-9]/g,'').trim()===repName.replace(/[0-9]/g,'').trim())||null}catch(e){return null}}
+function onPickRep(){let v=$('#repPicker').value;if(!v)return;$('#pickedRepLabel').textContent=v;openRepAppPage(v)}
+function openPickedInApp(){
+  let rep=$('#repPicker').value||selectedRep;
+  if(!rep){alert("اختر مندوب الأول من القايمة");return}
+  // ربط حقيقي بالأبليكيشن: يفتح rep-app.html بنفس الاسم والورقة
+  let url=`./rep-app.html?rep=${encodeURIComponent(rep)}&sheet=${encodeURIComponent(currentSheet)}&_t=${Date.now()}`;
+  window.open(url,'_blank');
+  toast("فتح "+rep+" في الأبليكيشن - ورقة "+currentSheet);
+}
+function openPickedWhatsApp(){let rep=$('#repPicker').value||selectedRep;if(!rep){alert("اختر مندوب الأول");return}let live=getLiveDataForRep(rep);if(live&&live.phone){window.open(`https://wa.me/${live.phone}`,'_blank')}else{toast("رقم الواتساب مش مسجل للمندوب ده - افتح صفحته وشوف رقمه")}}
+function renderLiveAll(){
+  let search=($('#liveSearch')?$('#liveSearch').value.trim().toLowerCase():"");
+  let allReps=Object.keys(globalRepsData);
+  $('#totalRepsCount').textContent=allReps.length;
+  let filtered=allReps.filter(name=>{
+    if(search && !name.toLowerCase().includes(search)) return false;
+    let live=getLiveDataForRep(name);let isOnline=live && (Date.now()-live.lastSeen<60000);
+    if(liveFilter==='online' && !isOnline) return false;
+    if(liveFilter==='offline' && isOnline) return false;
+    return true;
   });
-
-  allSheetsMap = merged;
-  sheetNamesList = Object.keys(allSheetsMap);
-  buildMonthSheetControls();
-  applyCurrentSheetView();
-}
-
-function buildMonthSheetControls() {
-  const selectEl = $('#monthSheetSelect');
-  const ocrSelectEl = $('#ocrTargetSheet');
-  const pillsEl = $('#monthSheetPills');
-
-  let optionsHtml = `<option value="ALL">📚 كل أوراق الأشهر مجمعة</option>`;
-  let ocrOptionsHtml = "";
-  let pillsHtml = `<button class="sheet-pill ${selectedSheetName === 'ALL' ? 'active' : ''}" onclick="selectMonthSheet('ALL')">📚 الكل</button>`;
-
-  sheetNamesList.forEach(name => {
-    const count = Math.max(0, (allSheetsMap[name]?.length || 1) - 1);
-    optionsHtml += `<option value="${name}">📄 ${name} (${count})</option>`;
-    ocrOptionsHtml += `<option value="${name}">📄 ${name}</option>`;
-    pillsHtml += `<button class="sheet-pill ${selectedSheetName === name ? 'active' : ''}" onclick="selectMonthSheet('${name.replace(/'/g, "\\'")}')">📄 ${name}</button>`;
-  });
-
-  selectEl.innerHTML = optionsHtml;
-  if (selectedSheetName !== "ALL" && !sheetNamesList.includes(selectedSheetName)) {
-    selectedSheetName = "ALL";
-  }
-  selectEl.value = selectedSheetName;
-
-  const prevOcr = ocrSelectEl.value;
-  ocrSelectEl.innerHTML = ocrOptionsHtml;
-  if (prevOcr && sheetNamesList.includes(prevOcr)) {
-    ocrSelectEl.value = prevOcr;
-  } else if (selectedSheetName !== "ALL") {
-    ocrSelectEl.value = selectedSheetName;
-  } else if (sheetNamesList.length > 0) {
-    ocrSelectEl.value = sheetNamesList[sheetNamesList.length - 1];
-  }
-
-  pillsEl.innerHTML = pillsHtml;
-}
-
-function selectMonthSheet(sheetName) {
-  selectedSheetName = sheetName;
-  $('#monthSheetSelect').value = sheetName;
-  document.querySelectorAll('.sheet-pill').forEach(btn => {
-    const isAll = sheetName === "ALL" && btn.textContent.trim() === "📚 الكل";
-    const isMatch = btn.textContent.trim() === `📄 ${sheetName}`;
-    btn.classList.toggle('active', isAll || isMatch);
-  });
-  $('#sidebar-active-sheet').textContent = sheetName === "ALL" ? "كل أوراق الأشهر" : sheetName;
-  if (sheetName !== "ALL") {
-    $('#ocrTargetSheet').value = sheetName;
-  }
-  applyCurrentSheetView();
-  if (sheetName !== "ALL" && (!allSheetsMap[sheetName] || allSheetsMap[sheetName].length <= 1)) {
-    loadSheetData(sheetName);
-  }
-}
-
-function applyCurrentSheetView() {
-  let combinedRows = [];
-  const targetSheets = selectedSheetName === "ALL" ? sheetNamesList : [selectedSheetName];
-
-  targetSheets.forEach(sName => {
-    const rows = allSheetsMap[sName] || [];
-    for (let i = 1; i < rows.length; i++) {
-      combinedRows.push({ sheetName: sName, rowIndex: i + 1, data: rows[i] });
-    }
-  });
-
-  let totalOrders = combinedRows.length;
-  let deliveredCount = 0, totalSalesK = 0, totalNetOffice = 0, totalRepShippingR = 0;
-  let group1Net = 0, group2Net = 0, unassignedCount = 0;
-  globalRepsData = {};
-  const sendersMap = {};
-
-  combinedRows.forEach((item, idx) => {
-    const row = item.data;
-    const rawRep = String(row[COL.REP] || "").trim();
-    if (!rawRep) unassignedCount++;
-
-    const cleanRep = rawRep ? (rawRep.replace(/[0-9٠-٩]/g, '').trim() || rawRep) : "";
-    const colJ = parseNum(row[COL.PRICE]);
-    const colK = row[COL.COLLECTED];
-    const colR = parseNum(row[17]) || parseNum(row[16]);
-    const netCol = parseNum(row[19]);
-    const isDelivered = colK !== "" && colK !== null && !isNaN(parseFloat(normalizeDigits(colK)));
-    const amtK = isDelivered ? parseNum(colK) : 0;
-
-    if (isDelivered) {
-      deliveredCount++;
-      totalSalesK += amtK;
-      const sender = String(row[COL.SENDER] || "غير محدد").trim();
-      if (!sendersMap[sender]) sendersMap[sender] = { total: 0, delivered: 0, amount: 0 };
-      sendersMap[sender].delivered++;
-      sendersMap[sender].amount += amtK;
-    }
-
-    const senderAll = String(row[COL.SENDER] || "غير محدد").trim();
-    if (!sendersMap[senderAll]) sendersMap[senderAll] = { total: 0, delivered: 0, amount: 0 };
-    sendersMap[senderAll].total++;
-
-    totalNetOffice += netCol;
-    totalRepShippingR += colR;
-    if (idx % 2 === 0) group1Net += (netCol - colR);
-    else group2Net += (netCol - colR);
-
-    if (cleanRep) {
-      if (!globalRepsData[cleanRep]) {
-        globalRepsData[cleanRep] = { days: {}, totalCount: 0, deliveredCount: 0, totalAmountJ: 0, totalSalesK: 0, totalRepShippingR: 0 };
-      }
-      const dayKey = `${item.sheetName}__${rawRep}`;
-      if (!globalRepsData[cleanRep].days[dayKey]) {
-        globalRepsData[cleanRep].days[dayKey] = {
-          dayName: rawRep,
-          sheetName: item.sheetName,
-          date: row[COL.DATE] || item.sheetName,
-          count: 0,
-          deliveredCount: 0,
-          amountJ: 0,
-          deliveredSalesK: 0,
-          shippingR: 0
-        };
-      }
-      globalRepsData[cleanRep].totalCount++;
-      globalRepsData[cleanRep].days[dayKey].count++;
-      if (isDelivered) {
-        globalRepsData[cleanRep].deliveredCount++;
-        globalRepsData[cleanRep].days[dayKey].deliveredCount++;
-        globalRepsData[cleanRep].totalSalesK += amtK;
-        globalRepsData[cleanRep].days[dayKey].deliveredSalesK += amtK;
-      }
-      globalRepsData[cleanRep].totalAmountJ += colJ;
-      globalRepsData[cleanRep].days[dayKey].amountJ += colJ;
-      globalRepsData[cleanRep].totalRepShippingR += colR;
-      globalRepsData[cleanRep].days[dayKey].shippingR += colR;
-    }
-  });
-
-  $('#stat-total-orders').textContent = totalOrders.toLocaleString();
-  $('#stat-delivered-count').textContent = deliveredCount.toLocaleString();
-  $('#stat-sales').textContent = totalSalesK.toLocaleString() + " ج.م";
-  $('#stat-expenses').textContent = totalRepShippingR.toLocaleString() + " ج.م";
-  $('#stat-net-profit').textContent = (totalNetOffice - totalRepShippingR).toLocaleString() + " ج.م";
-  $('#stat-group-1').textContent = group1Net.toLocaleString() + " ج.م";
-  $('#stat-group-2').textContent = group2Net.toLocaleString() + " ج.م";
-  $('#stat-unassigned').textContent = unassignedCount.toLocaleString();
-  $('#profit-sales-val').textContent = totalSalesK.toLocaleString() + " ج.م";
-  $('#profit-net-office').textContent = totalNetOffice.toLocaleString() + " ج.م";
-  $('#profit-expenses-val').textContent = totalRepShippingR.toLocaleString() + " ج.م";
-  $('#range-info').textContent = `${totalOrders} صف`;
-
-  renderRowsIntoTable(combinedRows.slice(0, 200), '#shipments-all-body');
-
-  let repsHtml = "";
-  for (const rep in globalRepsData) {
-    const d = globalRepsData[rep];
-    const rate = d.totalCount ? Math.round((d.deliveredCount / d.totalCount) * 100) : 0;
-    repsHtml += `<tr>
-      <td><b>${rep}</b></td>
-      <td>${d.totalCount}</td>
-      <td style="color:#22c55e;font-weight:800">${d.deliveredCount}</td>
-      <td>${d.totalAmountJ.toLocaleString()} ج.م</td>
-      <td style="color:#38bdf8;font-weight:700">${d.totalSalesK.toLocaleString()} ج.م</td>
-      <td style="color:#ef4444">${d.totalRepShippingR.toLocaleString()} ج.م</td>
-      <td>${rate}%</td>
-      <td><button class="btn btn-p btn-sm" onclick="openRepDetailPage('${rep.replace(/'/g, "\\'")}')">📂 فتح</button></td>
-    </tr>`;
-  }
-  $('#reps-table-body').innerHTML = repsHtml || `<tr><td colspan="8" style="text-align:center;color:var(--muted)">لا توجد بيانات مناديب في الورقة المحددة</td></tr>`;
-
-  let sendersHtml = "";
-  for (const s in sendersMap) {
-    sendersHtml += `<tr><td><b>${s}</b></td><td>${sendersMap[s].total}</td><td style="color:#22c55e">${sendersMap[s].delivered}</td><td>${sendersMap[s].amount.toLocaleString()} ج.م</td></tr>`;
-  }
-  $('#senders-table-body').innerHTML = sendersHtml || `<tr><td colspan="4" style="text-align:center;color:var(--muted)">لا توجد بيانات رواسل</td></tr>`;
-
-  if (activeRepDetailName && globalRepsData[activeRepDetailName]) {
-    renderRepDetailTable(activeRepDetailName, false);
-  }
-}
-
-function renderRowsIntoTable(items, selector) {
-  let h = "";
-  items.forEach(item => {
-    const r = item.data;
-    h += `<tr>
-      <td><span class="tag">${item.sheetName}</span></td>
-      <td>${r[COL.DATE] || ""}</td>
-      <td>${r[COL.SENDER] || ""}</td>
-      <td>${r[COL.NAME] || ""}</td>
-      <td dir="ltr">${r[COL.PHONE] || ""}</td>
-      <td>${r[COL.PRICE] || 0}</td>
-      <td style="color:#22c55e;font-weight:700">${r[COL.COLLECTED] || ""}</td>
-      <td>${r[COL.CONFIRM] || ""}</td>
-      <td style="color:#f59e0b;font-weight:800">${r[COL.REP] || "—"}</td>
-      <td>${r[COL.NOTES] || ""}</td>
-    </tr>`;
-  });
-  $(selector).innerHTML = h || `<tr><td colspan="10" style="text-align:center;color:var(--muted)">لا توجد بيانات</td></tr>`;
-}
-
-function openRepDetailPage(n) {
-  activeRepDetailName = n;
-  renderRepDetailTable(n, true);
-}
-
-function renderRepDetailTable(rep, switchView) {
-  $('#pageRepTitle').textContent = "تفاصيل: " + rep;
-  const rd = globalRepsData[rep];
-  let h = "";
-  for (const k in rd.days) {
-    const d = rd.days[k];
-    const net = d.deliveredSalesK - d.shippingR;
-    const cl = cloudRepsData[k] || {};
-    const safeKey = k.replace(/[^a-zA-Z0-9_\u0600-\u06FF]/g, '_');
-    h += `<tr class="${cl.verified ? 'row-verified' : ''}">
-      <td><b>${d.dayName}</b></td>
-      <td><span class="tag">${d.date}</span></td>
-      <td>${d.count}</td>
-      <td style="color:#22c55e">${d.deliveredCount}</td>
-      <td>${d.deliveredSalesK.toLocaleString()} ج.م</td>
-      <td style="color:#ef4444">${d.shippingR.toLocaleString()} ج.م</td>
-      <td style="color:#22c55e;font-weight:900">${net.toLocaleString()} ج.م</td>
-      <td>
-        <div style="display:flex;gap:5px">
-          <input class="input-sub" id="cash_${safeKey}" value="${cl.cash || ''}" placeholder="نقدي" type="number" oninput="triggerCloudSave('${k}','${safeKey}',${net})">
-          <input class="input-sub" id="transfer_${safeKey}" value="${cl.transfer || ''}" placeholder="إنستا" type="number" oninput="triggerCloudSave('${k}','${safeKey}',${net})">
-        </div>
-        <small style="color:var(--muted)">المطلوب: ${net}</small>
-      </td>
-      <td><input type="file" accept="image/*" style="width:90px;font-size:11px" onchange="previewImage(this)"></td>
-      <td><input class="input-pend" id="pend_${safeKey}" value="${cl.pending || ''}" oninput="triggerCloudSave('${k}','${safeKey}',${net})"></td>
-      <td><input class="input-sign" id="sign_${safeKey}" value="${cl.signer || ''}" oninput="triggerCloudSave('${k}','${safeKey}',${net})"></td>
-      <td><input class="input-wa" id="phone_${safeKey}" value="${cl.phone || '20'}" oninput="triggerCloudSave('${k}','${safeKey}',${net})"></td>
-      <td>
-        <button class="btn btn-wa btn-sm" onclick="sendWhatsApp('${safeKey}','${d.dayName}',${net})">💬</button>
-        <button class="btn btn-g btn-sm" onclick="openActionModal('${rep}','${k}')">⚙️</button>
-      </td>
-    </tr>`;
-  }
-  $('#page-detail-table-body').innerHTML = h;
-  if (switchView) switchTab('rep-detail-page');
-}
-
-const saveTimers = {};
-function triggerCloudSave(rawKey, safeKey, net) {
-  if (saveTimers[safeKey]) clearTimeout(saveTimers[safeKey]);
-  saveTimers[safeKey] = setTimeout(() => {
-    fetch(WEB_APP_URL, {
-      method: 'POST',
-      body: JSON.stringify({
-        key: rawKey,
-        cash: $('#cash_' + safeKey)?.value || '',
-        transfer: $('#transfer_' + safeKey)?.value || '',
-        pending: $('#pend_' + safeKey)?.value || '',
-        signer: $('#sign_' + safeKey)?.value || '',
-        phone: $('#phone_' + safeKey)?.value || ''
-      })
-    }).catch(() => {});
-  }, 700);
-}
-
-function sendWhatsApp(safeKey, rep, net) {
-  const phone = ($('#phone_' + safeKey)?.value || "").replace(/[^0-9]/g, "");
-  if (!phone) { alert("اكتب رقم الواتساب"); return; }
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(`*توريد ${rep}* الصافي ${net} ج.م`)}`, '_blank');
-}
-
-function previewImage(input) {
-  if (input.files && input.files[0]) {
-    const r = new FileReader();
-    r.onload = e => {
-      const im = document.createElement('img');
-      im.src = e.target.result;
-      im.style.cssText = "width:35px;height:35px;border-radius:6px;object-fit:cover;cursor:pointer";
-      im.onclick = () => window.open(e.target.result);
-      input.parentNode.appendChild(im);
-    };
-    r.readAsDataURL(input.files[0]);
-  }
-}
-
-function openActionModal(rep, k) { currentAction = { rep, dayKey: k }; $('#modalTitle').textContent = rep; $('#actionModal').style.display = 'flex'; }
-function closeActionModal() { $('#actionModal').style.display = 'none'; }
-function executePrint() { closeActionModal(); window.print(); }
-function executeExcel() { closeActionModal(); toast("تم تصدير Excel"); }
-function backToRepsList() { switchTab('reps'); }
-function filterRepsTable() {
-  const v = $('#repFilterInput').value.toLowerCase();
-  document.querySelectorAll('#reps-table-body tr').forEach(r => {
-    r.style.display = r.innerText.toLowerCase().includes(v) ? "" : "none";
-  });
-}
-
-function openDirectCameraModal() {
-  $('#cameraModal').style.display = 'flex';
-  navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-    .then(s => { videoStream = s; $('#cameraStream').srcObject = s; })
-    .catch(() => alert("تعذر فتح الكاميرا"));
-}
-function closeCameraModal() {
-  if (videoStream) videoStream.getTracks().forEach(t => t.stop());
-  $('#cameraModal').style.display = 'none';
-}
-function takeSnapshot() {
-  const v = $('#cameraStream'), c = $('#snapshotCanvas');
-  c.width = v.videoWidth || 640; c.height = v.videoHeight || 480;
-  c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
-  const a = document.createElement('a');
-  a.download = `ايصال_${Date.now()}.png`;
-  a.href = c.toDataURL();
-  a.click();
-  closeCameraModal();
-  toast("📸 تم حفظ الإيصال");
-}
-function handleBarcodeScan(e) {
-  if (e.key === 'Enter') {
-    const v = normalizeDigits(e.target.value.trim());
-    if (!v) return;
-    const targetSheets = selectedSheetName === "ALL" ? sheetNamesList : [selectedSheetName];
-    let matches = [];
-    targetSheets.forEach(sName => {
-      const rows = allSheetsMap[sName] || [];
-      for (let i = 1; i < rows.length; i++) {
-        if (normalizeDigits(rows[i].join(" ")).includes(v)) {
-          matches.push({ sheetName: sName, rowIndex: i + 1, data: rows[i] });
-        }
-      }
-    });
-    renderRowsIntoTable(matches.slice(0, 100), '#shipments-search-body');
-    $('#search-results-box').style.display = 'block';
-    $('#scan-result').textContent = `⚡ ${matches.length} نتيجة: ${v}`;
-    e.target.value = "";
-  }
-}
-
-function previewOCRFiles() {
-  const files = document.getElementById('ocrFiles').files;
-  const lim = parseInt($('#ocrLimit').value || 30, 10);
-  const show = Math.min(files.length, lim);
-  let h = "";
-  for (let i = 0; i < show; i++) {
-    const url = URL.createObjectURL(files[i]);
-    h += `<div class="ocr-card" id="ocr-card-${i}">
-      <img src="${url}" onclick="window.open('${url}')">
-      <div style="margin-top:5px;color:var(--muted)">صورة ${i + 1}</div>
-      <div id="ocr-phone-${i}" style="color:#f59e0b;font-weight:700;margin-top:4px">بانتظار القراءة...</div>
+  $('#showingCount').textContent=filtered.length;
+  let liveArr=JSON.parse(localStorage.getItem('amial_live_reps')||"[]");
+  let onlineCount=liveArr.filter(r=>Date.now()-r.lastSeen<60000).length;
+  $('#countAll').textContent=allReps.length;$('#countOnline').textContent=onlineCount;$('#countOffline').textContent=allReps.length-onlineCount;$('#liveCount').textContent=onlineCount+" أونلاين";
+  $('#liveQuick').innerHTML=allReps.slice(0,5).map(name=>{let d=globalRepsData[name];let live=getLiveDataForRep(name);let isOnline=live&&(Date.now()-live.lastSeen<60000);return `<div style="display:flex;justify-content:space-between;background:#0f172a;padding:8px 10px;border-radius:10px;margin:4px 0"><span>${isOnline?'🟢':'⚫'} <b>${name}</b></span><span style="color:#22c55e">${d.deliveredCount}/${d.totalCount} تم</span></div>`}).join("");
+  let grid=$('#liveGrid');
+  if(!filtered.length){grid.innerHTML="";$('#liveEmpty').style.display="block";return}
+  $('#liveEmpty').style.display="none";
+  let h="";
+  filtered.forEach(name=>{
+    let d=globalRepsData[name];let live=getLiveDataForRep(name);let isOnline=live&&(Date.now()-live.lastSeen<60000);let ago=live?Math.round((Date.now()-live.lastSeen)/1000):null;let progress=d.totalCount?Math.round(d.deliveredCount/d.totalCount*100):0;
+    h+=`<div class="live-card ${isOnline?'online':''}">
+      <div class="live-header"><div class="live-avatar">${name.charAt(0)}<span class="live-dot" style="background:${isOnline?'#22c55e':'#94a3b8'}"></span></div><div style="flex:1"><b style="font-size:16px">${name}</b><div style="font-size:12px;color:#94a3b8">${isOnline?'🟢 أونلاين الآن - فاتح الأبليكيشن':live?`⚫ آخر ظهور منذ ${ago} ثانية`:'⚫ أوفلاين'}</div><div style="font-size:11px;color:#38bdf8">${live&&live.lat?`📍 ${live.lat.toFixed(4)}, ${live.lng.toFixed(4)} - ${live.area||''}`:'📍 الموقع غير متاح - لم يفعّل GPS'}</div></div></div>
+      <div class="live-preview"><div style="font-size:12px;color:#38bdf8;font-weight:800;margin-bottom:6px">📱 صورة صفحة ${name} في الأبليكيشن - ورقة ${currentSheet}</div><div class="mini-order"><span>⏳ تحت التسليم</span><span style="color:#f59e0b">${d.totalCount-d.deliveredCount} أوردر</span></div><div class="mini-order"><span>✅ تم التسليم</span><span style="color:#22c55e">${d.deliveredCount} أوردر</span></div><div class="mini-order"><span>💰 إجمالي التحصيل</span><span>${d.totalAmountJ.toLocaleString()} ج.م</span></div><div style="margin-top:6px"><div class="progress"><i style="width:${progress}%"></i></div><div style="font-size:11px;color:#94a3b8;text-align:center;margin-top:3px">أنجز ${progress}%</div></div></div>
+      <div style="padding:12px"><div style="display:flex;gap:6px"><div style="flex:1;background:#1e293b;padding:8px;border-radius:10px;text-align:center"><b>${d.totalCount}</b><br><span style="font-size:11px;color:#94a3b8">إجمالي</span></div><div style="flex:1;background:#1e293b;padding:8px;border-radius:10px;text-align:center"><b style="color:#22c55e">${d.deliveredCount}</b><br><span style="font-size:11px;color:#94a3b8">تم</span></div><div style="flex:1;background:#1e293b;padding:8px;border-radius:10px;text-align:center"><b>${d.totalRepShippingR.toLocaleString()}</b><br><span style="font-size:11px;color:#94a3b8">شحن</span></div></div>
+      <div style="display:flex;gap:6px;margin-top:10px"><button class="btn btn-p" style="flex:1;justify-content:center" onclick="openRepAppPage('${name}')">📱 فتح صفحة المندوب</button><a href="${live&&live.lat?`https://www.google.com/maps?q=${live.lat},${live.lng}`:'#'}" target="_blank" class="btn btn-g" style="flex:1;justify-content:center;text-decoration:none">📍 موقعه</a></div></div>
     </div>`;
-  }
-  $('#ocr-preview').innerHTML = h;
-  $('#ocr-count').textContent = `0 / ${show}`;
-  $('#ocr-bar').style.width = "0%";
-}
-
-function preprocessImageForOCR(file) {
-  return new Promise(resolve => {
-    const img = new Image();
-    const url = URL.createObjectURL(file);
-    img.onload = () => {
-      const scale = img.width < 1200 ? 1.8 : 1.2;
-      const canvas = document.createElement('canvas');
-      canvas.width = Math.min(2400, Math.round(img.width * scale));
-      canvas.height = Math.min(2400, Math.round(img.height * scale));
-      const ctx = canvas.getContext('2d');
-      ctx.filter = 'grayscale(100%) contrast(165%) brightness(108%)';
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      URL.revokeObjectURL(url);
-      resolve(canvas.toDataURL('image/png'));
-    };
-    img.onerror = () => {
-      URL.revokeObjectURL(url);
-      resolve(file);
-    };
-    img.src = url;
   });
+  grid.innerHTML=h;
 }
-
-function extractEgyptianPhones(rawText) {
-  const normalized = normalizeDigits(rawText).replace(/[\s\-\(\)\.\u200e\u200f\/\\_]/g, '');
-  const matches = normalized.match(/(?:\+?20|0020|0)?1[0125][0-9]{8}/g) || [];
-  const unique = [];
-  matches.forEach(m => {
-    let p = m.replace(/^\+/, '');
-    if (p.startsWith("0020")) p = "0" + p.slice(4);
-    else if (p.startsWith("20")) p = "0" + p.slice(2);
-    else if (!p.startsWith("0")) p = "0" + p;
-    if (p.length === 11 && !unique.includes(p)) unique.push(p);
-  });
-  return unique;
+function openRepAppPage(repName){
+  selectedRep=repName;$('#repPicker').value=repName;$('#pickedRepLabel').textContent=repName;
+  let d=globalRepsData[repName];if(!d)return;
+  $('#selectedRepApp').style.display="block";$('#selectedRepTitle').textContent=`📱 تطبيق المندوب: ${repName} - ورقة ${currentSheet}`;
+  let h=`<div style="display:flex;gap:6px;margin-bottom:10px"><div style="flex:1;background:#1e293b;padding:10px;border-radius:10px;text-align:center"><b>${d.totalCount}</b><br><span style="font-size:11px;color:#94a3b8">إجمالي</span></div><div style="flex:1;background:#1e293b;padding:10px;border-radius:10px;text-align:center"><b style="color:#22c55e">${d.deliveredCount}</b><br><span style="font-size:11px;color:#94a3b8">تم</span></div><div style="flex:1;background:#1e293b;padding:10px;border-radius:10px;text-align:center"><b>${d.totalAmountJ.toLocaleString()} ج.م</b><br><span style="font-size:11px;color:#94a3b8">تحصيل</span></div></div>`;
+  for(let dayKey in d.days){let di=d.days[dayKey];let cls=di.deliveredCount>0&&di.deliveredCount===di.count?"delivered":di.deliveredCount>0?"partial":"pending";let txt=cls==="delivered"?"✅ تم التسليم":cls==="partial"?"⚡ جزئي":"⏳ تحت التسليم";h+=`<div class="order-mini ${cls}"><div style="display:flex;justify-content:space-between"><b>${repName} - ${dayKey}</b><span style="color:#38bdf8;font-weight:900">${di.deliveredSalesK.toLocaleString()} ج.م</span></div><div style="font-size:12px;color:#94a3b8;margin-top:4px">${di.date} | عدد: ${di.count} | مسلمة: ${di.delivered} | شحن: ${di.shippingR.toLocaleString()} ج.م</div><div style="margin-top:6px"><span style="font-size:11px;background:rgba(34,197,94,.2);color:#22c55e;padding:3px 7px;border-radius:999px">${txt}</span></div></div>`;}
+  $('#selectedRepBody').innerHTML=h;document.getElementById('selectedRepApp').scrollIntoView({behavior:'smooth'});
 }
-
-function checkPhoneInTargetSheet(phone, sheetName) {
-  if (!phone || !/^01[0125][0-9]{8}$/.test(phone)) return { found: false };
-  const short10 = phone.slice(1);
-  const rows = allSheetsMap[sheetName] || [];
-  for (let i = 1; i < rows.length; i++) {
-    const phoneCol = normalizeDigits(rows[i][COL.PHONE] || "");
-    const fallbackCols = normalizeDigits((rows[i][COL.NAME] || "") + " " + (rows[i][COL.ADDR] || ""));
-    if (phoneCol.includes(phone) || phoneCol.includes(short10) || fallbackCols.includes(phone) || fallbackCols.includes(short10)) {
-      return { found: true, rowIndex: i + 1, client: rows[i][COL.NAME] || "" };
-    }
-  }
-  return { found: false };
-}
-
-async function startOCR() {
-  const files = document.getElementById('ocrFiles').files;
-  const rep = ($('#ocrRepCustom').value || "").trim();
-  const targetSheet = $('#ocrTargetSheet').value;
-
-  if (!rep) { alert("اكتب اسم المندوب أولاً"); return; }
-  if (!files.length) { alert("اختر صور البوالص أولاً"); return; }
-
-  const lim = parseInt($('#ocrLimit').value || 30, 10);
-  const total = Math.min(files.length, lim);
-  ocrResults = [];
-  $('#btnSaveToSheet').disabled = true;
-
-  for (let i = 0; i < total; i++) {
-    $('#ocr-progress-text').textContent = `⏳ قراءة صورة ${i + 1} من ${total}...`;
-    try {
-      const processedImg = await preprocessImageForOCR(files[i]);
-      const res = await Tesseract.recognize(processedImg, 'eng+ara');
-      const phones = extractEgyptianPhones(res.data.text || "");
-      const primaryPhone = phones[0] || "";
-      const matchInfo = checkPhoneInTargetSheet(primaryPhone, targetSheet);
-
-      ocrResults.push({
-        index: i,
-        fileName: files[i].name,
-        phone: primaryPhone,
-        matchInfo: matchInfo
-      });
-
-      const card = document.getElementById(`ocr-card-${i}`);
-      const statusBox = document.getElementById(`ocr-phone-${i}`);
-      if (primaryPhone) {
-        card.classList.remove('fail');
-        card.classList.add('ok');
-        statusBox.innerHTML = `<input class="phone-edit-input" value="${primaryPhone}" onchange="updateExtractedPhone(${i}, this.value)">
-          <div style="margin-top:4px;color:${matchInfo.found ? '#22c55e' : '#f59e0b'}">
-            ${matchInfo.found ? `✅ صف ${matchInfo.rowIndex}` : '⚠️ غير مطابق بالورقة'}
-          </div>`;
-      } else {
-        card.classList.remove('ok');
-        card.classList.add('fail');
-        statusBox.innerHTML = `<input class="phone-edit-input" style="color:#ef4444" placeholder="اكتب الرقم..." onchange="updateExtractedPhone(${i}, this.value)">
-          <div style="margin-top:4px;color:#ef4444">❌ لم يتم العثور</div>`;
-      }
-    } catch (e) {
-      ocrResults.push({ index: i, fileName: files[i].name, phone: "", matchInfo: { found: false } });
-    }
-
-    $('#ocr-bar').style.width = `${Math.round(((i + 1) / total) * 100)}%`;
-    $('#ocr-count').textContent = `${i + 1} / ${total}`;
-  }
-
-  const validCount = ocrResults.filter(r => /^01[0125][0-9]{8}$/.test(r.phone)).length;
-  $('#ocr-progress-text').textContent = `✅ تم الانتهاء - وجدنا ${validCount} رقم من ${total}`;
-  renderOCRTable();
-  $('#btnSaveToSheet').disabled = validCount === 0;
-  toast("تمت قراءة البوالص بنجاح ✅");
-}
-
-function updateExtractedPhone(idx, newVal) {
-  const cleaned = normalizeDigits(newVal).replace(/[^0-9]/g, '');
-  const targetSheet = $('#ocrTargetSheet').value;
-  ocrResults[idx].phone = cleaned;
-  ocrResults[idx].matchInfo = checkPhoneInTargetSheet(cleaned, targetSheet);
-  renderOCRTable();
-  const validCount = ocrResults.filter(r => /^01[0125][0-9]{8}$/.test(r.phone)).length;
-  $('#btnSaveToSheet').disabled = validCount === 0;
-}
-
-function renderOCRTable() {
-  const rep = ($('#ocrRepCustom').value || "").trim();
-  const targetSheet = $('#ocrTargetSheet').value;
-  let h = `<div class="sheet-wrap"><table>
-    <thead>
-      <tr><th>#</th><th>الصورة</th><th>رقم التليفون</th><th>المطابقة (${targetSheet})</th><th>المندوب (عمود M - 13)</th></tr>
-    </thead><tbody>`;
-
-  ocrResults.forEach(r => {
-    const isValid = /^01[0125][0-9]{8}$/.test(r.phone);
-    h += `<tr>
-      <td>${r.index + 1}</td>
-      <td>${r.fileName}</td>
-      <td><input class="phone-edit-input" style="width:140px;margin:0" value="${r.phone}" onchange="updateExtractedPhone(${r.index}, this.value)"></td>
-      <td>${r.matchInfo?.found
-        ? `<span style="color:#22c55e;font-weight:700">✅ صف #${r.matchInfo.rowIndex}</span>`
-        : (isValid ? `<span style="color:#f59e0b">⚠️ بحث بالسيرفر</span>` : `<span style="color:#ef4444">❌ غير مكتمل</span>`)}</td>
-      <td><b style="color:#38bdf8">${rep}</b> → عمود M (13)</td>
-    </tr>`;
-  });
-
-  h += `</tbody></table></div>`;
-  $('#ocr-results').innerHTML = h;
-}
-
-async function saveOCRToSheet() {
-  const rep = ($('#ocrRepCustom').value || "").trim();
-  const targetSheet = $('#ocrTargetSheet').value;
-  const validPhones = ocrResults.map(r => r.phone).filter(p => /^01[0125][0-9]{8}$/.test(p));
-
-  if (!rep) { alert("اكتب اسم المندوب أولاً"); return; }
-  if (!validPhones.length) { alert("لا توجد أرقام صالحة للحفظ"); return; }
-  if (!confirm(`سيتم كتابة "${rep}" في عمود M (13) داخل "${targetSheet}" لـ ${validPhones.length} رقم. متأكد؟`)) return;
-
-  $('#btnSaveToSheet').disabled = true;
-  $('#ocr-progress-text').textContent = "⏳ جاري الحفظ في الشيت...";
-
-  try {
-    const res = await fetch(WEB_APP_URL, {
-      method: 'POST',
-      body: JSON.stringify({
-        action: "assignRepByPhone",
-        sheetName: targetSheet,
-        repName: rep,
-        phones: validPhones,
-        phoneColumnIndex: COL.PHONE,
-        column: 13
-      })
-    }).then(r => r.json());
-
-    const updated = res.updatedCount ?? validPhones.length;
-    toast(`✅ تم حفظ ${rep} في عمود M لـ ${updated} صف`);
-    $('#ocr-progress-text').textContent = `✅ تم حفظ ${rep} في عمود M (13) بنجاح`;
-    await loadSheetData(targetSheet);
-  } catch (err) {
-    toast("تم إرسال الطلب - تحقق من الشيت");
-    $('#ocr-progress-text').textContent = "⚠️ تحقق من نشر إصدار جديد (New version) في Code.gs";
-  } finally {
-    $('#btnSaveToSheet').disabled = false;
-  }
-}
-
-function resetOCR() {
-  $('#ocrFiles').value = "";
-  $('#ocr-preview').innerHTML = "";
-  $('#ocr-results').innerHTML = "";
-  $('#ocr-bar').style.width = "0%";
-  $('#ocr-count').textContent = "0 / 0";
-  $('#ocr-progress-text').textContent = "جاهز...";
-  ocrResults = [];
-  $('#btnSaveToSheet').disabled = true;
-}
-
-initDefaultSheets();
-loadSheetData();
-setInterval(() => loadSheetData(selectedSheetName), 20000);
+function closeSelectedRep(){selectedRep=null;$('#selectedRepApp').style.display="none"}
+function refreshLive(){renderLiveAll();toast("تم تحديث اللايف ✅")}
+function openAllMaps(){let live=JSON.parse(localStorage.getItem('amial_live_reps')||"[]");let withLoc=live.filter(r=>r.lat&&r.lng);if(!withLoc.length){toast("لا يوجد مناديب بموقع GPS الآن");return}let dests=withLoc.map(r=>`${r.lat},${r.lng}`).join("/");window.open(`https://www.google.com/maps/dir/${dests}`,'_blank')}
+function openDirectCameraModal(){$('#cameraModal').style.display='flex';navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}).then(s=>{videoStream=s;$('#cameraStream').srcObject=s}).catch(()=>alert("تعذر الكاميرا"))}
+function closeCameraModal(){if(videoStream)videoStream.getTracks().forEach(t=>t.stop());$('#cameraModal').style.display='none'}
+function takeSnapshot(){let v=$('#cameraStream'),c=$('#snapshotCanvas');c.width=v.videoWidth||640;c.height=v.videoHeight||480;c.getContext('2d').drawImage(v,0,0,c.width,c.height);let a=document.createElement('a');a.download=`ايصال_${Date.now()}.png`;a.href=c.toDataURL();a.click();closeCameraModal();toast("📸 تم حفظ الإيصال")}
+function handleBarcodeScan(e){if(e.key==='Enter'){let v=e.target.value.trim();if(v){$('#scan-result').textContent=`⚡ تم مسح: ${v} في ورقة ${currentSheet}`;toast("تم مسح "+v);e.target.value=""}}}
+function openRepDetailPage(n){activeRepDetailName=n;renderRepDetailTable(n,true)}
+function renderRepDetailTable(rep,cv){$('#pageRepTitle').textContent=`تفاصيل: ${rep} - ورقة ${currentSheet}`;let rd=globalRepsData[rep];let h="";for(let k in rd.days){let d=rd.days[k];let net=d.deliveredSalesK-d.shippingR;let cl=cloudRepsData[k]||{};h+=`<tr><td><b>${rep}</b></td><td><span class="tag">${d.date}</span></td><td>${d.count}</td><td style="color:#22c55e">${d.deliveredCount}</td><td>${d.deliveredSalesK.toLocaleString()} ج.م</td><td style="color:#ef4444">${d.shippingR.toLocaleString()} ج.م</td><td style="color:#22c55e;font-weight:900">${net.toLocaleString()} ج.م</td><td><div style="display:flex;gap:5px"><input class="input-sub" value="${cl.cash||''}" placeholder="نقدي" type="number"><input class="input-sub" value="${cl.transfer||''}" placeholder="إنستا" type="number"></div></td><td><input type="file" accept="image/*" style="width:90px;font-size:11px"></td><td><input class="input-pend" value="${cl.pending||''}"></td><td><input class="input-sign" value="${cl.signer||''}"></td><td><input class="input-wa" value="${cl.phone||'20'}"></td><td><button class="btn btn-wa">💬</button></td></tr>`}
+$('#page-detail-table-body').innerHTML=h;if(cv){document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));$('#rep-detail-page').classList.add('active')}}
+function backToRepsList(){document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));$('#reps').classList.add('active')}
+function filterRepsTable(){let v=$('#repFilterInput').value.toLowerCase();document.querySelectorAll('#reps-table-body tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(v)?"":"none")}
+function previewOCRFiles(){let files=document.getElementById('ocrFiles').files;let lim=parseInt($('#ocrLimit').value||20);let show=Math.min(files.length,lim);let h="";for(let i=0;i<show;i++){let url=URL.createObjectURL(files[i]);h+=`<div class="ocr-card" id="ocr-card-${i}"><img src="${url}"><div>صورة ${i+1}</div><div id="ocr-phone-${i}" style="color:#f59e0b">بانتظار...</div></div>`}document.getElementById('ocr-preview').innerHTML=h}
+function extractPhone(text){let cleaned=text.replace(/[\s\-\(\)]/g,'');let m=cleaned.match(/(?:\+?20|0)?1[0125][0-9]{8}/g);if(m){let p=m[0];if(p.startsWith("20"))p="0"+p.slice(2);if(!p.startsWith("0"))p="0"+p;return p}let a=cleaned.match(/[0-9]{10,11}/g);return a?a[0]:null}
+async function startOCR(){let files=document.getElementById('ocrFiles').files;let rep=$('#ocrRepName').value||"ماهر26";let sheet=$('#ocrSheet').value;if(!files.length){alert("اختر الصور");return}let lim=parseInt($('#ocrLimit').value||20);let total=Math.min(files.length,lim);ocrResults=[];$('#btnSaveToSheet').disabled=true;$('#ocr-progress-text').textContent=`⏳ قراءة ${total} صورة لورقة ${sheet}...`;for(let i=0;i<total;i++){try{let res=await Tesseract.recognize(files[i],'eng+ara',{});let phone=extractPhone(res.data.text||"");ocrResults.push({index:i,fileName:files[i].name,phone:phone||"لم يتم العثور",rep:rep,sheet:sheet});let card=document.getElementById(`ocr-card-${i}`);let ph=document.getElementById(`ocr-phone-${i}`);if(phone){card.classList.add('ok');ph.textContent="📞 "+phone;ph.style.color="#22c55e"}else{card.classList.add('fail');ph.textContent="❌ لم يتم العثور";ph.style.color="#ef4444"} $('#ocr-bar').style.width=((i+1)/total*100)+"%"}catch(e){ocrResults.push({index:i,fileName:files[i].name,phone:"خطأ",rep:rep,sheet:sheet})}}$('#ocr-progress-text').textContent=`✅ تم - وجدنا ${ocrResults.filter(r=>r.phone.startsWith("01")).length} رقم لورقة ${sheet}`;$('#btnSaveToSheet').disabled=false;toast("تمت القراءة ✅")}
+async function saveOCRToSheet(){let rep=$('#ocrRepName').value||"ماهر26";let sheet=$('#ocrSheet').value;let valid=ocrResults.filter(r=>r.phone&&r.phone.startsWith("01"));if(!valid.length){alert("لا توجد أرقام");return}if(!confirm(`سيتم كتابة "${rep}" في ورقة "${sheet}" - عمود M (13) لـ ${valid.length} صف. متأكد؟`))return;try{await fetch(WEB_APP_URL,{method:'POST',body:JSON.stringify({action:"assignRepByPhone",repName:rep,phones:valid.map(v=>v.phone),column:13,sheet:sheet,sheetName:sheet})});toast(`✅ تم حفظ ${rep} في ورقة ${sheet}`);selectSheet(sheet)}catch(e){toast("تم إرسال الطلب - تحقق من الشيت")}}
+selectSheet("1/11/2026");
+setInterval(renderLiveAll,15000);
+setInterval(loadSheetData,30000);
 </script>
 </body>
 </html>
