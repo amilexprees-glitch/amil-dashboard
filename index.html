@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AMIAl EXPRESS - النظام الرئيسي V7 ULTIMATE - بدون تجريبي</title>
+<title>AMIAl EXPRESS - النظام الرئيسي V8 FINAL</title>
 <meta name="theme-color" content="#0f172a"/>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -72,17 +72,15 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 .rep-filter-tabs button{padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:#0f172a;color:#fff;cursor:pointer;font-weight:800;font-size:12px}
 .rep-filter-tabs button.active{background:#38bdf8;color:#00111f}
 .search-box-big{width:100%;padding:13px 14px;background:#0f172a;border:1px solid #38bdf8;border-radius:12px;color:#fff;font-size:14px;font-weight:700;outline:none}
-.search-box-big:focus{box-shadow:0 0 0 3px rgba(56,189,248,.2)}
 .suggest-box{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .suggest-chip{padding:6px 12px;border-radius:999px;background:#111827;border:1px solid var(--line);color:#fff;cursor:pointer;font-size:12px;font-weight:700}
-.suggest-chip:hover{border-color:#38bdf8}
 @media(max-width:1000px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}}
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar">
-<div class="brand"><div class="logo">A</div><div><h1 style="margin:0;font-size:19px">AMIAl EXPRESS</h1><p style="margin:0;color:var(--muted);font-size:12px">النظام الرئيسي V7</p></div></div>
+<div class="brand"><div class="logo">A</div><div><h1 style="margin:0;font-size:19px">AMIAl EXPRESS</h1><p style="margin:0;color:var(--muted);font-size:12px">النظام الرئيسي V8</p></div></div>
 <div id="cloudBadgeSidebar" class="cloud-badge" style="margin-top:14px;width:100%;justify-content:center"><span class="cloud-dot"></span><span id="cloudTextSidebar">☁️ متصل بالسحابة</span></div>
 <div class="nav">
 <button class="active" data-tab="dashboard">🏠 الرئيسية</button>
@@ -98,7 +96,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 </aside>
 <main class="main">
 <div class="hero">
-<h2 style="margin:0">النظام الرئيسي - AMIAl EXPRESS</h2><p style="color:var(--muted)">تطبيق المناديب + اللايف + OCR جوه النظام - والشهر مربوط بالشيت الفعلي</p>
+<h2 style="margin:0">النظام الرئيسي - AMIAl EXPRESS</h2><p style="color:var(--muted)">كل شهر ليه أرقامه لوحده - مفيش خلط بين الشهور</p>
 <div class="top-controls">
 <div class="month-picker"><select id="monthSelect" class="month-select" onchange="selectSheet(this.value)"></select></div>
 <input id="globalSearch" class="search-mini" placeholder="🔍 ابحث في النظام كله..." oninput="globalSearchFilter(this.value)"/>
@@ -114,23 +112,21 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <div class="card"><h3>🟢 المناديب الأونلاين الآن</h3><div id="liveQuick"></div><button class="btn btn-p" style="margin-top:10px" onclick="showTab('live')">عرض الخريطة لايف →</button></div>
 </section>
 
-<!-- اللايف - بحث بدل التجريبي -->
 <section id="live" class="content">
-<div class="card"><h3 style="margin:0">🟢 المناديب لايف - خريطة حقيقية</h3><p style="color:var(--muted)">ابحث عن أي مندوب بالاسم، هيظهر لوحده على الخريطة - بيانات حقيقية من الأبليكيشن فقط</p>
-<input id="liveSearch" class="search-box-big" placeholder="🔍 ابحث عن مندوب... اكتب اسمه هنا (مثال: مجدي)" oninput="renderLive()"/>
+<div class="card"><h3 style="margin:0">🟢 المناديب لايف - خريطة حقيقية</h3><p style="color:var(--muted)">ابحث عن أي مندوب بالاسم</p>
+<input id="liveSearch" class="search-box-big" placeholder="🔍 ابحث عن مندوب... اكتب اسمه هنا" oninput="renderLive()"/>
 <div id="liveSuggest" class="suggest-box"></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-p" onclick="refreshLive()">🔄 تحديث اللايف</button><button class="btn btn-wa" onclick="openAllMaps()">🗺️ فتح كل المواقع</button><button class="btn btn-g" onclick="clearLiveSearch()">✕ مسح البحث - عرض الكل</button></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-p" onclick="refreshLive()">🔄 تحديث اللايف</button><button class="btn btn-wa" onclick="openAllMaps()">🗺️ فتح كل المواقع</button><button class="btn btn-g" onclick="clearLiveSearch()">✕ مسح البحث</button></div>
 <div id="liveMap"></div>
 <div class="live-grid" id="liveGrid"></div>
 </div>
 </section>
 
-<!-- تطبيق المناديب - بحث عن المندوب -->
 <section id="repapp" class="content">
-<div class="card"><h3 style="margin:0">📱 تطبيق المناديب - مدمج ومربوط بالشيت</h3><p style="color:var(--muted)">ابحث عن المندوب بالاسم، وهتظهر أوردراته الحقيقية من ورقة الشهر المختارة</p>
-<input id="repAppRepSearch" class="search-box-big" placeholder="🔍 ابحث عن المندوب... اكتب اسمه هنا (مثال: مجدي)" oninput="onRepSearchInput()"/>
+<div class="card"><h3 style="margin:0">📱 تطبيق المناديب - مربوط بالشيت</h3><p style="color:var(--muted)">ابحث عن المندوب بالاسم، وهتظهر أوردراته من ورقة الشهر المختارة</p>
+<input id="repAppRepSearch" class="search-box-big" placeholder="🔍 ابحث عن المندوب... اكتب اسمه هنا" oninput="onRepSearchInput()"/>
 <div id="repSuggest" class="suggest-box"></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><input id="repAppSearch" class="select-input" style="width:260px;margin:0" placeholder="🔍 ابحث في أوردرات المندوب (عميل، عنوان، تليفون)..." oninput="renderRepApp()"/><button class="btn btn-p" onclick="renderRepApp()">عرض</button><span class="tag" id="repAppSelectedLabel" style="font-size:13px;padding:8px 12px">اختر مندوب من البحث فوق</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><input id="repAppSearch" class="select-input" style="width:260px;margin:0" placeholder="🔍 ابحث في أوردرات المندوب..." oninput="renderRepApp()"/><button class="btn btn-p" onclick="renderRepApp()">عرض</button><span class="tag" id="repAppSelectedLabel" style="font-size:13px;padding:8px 12px">اختر مندوب من البحث فوق</span></div>
 <div class="rep-filter-tabs" id="repFilterTabs"></div>
 <div style="background:#0b1120;border:1px solid var(--line);border-radius:16px;padding:12px;max-width:520px;margin:0 auto"><div style="text-align:center;font-weight:900;color:#38bdf8;margin-bottom:10px">AMIAl EXPRESS - تطبيق المندوب</div><div id="repAppStats"></div><div id="repAppList"></div></div>
 </div>
@@ -141,7 +137,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <section id="rep-detail-page" class="content"><button class="btn btn-red" onclick="backToRepsList()" style="margin-bottom:12px">← عودة</button><div class="card"><h3 id="pageRepTitle"></h3><div class="sheet-wrap"><table><thead><tr><th>المندوب</th><th>التاريخ</th><th>عدد</th><th>المسلمة</th><th>السعر</th><th>شحن المندوب</th><th>الصافي</th><th>الوارد</th><th>صورة</th><th>المعلقات</th><th>المحاسب</th><th>واتساب</th><th>إجراءات</th></tr></thead><tbody id="page-detail-table-body"></tbody></table></div></div></section>
 <section id="profits" class="content"><div class="card"><h3>الأرباح - <span class="sheet-name-label">1/11/2026</span></h3><div class="stats"><div class="stat"><div class="label">شحن المكتب</div><div class="value" id="profit-net-office">0</div></div><div class="stat"><div class="label">شحن المندوب</div><div class="value" id="profit-expenses-val" style="color:#ef4444">0</div></div></div></div></section>
 <section id="branches" class="content"><div class="card"><h3>الرواسل</h3><div class="sheet-wrap"><table><thead><tr><th>الراسل</th><th>العدد</th><th>الإجمالي</th></tr></thead><tbody id="senders-table-body"></tbody></table></div></div></section>
-<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة الإيصالات OCR - مربوطة بالشيت وباسم المندوب</h3><p style="color:var(--muted)">الورقة = الشهر المختار فوق أوتوماتيك. اختر المندوب، ارفع صور الإيصالات.</p>
+<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة الإيصالات OCR</h3><p style="color:var(--muted)">الورقة = الشهر المختار فوق أوتوماتيك.</p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"><div><label>📅 ورقة الشهر:</label><input id="ocrSheet" class="select-input" readonly></div><div><label>👤 المندوب:</label><input id="ocrRepName" class="select-input" placeholder="اكتب اسم المندوب..." list="ocrRepsList"/><datalist id="ocrRepsList"></datalist></div></div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><label>عدد الصور:</label><input type="number" id="ocrLimit" value="20" class="filter-input"></div><div><label>اختر الصور:</label><input type="file" id="ocrFiles" accept="image/*" multiple class="filter-input" onchange="previewOCRFiles()"></div></div>
 <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-amber" onclick="startOCR()">🧠 بدء القراءة</button><button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في ورقة الشهر (عمود M)</button></div>
@@ -151,7 +147,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <div id="cameraModal" class="modal-overlay"><div class="modal-card"><h3>📸 التقاط إيصال</h3><video id="cameraStream" autoplay playsinline style="width:100%;height:230px;background:#000;border-radius:12px"></video><canvas id="snapshotCanvas" style="display:none"></canvas><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:10px" onclick="takeSnapshot()">📸 التقاط</button><button class="btn btn-red" style="width:100%;justify-content:center;margin-top:8px" onclick="closeCameraModal()">إغلاق</button></div></div>
 <div id="toast" class="toast"></div>
 <script>
-const WEB_APP_URL="https://script.google.com/macros/s/AKfycbzq9-qZXfXRoakha9eulyXYJQ16Ws-cu5RzoLlFmj3DFdxKvd_k9O70Pa_2tepLQX9nxw/exec";
+const WEB_APP_URL="https://script.google.com/macros/s/AKfycbwEnunQZiWmXe7wUj8MRZb0kJSRL2QZ3QYjq7V1dIlN4-wxZ5DDbIafpg9MVAlaudHebA/exec";
 const MONTHS=[
  {v:"1/4/2026",label:"📅 أبريل 2026 - 1/4/2026"},
  {v:"1/5/2026",label:"📅 مايو 2026 - 1/5/2026"},
@@ -168,6 +164,7 @@ const MONTHS=[
 let currentSheet="1/11/2026";
 let globalRepsData={},rawSheetRows=[],cloudRepsData={},activeRepDetailName=null,videoStream=null,ocrResults=[],liveReps=[];
 let repAppFilter="all", liveMap=null, liveMarkers={}, selectedRepApp="", liveSearchQuery="";
+let sheetRequestId=0;
 const $=s=>document.querySelector(s);
 function toast(m){let t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2800)}
 function parseNum(v){if(v==null||v==="")return 0;let n=parseFloat(String(v).replace(/[^0-9.-]/g,""));return isNaN(n)?0:n}
@@ -176,73 +173,130 @@ function showTab(tab){document.querySelectorAll('.nav button').forEach(b=>b.clas
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
 function buildMonthPicker(){let sel=$('#monthSelect');sel.innerHTML=MONTHS.map(m=>`<option value="${m.v}" ${m.v===currentSheet?'selected':''}>${m.label}</option>`).join('');let ocr=$('#ocrSheet'); if(ocr) ocr.value=currentSheet;}
 function setCloud(on){document.querySelectorAll('.cloud-badge').forEach(b=>b.classList.toggle('offline',!on));let t1=$('#cloudText'), t2=$('#cloudTextSidebar');if(t1) t1.textContent = on ? "☁️ متصل بالسحابة" : "☁️ غير متصل - بيانات محفوظة";if(t2) t2.textContent = on ? "☁️ متصل بالسحابة" : "☁️ غير متصل - بيانات محفوظة";}
-function selectSheet(sheetName){currentSheet=sheetName;document.querySelectorAll('.sheet-name-label').forEach(el=>el.textContent=sheetName);$('#currentSheetLabel').textContent=sheetName;$('#monthSelect').value=sheetName;let ocrSel=$('#ocrSheet'); if(ocrSel) ocrSel.value=sheetName;$('#sheetDebug').textContent=`جاري قراءة ورقة: ${sheetName}...`;loadSheetData();toast("تم اختيار ورقة: "+sheetName);}
-function loadSheetData(){
+function resetStatsUI(){
+  // تصفير كل الإحصائيات قبل حساب الشهر الجديد - عشان مفيش شهر ياخد أرقام اللي قبله
+  $('#stat-delivered-count').textContent="⏳";
+  $('#stat-sales').textContent="⏳";
+  $('#stat-expenses').textContent="⏳";
+  $('#stat-net-profit').textContent="⏳";
+  $('#stat-group-1').textContent="⏳";
+  $('#stat-group-2').textContent="⏳";
+  $('#profit-net-office').textContent="⏳";
+  $('#profit-expenses-val').textContent="⏳";
+  globalRepsData={}; rawSheetRows=[];
+}
+// ===== اختيار الشهر - إصلاح التزامن =====
+function selectSheet(sheetName){
+  currentSheet=sheetName;
+  sheetRequestId++;
+  let myRequest=sheetRequestId;
+  resetStatsUI();
+  document.querySelectorAll('.sheet-name-label').forEach(el=>el.textContent=sheetName);
+  $('#currentSheetLabel').textContent=sheetName;
+  $('#monthSelect').value=sheetName;
+  let ocrSel=$('#ocrSheet'); if(ocrSel) ocrSel.value=sheetName;
+  $('#sheet-count').textContent=`📄 ${sheetName} • جاري التحميل...`;
+  $('#sheetDebug').textContent=`جاري قراءة ورقة: ${sheetName}...`;
+  $('#reps-table-body').innerHTML=`<tr><td colspan="7" style="text-align:center">⏳ جاري تحميل ورقة ${sheetName}...</td></tr>`;
+  $('#senders-table-body').innerHTML="";
+  loadSheetData(myRequest,sheetName);
+  toast("تم اختيار ورقة: "+sheetName);
+}
+function loadSheetData(passedRequestId,passedSheet){
+  let myRequest = passedRequestId !== undefined ? passedRequestId : ++sheetRequestId;
+  let requestedSheet = passedSheet || currentSheet;
   setCloud(true);
-  let url=`${WEB_APP_URL}?sheetName=${encodeURIComponent(currentSheet)}&sheet=${encodeURIComponent(currentSheet)}&_t=${Date.now()}`;
+  let url=`${WEB_APP_URL}?sheetName=${encodeURIComponent(requestedSheet)}&sheet=${encodeURIComponent(requestedSheet)}&_t=${Date.now()}`;
   fetch(url).then(r=>r.json()).then(res=>{
+    if(myRequest !== sheetRequestId) return; // رد قديم - تجاهله
+    if(res.sheetName && res.sheetName !== requestedSheet) return; // السيرفر رجع ورقة غلط - تجاهله
     let rows=res.rows||res.shipments||[];
-    if(res.sheetName) currentSheet=res.sheetName;
-    if(res.sheetFound===false){$('#sheetDebug').textContent=`⚠️ ورقة ${currentSheet} مش موجودة`; setCloud(false);}
-    else {$('#sheetDebug').textContent=`✅ ورقة ${res.sheetName||currentSheet} - ${rows.length} صف`; setCloud(true);}
-    localStorage.setItem('ami_main_'+currentSheet,JSON.stringify(res));
-    processData(res,rows);
+    if(res.sheetFound===false){
+      $('#sheetDebug').textContent=`⚠️ ورقة ${requestedSheet} مش موجودة`;
+      $('#sheet-count').textContent=`📄 ${requestedSheet} • 0 صف`;
+      resetStatsUI(); $('#stat-delivered-count').textContent="0"; $('#stat-sales').textContent="0";
+      $('#reps-table-body').innerHTML=`<tr><td colspan="7" style="text-align:center">لا توجد بيانات في ورقة ${requestedSheet}</td></tr>`;
+      setCloud(false); return;
+    }
+    $('#sheetDebug').textContent=`✅ ورقة ${requestedSheet} - ${rows.length} صف`;
+    setCloud(true);
+    localStorage.setItem('ami_main_'+requestedSheet,JSON.stringify(res));
+    processData(res,rows,requestedSheet);
   }).catch(()=>{
+    if(myRequest !== sheetRequestId) return;
     setCloud(false);
-    let c=localStorage.getItem('ami_main_'+currentSheet);
-    if(c){let res=JSON.parse(c);processData(res,res.rows||res.shipments||[]);$('#sheetDebug').textContent="بيانات محفوظة 🟡 - غير متصل"}
+    let c=localStorage.getItem('ami_main_'+requestedSheet);
+    if(c){let res=JSON.parse(c);processData(res,res.rows||res.shipments||[],requestedSheet);$('#sheetDebug').textContent="بيانات محفوظة 🟡 - غير متصل"}
     else $('#sheetDebug').textContent="تعذر الاتصال";
   });
 }
-function processData(res,rowsInput){
-  let rows=rowsInput&&rowsInput.length?rowsInput.slice(1):(res.shipments?res.shipments.slice(1):[]);
-  rawSheetRows=res.shipments||res.rows||[];
+// ===== حساب الإحصائيات - كل شهر لوحده =====
+function processData(res,rowsInput,forcedSheet){
+  let useSheet = forcedSheet || currentSheet;
+  // لو السيرفر رجع كل الأوراق في sheets، خد ورقة الشهر المطلوب بس
+  let rows;
+  if(res.sheets && res.sheets[useSheet]){
+    rows = res.sheets[useSheet].slice(1);
+  } else if(res.sheetName && res.sheetName === useSheet){
+    rows = (rowsInput||[]).slice(1);
+  } else if(res.sheets){
+    // السيرفر رجع أوراق تانية ومفيش الورقة المطلوبة - متستخدمش ورقة غلط
+    rows = [];
+  } else {
+    rows = (rowsInput||[]).slice(1);
+  }
+  // خزّن صفوف الورقة دي بس - مش كل الشيت
+  rawSheetRows = [ (res.rows||res.shipments||[])[0] || [], ...rows ];
+  // لو res.rows فيها الهيدر، rawSheetRows هتبقى [هيدر + صفوف الورقة دي بس]
   cloudRepsData=res.repsData||{};
-  if(res.sheets&&res.sheets[currentSheet])rows=res.sheets[currentSheet].slice(1);
-  let td=0,ts=0,tno=0,tr=0,g1=0,g2=0;globalRepsData={};let sm={};
-  rows.forEach((row,idx)=>{let rawRep=String(row[12]||"").trim();if(!rawRep)return;let clean=rawRep.replace(/[0-9]/g,'').trim()||rawRep;let colJ=parseNum(row[9]);let colK=row[10];let colR=parseNum(row[17])||parseNum(row[16]);let net=parseNum(row[19]);
-  if(!globalRepsData[clean])globalRepsData[clean]={days:{},totalCount:0,deliveredCount:0,totalAmountJ:0,totalRepShippingR:0};
-  if(!globalRepsData[clean].days[rawRep])globalRepsData[clean].days[rawRep]={dayName:rawRep,date:row[1]||"",count:0,deliveredCount:0,amountJ:0,deliveredSalesK:0,shippingR:0};
-  globalRepsData[clean].days[rawRep].count++;globalRepsData[clean].totalCount++;
-  let isD=colK!==""&&colK!=null&&!isNaN(parseFloat(colK));
-  if(isD){let amt=parseNum(colK);td++;ts+=amt;globalRepsData[clean].days[rawRep].deliveredCount++;globalRepsData[clean].days[rawRep].deliveredSalesK+=amt;globalRepsData[clean].deliveredCount++;let sender=row[3]||"غير محدد";if(!sm[sender])sm[sender]={count:0,total:0};sm[sender].count++;sm[sender].total+=amt}
-  globalRepsData[clean].days[rawRep].amountJ+=colJ;globalRepsData[clean].totalAmountJ+=colJ;globalRepsData[clean].days[rawRep].shippingR+=colR;globalRepsData[clean].totalRepShippingR+=colR;tno+=net;tr+=colR;if(idx%2===0)g1+=net-colR;else g2+=net-colR;});
-  $('#stat-delivered-count').textContent=td;$('#stat-sales').textContent=ts.toLocaleString()+" ج.م";$('#stat-expenses').textContent=tr.toLocaleString()+" ج.م";$('#stat-net-profit').textContent=(tno-tr).toLocaleString()+" ج.م";$('#stat-group-1').textContent=g1.toLocaleString()+" ج.م";$('#stat-group-2').textContent=g2.toLocaleString()+" ج.م";$('#profit-net-office').textContent=tno.toLocaleString()+" ج.م";$('#profit-expenses-val').textContent=tr.toLocaleString()+" ج.م";$('#sheet-count').textContent=`📄 ${currentSheet} • ${rows.length} صف`;
-  let rh="";for(let r in globalRepsData){let d=globalRepsData[r];let rate=d.totalCount?Math.round(d.deliveredCount/d.totalCount*100):0;rh+=`<tr><td><b>${r}</b></td><td>${d.totalCount}</td><td style="color:#22c55e;font-weight:800">${d.deliveredCount}</td><td>${d.totalAmountJ.toLocaleString()} ج.م</td><td style="color:#ef4444">${d.totalRepShippingR.toLocaleString()} ج.م</td><td>${rate}%</td><td><button class="btn btn-p" onclick="openRepDetailPage('${r}')">📂 فتح</button></td></tr>`}
-  $('#reps-table-body').innerHTML=rh||`<tr><td colspan="7" style="text-align:center">لا توجد بيانات في ورقة ${currentSheet}</td></tr>`;
-  let sh="";for(let s in sm)sh+=`<tr><td>${s}</td><td>${sm[s].count}</td><td>${sm[s].total.toLocaleString()} ج.م</td></tr>`;$('#senders-table-body').innerHTML=sh;
+  // تصفير تام قبل الحساب
+  globalRepsData={};
+  let td=0,ts=0,tno=0,tr=0,g1=0,g2=0;let sm={};
+  rows.forEach((row,idx)=>{
+    let rawRep=String(row[12]||"").trim(); if(!rawRep) return;
+    let clean=rawRep.replace(/[0-9]/g,'').trim()||rawRep;
+    let colJ=parseNum(row[9]); let colK=row[10]; let colR=parseNum(row[17])||parseNum(row[16]); let net=parseNum(row[19]);
+    if(!globalRepsData[clean]) globalRepsData[clean]={days:{},totalCount:0,deliveredCount:0,totalAmountJ:0,totalRepShippingR:0};
+    if(!globalRepsData[clean].days[rawRep]) globalRepsData[clean].days[rawRep]={dayName:rawRep,date:row[1]||"",count:0,deliveredCount:0,amountJ:0,deliveredSalesK:0,shippingR:0};
+    globalRepsData[clean].days[rawRep].count++; globalRepsData[clean].totalCount++;
+    let isD=colK!==""&&colK!=null&&!isNaN(parseFloat(colK));
+    if(isD){let amt=parseNum(colK); td++; ts+=amt; globalRepsData[clean].days[rawRep].deliveredCount++; globalRepsData[clean].days[rawRep].deliveredSalesK+=amt; globalRepsData[clean].deliveredCount++; let sender=row[3]||"غير محدد"; if(!sm[sender]) sm[sender]={count:0,total:0}; sm[sender].count++; sm[sender].total+=amt;}
+    globalRepsData[clean].days[rawRep].amountJ+=colJ; globalRepsData[clean].totalAmountJ+=colJ; globalRepsData[clean].days[rawRep].shippingR+=colR; globalRepsData[clean].totalRepShippingR+=colR; tno+=net; tr+=colR; if(idx%2===0) g1+=net-colR; else g2+=net-colR;
+  });
+  // تحديث كل العناوين بنفس الورقة
+  document.querySelectorAll('.sheet-name-label').forEach(el=>el.textContent=useSheet);
+  $('#sheet-count').textContent=`📄 ${useSheet} • ${rows.length} صف`;
+  $('#currentSheetLabel').textContent=useSheet;
+  // الإحصائيات - من صفوف الورقة دي بس
+  $('#stat-delivered-count').textContent=td;
+  $('#stat-sales').textContent=ts.toLocaleString()+" ج.م";
+  $('#stat-expenses').textContent=tr.toLocaleString()+" ج.م";
+  $('#stat-net-profit').textContent=(tno-tr).toLocaleString()+" ج.م";
+  $('#stat-group-1').textContent=g1.toLocaleString()+" ج.م";
+  $('#stat-group-2').textContent=g2.toLocaleString()+" ج.م";
+  $('#profit-net-office').textContent=tno.toLocaleString()+" ج.م";
+  $('#profit-expenses-val').textContent=tr.toLocaleString()+" ج.م";
+  let rh=""; for(let r in globalRepsData){let d=globalRepsData[r]; let rate=d.totalCount?Math.round(d.deliveredCount/d.totalCount*100):0; rh+=`<tr><td><b>${r}</b></td><td>${d.totalCount}</td><td style="color:#22c55e;font-weight:800">${d.deliveredCount}</td><td>${d.totalAmountJ.toLocaleString()} ج.م</td><td style="color:#ef4444">${d.totalRepShippingR.toLocaleString()} ج.م</td><td>${rate}%</td><td><button class="btn btn-p" onclick="openRepDetailPage('${r}')">📂 فتح</button></td></tr>`}
+  $('#reps-table-body').innerHTML=rh||`<tr><td colspan="7" style="text-align:center">لا توجد بيانات في ورقة ${useSheet}</td></tr>`;
+  let sh=""; for(let s in sm) sh+=`<tr><td>${s}</td><td>${sm[s].count}</td><td>${sm[s].total.toLocaleString()} ج.م</td></tr>`; $('#senders-table-body').innerHTML=sh;
   let reps=Object.keys(globalRepsData);
   let dl=$('#ocrRepsList'); if(dl) dl.innerHTML=reps.map(n=>`<option value="${n}">`).join("");
   if(!selectedRepApp && reps.length) selectedRepApp=reps[0];
   updateRepSuggest(); updateLiveSuggest();
-  if(activeRepDetailName&&globalRepsData[activeRepDetailName])renderRepDetailTable(activeRepDetailName,false);
+  if(activeRepDetailName&&globalRepsData[activeRepDetailName]) renderRepDetailTable(activeRepDetailName,false);
   renderRepApp();
 }
 function globalSearchFilter(q){q=(q||"").toLowerCase();document.querySelectorAll('#reps-table-body tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?"":"none");renderRepApp();}
-
-// ===== بحث المندوب في الأبليكيشن =====
 function onRepSearchInput(){
   let q=norm($('#repAppRepSearch').value);
   if(!q){ updateRepSuggest(); return; }
   let reps=Object.keys(globalRepsData).filter(r=>norm(r).includes(q));
-  // لو كتب اسم كامل وموجود، اختاره أوتوماتيك
   let exact=reps.find(r=>norm(r)===q);
   if(exact){ selectRepApp(exact); return; }
-  // اقتراحات
   $('#repSuggest').innerHTML=reps.slice(0,10).map(r=>`<button class="suggest-chip" onclick="selectRepApp('${r}')">👤 ${r} - ${globalRepsData[r].totalCount} أوردر</button>`).join("") || `<span style="color:#f87171;font-size:12px">مفيش مندوب بالاسم ده في ورقة ${currentSheet}</span>`;
 }
-function updateRepSuggest(){
-  let reps=Object.keys(globalRepsData);
-  $('#repSuggest').innerHTML=reps.slice(0,12).map(r=>`<button class="suggest-chip" onclick="selectRepApp('${r}')">👤 ${r}</button>`).join("");
-}
-function selectRepApp(rep){
-  selectedRepApp=rep;
-  $('#repAppRepSearch').value=rep;
-  $('#repAppSelectedLabel').textContent=`المندوب المختار: ${rep}`;
-  updateRepSuggest();
-  renderRepApp();
-  toast("تم اختيار المندوب: "+rep);
-}
+function updateRepSuggest(){let reps=Object.keys(globalRepsData);$('#repSuggest').innerHTML=reps.slice(0,12).map(r=>`<button class="suggest-chip" onclick="selectRepApp('${r}')">👤 ${r}</button>`).join("");}
+function selectRepApp(rep){selectedRepApp=rep;$('#repAppRepSearch').value=rep;$('#repAppSelectedLabel').textContent=`المندوب المختار: ${rep}`;updateRepSuggest();renderRepApp();toast("تم اختيار المندوب: "+rep);}
 function getStatusForOrder(o){let p=parseFloat(o.price)||0;let c=parseFloat(o.collectedK)||0;let l=String(o.confirmL||"").trim();if(l==="مرتجع")return "returned";if(l==="جزئي"||(c>0&&p>0&&c<p))return "partial";if(l==="تم التسليم"||(c>0&&p>0&&c>=p))return "delivered";return "pending"}
 function getRepOrders(rep){
   let out=[];
@@ -283,21 +337,11 @@ function renderRepApp(){
 }
 function setRepFilter(f){repAppFilter=f;renderRepApp()}
 function toggleDotsRepApp(row){let addr=prompt("📍 اكتب عنوانك الخاص (خاص بيك فقط):");if(addr!==null){localStorage.setItem('amial_private_'+row,addr);toast("تم حفظ عنوانك الخاص 🔒")}}
-
-// ===== اللايف - بحث حقيقي بدل التجريبي =====
 function initLiveMap(){if(liveMap){liveMap.invalidateSize();return;}liveMap=L.map('liveMap').setView([30.7865,31.0004],8);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(liveMap);}
 function clearLiveSearch(){$('#liveSearch').value="";liveSearchQuery="";renderLive();updateLiveSuggest();}
-function updateLiveSuggest(){
-  let names=[...new Set(liveReps.map(r=>r.name))];
-  $('#liveSuggest').innerHTML=names.slice(0,12).map(n=>`<button class="suggest-chip" onclick="selectLiveRep('${n}')">🟢 ${n}</button>`).join("");
-}
+function updateLiveSuggest(){let names=[...new Set(liveReps.map(r=>r.name))];$('#liveSuggest').innerHTML=names.slice(0,12).map(n=>`<button class="suggest-chip" onclick="selectLiveRep('${n}')">🟢 ${n}</button>`).join("");}
 function selectLiveRep(name){$('#liveSearch').value=name;liveSearchQuery=norm(name);renderLive();}
-function refreshLive(){
-  let stored=JSON.parse(localStorage.getItem('amial_live_reps')||"[]");
-  // فلترة أي بيانات تجريبية قديمة - لو فيها ماهر وحبيبة والأخضر من التجربة القديمة، بنتجاهلها لو مفيش غيرها ومفيش تحديث جديد
-  liveReps=stored;
-  renderLive();
-}
+function refreshLive(){let stored=JSON.parse(localStorage.getItem('amial_live_reps')||"[]");liveReps=stored;renderLive();}
 function renderLive(){
   liveSearchQuery=norm($('#liveSearch')?$('#liveSearch').value:"");
   let filtered=liveReps.filter(r=> !liveSearchQuery || norm(r.name).includes(liveSearchQuery));
@@ -305,7 +349,6 @@ function renderLive(){
   $('#liveCount').textContent=liveReps.filter(r=>Date.now()-r.lastSeen<60000).length+" أونلاين";
   document.getElementById('liveQuick').innerHTML=filtered.map(r=>`<div style="display:flex;justify-content:space-between;background:#0f172a;padding:8px 10px;border-radius:10px;margin:4px 0"><span>🟢 <b>${r.name}</b> - ${r.area}</span><span style="color:#22c55e">${r.delivered}/${r.orders} تم</span></div>`).join("") || `<p style="color:#94a3b8">اكتب اسم المندوب فوق للبحث</p>`;
   if(liveMap){
-    // امسح الدبابيس القديمة اللي مش في الفلتر
     Object.keys(liveMarkers).forEach(k=>{ if(!filtered.find(r=>r.name===k)){ liveMap.removeLayer(liveMarkers[k]); delete liveMarkers[k]; }});
     let bounds=[];
     filtered.forEach(r=>{ if(!r.lat) return; bounds.push([r.lat,r.lng]);
@@ -314,8 +357,8 @@ function renderLive(){
     });
     if(bounds.length) liveMap.fitBounds(bounds,{padding:[30,30]});
   }
-  if(!liveReps.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:30px">لا يوجد مناديب فاتحين الآن<br>أول ما المندوب يفتح الأبليكيشن، هيظهر هنا فوراً بموقعه الحقيقي</div>`;return}
-  if(!filtered.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#f87171;padding:20px">مفيش مندوب بالاسم ده فاتح دلوقتي<br>جرب تكتب جزء من الاسم بس، أو امسح البحث لعرض الكل</div>`;return}
+  if(!liveReps.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:30px">لا يوجد مناديب فاتحين الآن<br>أول ما المندوب يفتح الأبليكيشن، هيظهر هنا فوراً</div>`;return}
+  if(!filtered.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#f87171;padding:20px">مفيش مندوب بالاسم ده فاتح دلوقتي</div>`;return}
   let h="";
   filtered.forEach(r=>{
     let isOnline=Date.now()-r.lastSeen<60000;
@@ -335,7 +378,7 @@ function closeCameraModal(){if(videoStream)videoStream.getTracks().forEach(t=>t.
 function takeSnapshot(){let v=$('#cameraStream'),c=$('#snapshotCanvas');c.width=v.videoWidth||640;c.height=v.videoHeight||480;c.getContext('2d').drawImage(v,0,0,c.width,c.height);let a=document.createElement('a');a.download=`ايصال_${Date.now()}.png`;a.href=c.toDataURL();a.click();closeCameraModal();toast("📸 تم حفظ الإيصال")}
 function handleBarcodeScan(e){if(e.key==='Enter'){let v=e.target.value.trim();if(v){$('#scan-result').textContent=`⚡ تم مسح: ${v} في ورقة ${currentSheet}`;toast("تم مسح "+v);e.target.value=""}}}
 function openRepDetailPage(n){activeRepDetailName=n;renderRepDetailTable(n,true)}
-function renderRepDetailTable(rep,cv){$('#pageRepTitle').textContent=`تفاصيل: ${rep} - ورقة ${currentSheet}`;let rd=globalRepsData[rep];let h="";for(let k in rd.days){let d=rd.days[k];let net=d.deliveredSalesK-d.shippingR;let cl=cloudRepsData[k]||{};h+=`<tr><td><b>${rep}</b></td><td><span class="tag">${d.date}</span></td><td>${d.count}</td><td style="color:#22c55e">${d.deliveredCount}</td><td>${d.deliveredSalesK.toLocaleString()} ج.م</td><td style="color:#ef4444">${d.shippingR.toLocaleString()} ج.م</td><td style="color:#22c55e;font-weight:900">${net.toLocaleString()} ج.م</td><td><div style="display:flex;gap:5px"><input class="input-sub" value="${cl.cash||''}" placeholder="نقدي" type="number"><input class="input-sub" value="${cl.transfer||''}" placeholder="إنستا" type="number"></div></td><td><input type="file" accept="image/*" style="width:90px;font-size:11px"></td><td><input class="input-pend" value="${cl.pending||''}"></td><td><input class="input-sign" value="${cl.signer||''}"></td><td><input class="input-wa" value="${cl.phone||'20'}"></td><td><button class="btn btn-wa">💬</button></td></tr>`}
+function renderRepDetailTable(rep,cv){$('#pageRepTitle').textContent=`تفاصيل: ${rep} - ورقة ${currentSheet}`;let rd=globalRepsData[rep];if(!rd) return;let h="";for(let k in rd.days){let d=rd.days[k];let net=d.deliveredSalesK-d.shippingR;let cl=cloudRepsData[k]||{};h+=`<tr><td><b>${rep}</b></td><td><span class="tag">${d.date}</span></td><td>${d.count}</td><td style="color:#22c55e">${d.deliveredCount}</td><td>${d.deliveredSalesK.toLocaleString()} ج.م</td><td style="color:#ef4444">${d.shippingR.toLocaleString()} ج.م</td><td style="color:#22c55e;font-weight:900">${net.toLocaleString()} ج.م</td><td><div style="display:flex;gap:5px"><input class="input-sub" value="${cl.cash||''}" placeholder="نقدي" type="number"><input class="input-sub" value="${cl.transfer||''}" placeholder="إنستا" type="number"></div></td><td><input type="file" accept="image/*" style="width:90px;font-size:11px"></td><td><input class="input-pend" value="${cl.pending||''}"></td><td><input class="input-sign" value="${cl.signer||''}"></td><td><input class="input-wa" value="${cl.phone||'20'}"></td><td><button class="btn btn-wa">💬</button></td></tr>`}
 $('#page-detail-table-body').innerHTML=h;if(cv){document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));$('#rep-detail-page').classList.add('active')}}
 function backToRepsList(){document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));$('#reps').classList.add('active')}
 function filterRepsTable(){let v=$('#repFilterInput').value.toLowerCase();document.querySelectorAll('#reps-table-body tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(v)?"":"none")}
@@ -379,7 +422,7 @@ buildMonthPicker();
 selectSheet("1/11/2026");
 refreshLive();
 setInterval(refreshLive,5000);
-setInterval(loadSheetData,30000);
+setInterval(()=>{ loadSheetData(sheetRequestId, currentSheet); },30000);
 </script>
 </body>
 </html>
