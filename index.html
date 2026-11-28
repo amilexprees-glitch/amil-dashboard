@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AMIAl EXPRESS - V13 - أميال</title>
+<title>AMIAl EXPRESS - V14 - أميال - لايف من الشيت</title>
 <meta name="theme-color" content="#0f172a"/>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -53,7 +53,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 .live-preview{height:170px;background:#020617;position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .live-preview img{width:100%;height:100%;object-fit:cover}
 .live-preview .preview-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.8));display:flex;align-items:flex-end;padding:10px;font-size:12px}
-#liveMap{height:380px;border-radius:14px;border:1px solid var(--line);margin-top:12px;background:#020617}
+#liveMap{height:420px;border-radius:14px;border:1px solid var(--line);margin-top:12px;background:#020617}
 .input-sub{width:78px;padding:7px;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:7px;text-align:center}
 .input-pend{width:130px;padding:7px;background:#0f172a;border:1px solid #f59e0b;color:#f59e0b;border-radius:7px}
 .input-sign{width:100px;padding:7px;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:7px}
@@ -103,7 +103,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <body>
 <div class="app">
 <aside class="sidebar">
-<div class="brand"><div class="logo">A</div><div><h1 style="margin:0;font-size:19px">AMIAl EXPRESS</h1><p style="margin:0;color:var(--muted);font-size:12px">النظام الرئيسي V13 - أميال</p></div></div>
+<div class="brand"><div class="logo">A</div><div><h1 style="margin:0;font-size:19px">AMIAl EXPRESS</h1><p style="margin:0;color:var(--muted);font-size:12px">النظام الرئيسي V14 - أميال - لايف من الشيت</p></div></div>
 <div id="cloudBadgeSidebar" class="cloud-badge" style="margin-top:14px;width:100%;justify-content:center"><span class="cloud-dot"></span><span id="cloudTextSidebar">☁️ متصل بالسحابة</span></div>
 <div class="nav">
 <button class="active" data-tab="dashboard">🏠 الرئيسية</button>
@@ -127,18 +127,24 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
     <input id="linkLive" class="filter-input" style="margin:4px 0;font-size:11px" value="https://amilexprees-glitch.github.io/amial-rep-app/live-map.html" oninput="saveQuickLinks()">
     <div style="display:flex;gap:6px"><button class="btn btn-wa" style="flex:1;justify-content:center" onclick="openQuickLink('live')">📍 فتح اللايف</button><button class="btn btn-g" onclick="copyQuickLink('live')">📋 نسخ</button></div>
   </div>
+  <div style="margin-top:12px">
+    <label style="font-size:11px;color:#94a3b8">📄 لينك الشيت:</label>
+    <input id="linkSheet" class="filter-input" style="margin:4px 0;font-size:11px" value="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit" oninput="saveQuickLinks()">
+    <div style="display:flex;gap:6px"><button class="btn btn-amber" style="flex:1;justify-content:center" onclick="openQuickLink('sheet')">📄 فتح الشيت</button><button class="btn btn-g" onclick="copyQuickLink('sheet')">📋 نسخ</button></div>
+  </div>
 </div>
 <div style="margin-top:16px;background:#111827;border:1px solid var(--line);padding:12px;border-radius:14px;font-size:12px;line-height:1.7"><b>📄 الورقة النشطة:</b><div id="currentSheetLabel" style="color:#38bdf8;font-weight:900;font-size:15px">1/11/2026</div><div id="sheetDebug" style="color:#22c55e">جاري التحقق...</div></div>
 </aside>
 <main class="main">
 <div class="hero">
-<h2 style="margin:0">النظام الرئيسي - AMIAl EXPRESS V13</h2><p style="color:var(--muted)">أميال - مساعدك الذكي بيتكلم عربي + قراءة سريعة بآخر 7 أرقام</p>
+<h2 style="margin:0">النظام الرئيسي - AMIAl EXPRESS V14</h2><p style="color:var(--muted)">أميال - مساعدك الذكي + لايف حقيقي من الشيت + فتح الشيت بزرار واحد</p>
 <div class="top-controls">
 <div class="month-picker"><select id="monthSelect" class="month-select" onchange="selectSheet(this.value)"></select></div>
 <input id="globalSearch" class="search-mini" placeholder="🔍 ابحث في النظام كله..." oninput="globalSearchFilter(this.value)"/>
 <span id="connection-status" class="cloud-badge"><span class="cloud-dot"></span><span id="cloudText">☁️ متصل بالسحابة</span></span>
 <span class="tag" id="sheet-count">—</span>
 <button class="btn btn-p" onclick="forceRefresh()">🔄 تحديث</button>
+<button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت</button>
 <button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح اللايف</button>
 <button class="btn btn-p" onclick="openQuickLink('rep')">📱 فتح التطبيق</button>
 <button class="btn btn-amber" onclick="toggleAI(true)">🤖 اسأل أميال</button>
@@ -147,21 +153,22 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <section id="dashboard" class="content active">
 <div class="stats"><div class="stat"><div class="label">التسليم في ورقة <span class="sheet-name-label">1/11/2026</span></div><div class="value" id="stat-delivered-count" style="color:#38bdf8">0</div></div><div class="stat"><div class="label">المبيعات K</div><div class="value" id="stat-sales">0</div></div><div class="stat"><div class="label">شحن المندوب R</div><div class="value" id="stat-expenses" style="color:#ef4444">0</div></div><div class="stat"><div class="label">صافي الربح</div><div class="value" id="stat-net-profit" style="color:#22c55e">0</div></div></div>
 <div class="stats"><div class="stat"><div class="label">صافي (سبت+أحد+اثنين)</div><div class="value" id="stat-group-1">0</div></div><div class="stat"><div class="label">صافي (ثلاثاء+أربعاء+خميس)</div><div class="value" id="stat-group-2">0</div></div></div>
-<div class="card"><h3>🟢 المناديب الأونلاين الآن</h3><div id="liveQuick"></div><button class="btn btn-p" style="margin-top:10px" onclick="showTab('live')">عرض الخريطة لايف →</button> <button class="btn btn-wa" style="margin-top:10px" onclick="openQuickLink('live')">📍 فتح صفحة اللايف الأصلية</button></div>
+<div class="card"><h3>🟢 المناديب الأونلاين الآن - من الشيت مباشرة</h3><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح صفحة المناديب لايف الأصلية</button><button class="btn btn-p" onclick="loadLiveFromCloud()">🔄 تحديث اللايف من الشيت</button><button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت</button></div><div id="liveQuick"></div><button class="btn btn-p" style="margin-top:10px" onclick="showTab('live')">عرض الخريطة لايف →</button></div>
 </section>
 <section id="live" class="content">
-<div class="card"><h3 style="margin:0">🟢 المناديب لايف - خريطة حقيقية</h3><p style="color:var(--muted)">ابحث عن أي مندوب بالاسم - أو افتح صفحة اللايف الأصلية</p>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح صفحة اللايف الأصلية ↗</button><button class="btn btn-g" onclick="copyQuickLink('live')">📋 نسخ لينك اللايف</button></div>
+<div class="card"><h3 style="margin:0">🟢 المناديب لايف - خريطة حقيقية من الشيت</h3><p style="color:var(--muted)">دلوقتي بيقرا من ورقة <b>موقع_المناديب</b> في الشيت، زي صفحة اللايف بالظبط - مش من جهازك. <span id="liveLastUpdate" style="color:#22c55e;font-weight:800"></span></p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح صفحة اللايف الأصلية ↗</button><button class="btn btn-g" onclick="copyQuickLink('live')">📋 نسخ لينك اللايف</button><button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت</button></div>
 <input id="liveSearch" class="search-box-big" placeholder="🔍 ابحث عن مندوب... اكتب اسمه هنا" oninput="renderLive()"/>
 <div id="liveSuggest" class="suggest-box"></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-p" onclick="refreshLive()">🔄 تحديث اللايف</button><button class="btn btn-wa" onclick="openAllMaps()">🗺️ فتح كل المواقع</button><button class="btn btn-g" onclick="clearLiveSearch()">✕ مسح البحث</button></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-p" onclick="loadLiveFromCloud()">🔄 تحديث اللايف من الشيت</button><button class="btn btn-wa" onclick="showAllOnMap()">🗺️ فتح كل المواقع على الخريطة - كل المناديب اللي فاتحين</button><button class="btn btn-g" onclick="clearLiveSearch()">✕ مسح البحث</button></div>
+<div style="margin-top:10px;font-size:13px">🟢 فاتحين دلوقتي: <b id="liveOnlineCount" style="color:#22c55e">0</b> | 📍 ليهم موقع: <b id="liveWithLocCount" style="color:#38bdf8">0</b> | 👥 إجمالي المناديب: <b id="liveTotalCount">0</b></div>
 <div id="liveMap"></div>
 <div class="live-grid" id="liveGrid"></div>
 </div>
 </section>
 <section id="repapp" class="content">
 <div class="card"><h3 style="margin:0">📱 تطبيق المناديب - مربوط بالشيت</h3><p style="color:var(--muted)">ابحث عن المندوب بالاسم، وهتظهر أوردراته من ورقة الشهر المختارة</p>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-p" onclick="openQuickLink('rep')">📱 فتح تطبيق المناديب الأصلي ↗</button><button class="btn btn-g" onclick="copyQuickLink('rep')">📋 نسخ لينك التطبيق</button></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-p" onclick="openQuickLink('rep')">📱 فتح تطبيق المناديب الأصلي ↗</button><button class="btn btn-g" onclick="copyQuickLink('rep')">📋 نسخ لينك التطبيق</button><button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت</button></div>
 <input id="repAppRepSearch" class="search-box-big" placeholder="🔍 ابحث عن المندوب... اكتب اسمه هنا" oninput="onRepSearchInput()"/>
 <div id="repSuggest" class="suggest-box"></div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><input id="repAppSearch" class="select-input" style="width:260px;margin:0" placeholder="🔍 ابحث في أوردرات المندوب..." oninput="renderRepApp()"/><button class="btn btn-p" onclick="renderRepApp()">عرض</button><span class="tag" id="repAppSelectedLabel" style="font-size:13px;padding:8px 12px">اختر مندوب من البحث فوق</span></div>
@@ -169,12 +176,12 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <div style="background:#0b1120;border:1px solid var(--line);border-radius:16px;padding:12px;max-width:520px;margin:0 auto"><div style="text-align:center;font-weight:900;color:#38bdf8;margin-bottom:10px">AMIAl EXPRESS - تطبيق المندوب</div><div id="repAppStats"></div><div id="repAppList"></div></div>
 </div>
 </section>
-<section id="shipments" class="content"><div class="card"><h3>📦 إدخال المناديب - ورقة <span class="sheet-name-label">1/11/2026</span></h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0"><div style="background:#0f172a;border:1px solid #38bdf8;padding:14px;border-radius:14px"><b>⚡ اسكنر الباركود</b><input id="barcodeScannerInput" placeholder="امسح + Enter" class="filter-input" style="margin:8px 0 0" onkeypress="handleBarcodeScan(event)"><div id="scan-result" style="color:#22c55e;font-size:12px"></div></div><div style="background:#0f172a;border:1px solid #22c55e;padding:14px;border-radius:14px"><b>📷 كاميرا</b><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:8px" onclick="openDirectCameraModal()">📷 فتح الكاميرا</button></div></div></div><div class="sheet-wrap" style="height:60vh;margin-top:12px"><iframe id="sheetFrame" src="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit?gid=687102612#gid=687102612&embedded=true" width="100%" height="100%" style="border:none"></iframe></div></section>
+<section id="shipments" class="content"><div class="card"><h3>📦 إدخال المناديب - ورقة <span class="sheet-name-label">1/11/2026</span></h3><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت في تاب جديد</button><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح صفحة المناديب لايف</button><button class="btn btn-p" onclick="openQuickLink('rep')">📱 فتح تطبيق المناديب</button></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0"><div style="background:#0f172a;border:1px solid #38bdf8;padding:14px;border-radius:14px"><b>⚡ اسكنر الباركود</b><input id="barcodeScannerInput" placeholder="امسح + Enter" class="filter-input" style="margin:8px 0 0" onkeypress="handleBarcodeScan(event)"><div id="scan-result" style="color:#22c55e;font-size:12px"></div></div><div style="background:#0f172a;border:1px solid #22c55e;padding:14px;border-radius:14px"><b>📷 كاميرا</b><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:8px" onclick="openDirectCameraModal()">📷 فتح الكاميرا</button></div></div></div><div class="sheet-wrap" style="height:60vh;margin-top:12px"><iframe id="sheetFrame" src="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit?gid=687102612#gid=687102612&embedded=true" width="100%" height="100%" style="border:none"></iframe></div></section>
 <section id="reps" class="content"><div class="card"><h3>تحليل المناديب - <span class="sheet-name-label">1/11/2026</span></h3><input id="repFilterInput" class="filter-input" placeholder="🔍 بحث..." onkeyup="filterRepsTable()"><div class="sheet-wrap"><table><thead><tr><th>المندوب</th><th>إجمالي</th><th>المسلمة</th><th>السعر</th><th>شحن المندوب</th><th>النسبة</th><th>التفاصيل</th></tr></thead><tbody id="reps-table-body"></tbody></table></div></div></section>
 <section id="rep-detail-page" class="content"><button class="btn btn-red" onclick="backToRepsList()" style="margin-bottom:12px">← عودة</button><div class="card"><h3 id="pageRepTitle"></h3><div class="sheet-wrap"><table><thead><tr><th>المندوب</th><th>التاريخ</th><th>عدد</th><th>المسلمة</th><th>السعر</th><th>شحن المندوب</th><th>الصافي</th><th>الوارد</th><th>صورة</th><th>المعلقات</th><th>المحاسب</th><th>واتساب</th><th>إجراءات</th></tr></thead><tbody id="page-detail-table-body"></tbody></table></div></div></section>
 <section id="profits" class="content"><div class="card"><h3>الأرباح - <span class="sheet-name-label">1/11/2026</span></h3><div class="stats"><div class="stat"><div class="label">شحن المكتب</div><div class="value" id="profit-net-office">0</div></div><div class="stat"><div class="label">شحن المندوب</div><div class="value" id="profit-expenses-val" style="color:#ef4444">0</div></div></div></div></section>
 <section id="branches" class="content"><div class="card"><h3>الرواسل</h3><div class="sheet-wrap"><table><thead><tr><th>الراسل</th><th>العدد</th><th>الإجمالي</th></tr></thead><tbody id="senders-table-body"></tbody></table></div></div></section>
-<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة البوالص - سريعة - أرقام فقط - آخر 7 أرقام من عمود G</h3><p style="color:var(--muted)">لو البوليصة خط يد ومتقرتش، متستناش الـ OCR، اكتب آخر 7 أرقام يدوي في الخانة اللي جنب كل صورة، وهيطابق فوراً. أو اكتب كل الأرقام مرة واحدة في الخانة الكبيرة تحت.</p>
+<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة البوالص - سريعة - أرقام فقط - آخر 7 أرقام من عمود G</h3><p style="color:var(--muted)">لو البوليصة خط يد ومتقرتش، اكتب آخر 7 أرقام يدوي في الخانة اللي جنب كل صورة، وهيطابق فوراً.</p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"><div><label>📅 ورقة الشهر:</label><input id="ocrSheet" class="select-input" readonly></div><div><label>👤 المندوب:</label><input id="ocrRepName" class="select-input" placeholder="اكتب اسم المندوب..." list="ocrRepsList"/><datalist id="ocrRepsList"></datalist></div></div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><label>عدد الصور:</label><input type="number" id="ocrLimit" value="20" class="filter-input"></div><div><label>اختر الصور:</label><input type="file" id="ocrFiles" accept="image/*" multiple class="filter-input" onchange="previewOCRFiles()"></div></div>
 <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-amber" onclick="startOCR()">🧠 بدء القراءة - سريعة</button><button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في ورقة الشهر (عمود M)</button><button class="btn btn-p" onclick="loadSheetPhones()">📞 تحميل أرقام عمود G</button><button class="btn btn-g" onclick="toggleOCRDebug()">👁️ عرض النص اللي اتقرا</button></div>
@@ -209,9 +216,10 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <div id="cameraModal" class="modal-overlay"><div class="modal-card"><h3>📸 التقاط إيصال</h3><video id="cameraStream" autoplay playsinline style="width:100%;height:230px;background:#000;border-radius:12px"></video><canvas id="snapshotCanvas" style="display:none"></canvas><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:10px" onclick="takeSnapshot()">📸 التقاط</button><button class="btn btn-red" style="width:100%;justify-content:center;margin-top:8px" onclick="closeCameraModal()">إغلاق</button></div></div>
 <div id="toast" class="toast"></div>
 <script>
-const WEB_APP_URL="https://script.google.com/macros/s/AKfycbyXSyNzl0cRNpCGBhSjy6z2A7zM9dqVne_NNXUpYHKwX1RQchd7B_2HBtAN8-1zKWn0/exec";
+const WEB_APP_URL="https://script.google.com/macros/s/AKfycbyb4FaIcz_Bq_3MDeTd_GpRIy9_gh46mZgPEWIaWpZ4scMo35L8GSzJPLADK4-NIt0n/exec";
 const LINK_REP_APP="https://amilexprees-glitch.github.io/amial-rep-app/rep-app.html?v=3.4&_b=v3.5-20261121&_t=1795252276860";
 const LINK_LIVE="https://amilexprees-glitch.github.io/amial-rep-app/live-map.html";
+const LINK_SHEET="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit";
 const ROBOT_DEFAULT_SVG = `<svg viewBox="0 0 200 200" style="width:100%;height:100%;filter:drop-shadow(0 8px 18px rgba(56,189,248,.6))"><rect x="62" y="155" width="26" height="28" rx="10" fill="#f97316"/><rect x="112" y="155" width="26" height="28" rx="10" fill="#f97316"/><ellipse cx="75" cy="186" rx="18" ry="8" fill="#ea580c"/><ellipse cx="125" cy="186" rx="18" ry="8" fill="#ea580c"/><rect x="22" y="95" width="22" height="42" rx="11" fill="#60a5fa"/><circle cx="33" cy="142" r="11" fill="#f97316"/><rect x="156" y="95" width="22" height="42" rx="11" fill="#60a5fa"/><circle cx="167" cy="142" r="11" fill="#f97316"/><rect x="55" y="82" width="90" height="80" rx="22" fill="#3b82f6"/><rect x="55" y="82" width="90" height="80" rx="22" fill="none" stroke="#1d4ed8" stroke-width="3"/><rect x="78" y="105" width="44" height="30" rx="10" fill="#dbeafe"/><circle cx="100" cy="120" r="10" fill="#fff" stroke="#f97316" stroke-width="2"/><circle cx="100" cy="120" r="4" fill="#f97316"/><rect x="88" y="72" width="24" height="14" fill="#60a5fa"/><rect x="42" y="22" width="116" height="58" rx="26" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/><rect x="28" y="38" width="18" height="28" rx="9" fill="#f97316"/><rect x="154" y="38" width="18" height="28" rx="9" fill="#f97316"/><line x1="100" y1="22" x2="100" y2="8" stroke="#1d4ed8" stroke-width="3"/><circle cx="100" cy="7" r="6" fill="#f97316" stroke="#fff" stroke-width="2"/><circle cx="78" cy="48" r="11" fill="#fff"/><circle cx="78" cy="48" r="5" fill="#0f172a"/><circle cx="80" cy="46" r="2" fill="#fff"/><circle cx="122" cy="48" r="11" fill="#fff"/><circle cx="122" cy="48" r="5" fill="#0f172a"/><circle cx="124" cy="46" r="2" fill="#fff"/><path d="M 82 62 Q 100 74 118 62" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="62" cy="58" r="5" fill="#fca5a5" opacity=".7"/><circle cx="138" cy="58" r="5" fill="#fca5a5" opacity=".7"/></svg>`;
 const MONTHS=[
  {v:"1/4/2026",label:"📅 أبريل 2026 - 1/4/2026"},
@@ -236,14 +244,14 @@ const $=s=>document.querySelector(s);
 function toast(m){let t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2800)}
 function parseNum(v){if(v==null||v==="")return 0;let n=parseFloat(String(v).replace(/[^0-9.-]/g,""));return isNaN(n)?0:n}
 function norm(s){return String(s||"").trim().replace(/\s+/g," ").replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").toLowerCase()}
-function showTab(tab){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));let btn=document.querySelector(`[data-tab="${tab}"]`);if(btn)btn.classList.add('active');document.getElementById(tab).classList.add('active');if(tab==='live')setTimeout(initLiveMap,200)}
+function showTab(tab){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));let btn=document.querySelector(`[data-tab="${tab}"]`);if(btn)btn.classList.add('active');document.getElementById(tab).classList.add('active');if(tab==='live'){setTimeout(initLiveMap,200); loadLiveFromCloud();}}
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
 function buildMonthPicker(){let sel=$('#monthSelect');sel.innerHTML=MONTHS.map(m=>`<option value="${m.v}" ${m.v===currentSheet?'selected':''}>${m.label}</option>`).join('');let ocr=$('#ocrSheet'); if(ocr) ocr.value=currentSheet;}
 function setCloud(on){document.querySelectorAll('.cloud-badge').forEach(b=>b.classList.toggle('offline',!on));let t1=$('#cloudText'), t2=$('#cloudTextSidebar');if(t1) t1.textContent = on ? "☁️ متصل بالسحابة" : "☁️ غير متصل - حاول التحديث";if(t2) t2.textContent = on ? "☁️ متصل بالسحابة" : "☁️ غير متصل - حاول التحديث";}
-function saveQuickLinks(){ localStorage.setItem('amial_link_rep', $('#linkRepApp').value.trim()); localStorage.setItem('amial_link_live', $('#linkLive').value.trim()); }
-function loadQuickLinks(){ let sr=localStorage.getItem('amial_link_rep'); let sl=localStorage.getItem('amial_link_live'); if($('#linkRepApp')) $('#linkRepApp').value=sr||LINK_REP_APP; if($('#linkLive')) $('#linkLive').value=sl||LINK_LIVE; }
-function openQuickLink(type){ let url=type==='rep'?($('#linkRepApp')?$('#linkRepApp').value.trim():LINK_REP_APP):($('#linkLive')?$('#linkLive').value.trim():LINK_LIVE); if(!url){alert("مفيش لينك");return;} if(!url.startsWith('http')) url='https://'+url; window.open(url,'_blank'); }
-function copyQuickLink(type){ let url=type==='rep'?$('#linkRepApp').value.trim():$('#linkLive').value.trim(); navigator.clipboard.writeText(url).then(()=>toast("✅ تم نسخ اللينك")); }
+function saveQuickLinks(){ localStorage.setItem('amial_link_rep', $('#linkRepApp').value.trim()); localStorage.setItem('amial_link_live', $('#linkLive').value.trim()); localStorage.setItem('amial_link_sheet', $('#linkSheet').value.trim()); }
+function loadQuickLinks(){ let sr=localStorage.getItem('amial_link_rep'); let sl=localStorage.getItem('amial_link_live'); let ss=localStorage.getItem('amial_link_sheet'); if($('#linkRepApp')) $('#linkRepApp').value=sr||LINK_REP_APP; if($('#linkLive')) $('#linkLive').value=sl||LINK_LIVE; if($('#linkSheet')) $('#linkSheet').value=ss||LINK_SHEET; }
+function openQuickLink(type){ let url=""; if(type==='rep') url=($('#linkRepApp')?$('#linkRepApp').value.trim():LINK_REP_APP); else if(type==='live') url=($('#linkLive')?$('#linkLive').value.trim():LINK_LIVE); else if(type==='sheet') url=($('#linkSheet')?$('#linkSheet').value.trim():LINK_SHEET); if(!url){alert("مفيش لينك");return;} if(!url.startsWith('http')) url='https://'+url; window.open(url,'_blank'); }
+function copyQuickLink(type){ let url=""; if(type==='rep') url=$('#linkRepApp').value.trim(); else if(type==='live') url=$('#linkLive').value.trim(); else if(type==='sheet') url=$('#linkSheet').value.trim(); navigator.clipboard.writeText(url).then(()=>toast("✅ تم نسخ اللينك")); }
 function resetStatsUI(){ $('#stat-delivered-count').textContent="⏳"; $('#stat-sales').textContent="⏳"; $('#stat-expenses').textContent="⏳"; $('#stat-net-profit').textContent="⏳"; $('#stat-group-1').textContent="⏳"; $('#stat-group-2').textContent="⏳"; $('#profit-net-office').textContent="⏳"; $('#profit-expenses-val').textContent="⏳"; globalRepsData={}; }
 function selectSheet(sheetName){
   if(sheetName===currentSheet && lastLoadedSheet===sheetName) return;
@@ -255,9 +263,9 @@ function selectSheet(sheetName){
   $('#sheetDebug').textContent=`جاري قراءة ملخص ورقة: ${sheetName}...`;
   $('#reps-table-body').innerHTML=`<tr><td colspan="7" style="text-align:center">⏳ جاري تحميل ملخص ${sheetName}...</td></tr>`;
   $('#senders-table-body').innerHTML=""; sheetPhones=[]; sheetPhonesMap={}; $('#phonesLoadedCount').textContent="0"; $('#phonesStatus').textContent="جاري تحميل أرقام عمود G...";
-  loadSummary(myRequest, sheetName); loadSheetPhones(true); toast("تم اختيار ورقة: "+sheetName);
+  loadSummary(myRequest, sheetName); loadSheetPhones(true); loadLiveFromCloud(); toast("تم اختيار ورقة: "+sheetName);
 }
-function forceRefresh(){ sheetRequestId++; loadSummary(sheetRequestId, currentSheet); loadSheetPhones(true); toast("🔄 جاري تحديث "+currentSheet); }
+function forceRefresh(){ sheetRequestId++; loadSummary(sheetRequestId, currentSheet); loadSheetPhones(true); loadLiveFromCloud(); toast("🔄 جاري تحديث "+currentSheet); }
 function loadSummary(passedRequestId, passedSheet){
   if(isLoading) return;
   let myRequest = passedRequestId !== undefined ? passedRequestId : ++sheetRequestId;
@@ -292,7 +300,6 @@ async function loadSheetPhones(silent){
     if(res&&res.phones){ sheetPhones=res.phones; sheetPhonesMap={}; res.phones.forEach(p=>{ sheetPhonesMap[p.last7]=p; sheetPhonesMap[p.last8]=p; sheetPhonesMap[p.full]=p; }); $('#phonesLoadedCount').textContent=res.phones.length; $('#phonesStatus').textContent=`✅ تم تحميل ${res.phones.length} رقم من عمود G - المطابقة جاهزة بآخر 7 أرقام`; if(!silent) toast(`✅ تم تحميل ${res.phones.length} رقم للمطابقة`); }
   }catch(e){ $('#phonesStatus').textContent="⚠️ تعذر تحميل أرقام عمود G - دوس تحميل تاني"; }
 }
-// ===== أميال - رفع صورة الروبوت =====
 function renderRobotImage(){
   let saved = localStorage.getItem('amial_robot_img');
   let fab = $('#robotFabWrap'); let head = $('#robotHeaderWrap');
@@ -337,7 +344,6 @@ function speakText(text){
   if(!voiceEnabled) return;
   unlockVoice();
   try{
-    // أميال كاملة - مش أمي - غيّر أي أمي لـ أميال في النطق
     let clean = text.replace(/<[^>]*>/g,'').replace(/أمي(?![ال])/g,'أميال').replace(/🤖|✅|⚠️|📍|📱|💰|🏆|📉|🔄|🧾|👤|📞|😊/g,'').trim().slice(0,250);
     if(!clean) return;
     window.speechSynthesis.cancel();
@@ -377,7 +383,8 @@ function startVoiceInput(){
 function handleAICommand(qRaw){
   let q=norm(qRaw);
   if(q.includes("حدث")||q.includes("تحديث")||q.includes("refresh")){ forceRefresh(); aiSay("تمام، بحدث بيانات ورقة "+currentSheet+" دلوقتي..."); return; }
-  if(q.includes("لايف")||q.includes("موقع")||q.includes("خريطه")){ showTab('live'); openQuickLink('live'); aiSay("فتحتلك صفحة اللايف، وكمان فتحت صفحة اللايف الأصلية في تاب جديد."); return; }
+  if(q.includes("شيت")){ openQuickLink('sheet'); aiSay("فتحتلك الشيت في تاب جديد."); return; }
+  if(q.includes("لايف")||q.includes("موقع")||q.includes("خريطه")){ showTab('live'); loadLiveFromCloud(); aiSay("فتحتلك صفحة اللايف، وبجيب المناديب من الشيت دلوقتي."); return; }
   if(q.includes("تطبيق")||q.includes("ابليكيشن")){ showTab('repapp'); openQuickLink('rep'); aiSay("فتحتلك تطبيق المناديب الأصلي."); return; }
   if(q.includes("بوليص")||q.includes("ايصال")||q.includes("ocr")||q.includes("قراءه")){ showTab('ocr'); aiSay("فتحتلك صفحة البوالص. دوس تحميل أرقام عمود G الأول، وبعدين اختر الصور ودوس بدء القراءة. أنا هطابق بآخر 7 أرقام أوتوماتيك."); return; }
   if(q.includes("ارباح")||q.includes("ربح")||q.includes("مكسب")){ let s=$('#stat-net-profit').textContent; let sales=$('#stat-sales').textContent; let exp=$('#stat-expenses').textContent; aiSay(`في ورقة ${currentSheet}: المبيعات: ${sales} ، شحن المندوب: ${exp} ، صافي الربح: ${s}`); return; }
@@ -403,7 +410,7 @@ function handleAICommand(qRaw){
   }
   if(q.includes("ازيك")||q.includes("عامل ايه")||q.includes("اهلا")||q.includes("سلام")){ aiSay("أهلاً بيك! أنا أميال، مساعدك الذكي. أنا صاحي ومركز معاك في كل حاجة. عايز تعرف الأرباح؟ ولا تشوف أفضل مندوب؟ ولا أفتحلك اللايف؟"); return; }
   if(q.includes("شكرا")||q.includes("تمام")||q.includes("ممتاز")){ aiSay("العفو! أنا أميال موجود هنا على طول، لو احتجت أي حاجة قولي بس."); return; }
-  aiSay(`فهمتك، بس عايز توضيح أكتر. أنا أميال بعرف أعمل: أقولك الأرباح والمناديب والمشاكل، أنفذ أوامر زي: حدث، افتح اللايف، غير الشهر، أساعدك في البوالص والمطابقة. جرب تقولي: كم الأرباح؟`);
+  aiSay(`فهمتك، بس عايز توضيح أكتر. أنا أميال بعرف أعمل: أقولك الأرباح والمناديب والمشاكل، أنفذ أوامر زي: حدث، افتح اللايف، افتح الشيت، غير الشهر، أساعدك في البوالص والمطابقة. جرب تقولي: كم الأرباح؟`);
 }
 function globalSearchFilter(q){q=(q||"").toLowerCase();document.querySelectorAll('#reps-table-body tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?"":"none");}
 function onRepSearchInput(){
@@ -429,26 +436,75 @@ function renderRepAppFromSummary(){
 }
 function renderRepApp(){ renderRepAppFromSummary(); }
 function initLiveMap(){if(liveMap){liveMap.invalidateSize();return;}liveMap=L.map('liveMap').setView([30.7865,31.0004],8);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(liveMap);}
+// ===== اللايف الحقيقي - من الشيت مش من جهازك =====
+async function loadLiveFromCloud(){
+  try{
+    let res = await fetch(`${WEB_APP_URL}?action=getRepsOverview&sheetName=${encodeURIComponent(currentSheet)}&_t=${Date.now()}`).then(r=>r.json());
+    if(!res || res.status!=="success") { console.log("live fail", res); return; }
+    liveReps = (res.reps||[]).map(r=>{
+      let lat = parseFloat(r.lat||""); let lng = parseFloat(r.lng||"");
+      let hasLoc = !isNaN(lat) && !isNaN(lng) && lat!==0;
+      let isOnline = r.consentStatus==="granted" && hasLoc;
+      return { name: r.repName, area: r.lastSeen||"لم يسجل بعد", lat: hasLoc?lat:30.7865, lng: hasLoc?lng:31.0004, hasLoc: hasLoc, isOnline: isOnline, consent: r.consentStatus||"", lastSeen: r.lastSeen||"", orders: r.totalOrders||0, delivered: r.deliveredOrders||0, cash: 0, phone: "", img: "", mapsUrl: r.mapsUrl||"", lastSeenMs: Date.now() };
+    });
+    let online = liveReps.filter(r=>r.isOnline).length;
+    let withLoc = liveReps.filter(r=>r.hasLoc).length;
+    $('#liveCount').textContent = online+" أونلاين";
+    if($('#liveOnlineCount')) $('#liveOnlineCount').textContent = online;
+    if($('#liveWithLocCount')) $('#liveWithLocCount').textContent = withLoc;
+    if($('#liveTotalCount')) $('#liveTotalCount').textContent = liveReps.length;
+    if($('#liveLastUpdate')) $('#liveLastUpdate').textContent = "• آخر تحديث: "+new Date().toLocaleTimeString('ar-EG');
+    updateLiveSuggest();
+    renderLive();
+    if(liveMap) showAllOnMap(false);
+  }catch(e){ console.log("live error", e); }
+}
+function refreshLive(){ loadLiveFromCloud(); }
 function clearLiveSearch(){$('#liveSearch').value="";liveSearchQuery="";renderLive();updateLiveSuggest();}
 function updateLiveSuggest(){let names=[...new Set(liveReps.map(r=>r.name))];$('#liveSuggest').innerHTML=names.slice(0,12).map(n=>`<button class="suggest-chip" onclick="selectLiveRep('${n}')">🟢 ${n}</button>`).join("");}
-function selectLiveRep(name){$('#liveSearch').value=name;liveSearchQuery=norm(name);renderLive();}
-function refreshLive(){let stored=JSON.parse(localStorage.getItem('amial_live_reps')||"[]");liveReps=stored;renderLive();}
+function selectLiveRep(name){$('#liveSearch').value=name;liveSearchQuery=norm(name);renderLive(); focusRepOnMap(name);}
+function focusRepOnMap(name){
+  if(!liveMap) return;
+  let r = liveReps.find(x=>x.name===name);
+  if(r && r.hasLoc){ liveMap.setView([r.lat, r.lng], 14); let m = liveMarkers[r.name]; if(m) m.openPopup(); }
+}
 function renderLive(){
   liveSearchQuery=norm($('#liveSearch')?$('#liveSearch').value:"");
   let filtered=liveReps.filter(r=> !liveSearchQuery || norm(r.name).includes(liveSearchQuery));
-  $('#liveCount').textContent=liveReps.filter(r=>Date.now()-r.lastSeen<60000).length+" أونلاين";
-  document.getElementById('liveQuick').innerHTML=filtered.map(r=>`<div style="display:flex;justify-content:space-between;background:#0f172a;padding:8px 10px;border-radius:10px;margin:4px 0"><span>🟢 <b>${r.name}</b> - ${r.area}</span><span style="color:#22c55e">${r.delivered}/${r.orders} تم</span></div>`).join("") || `<p style="color:#94a3b8">اكتب اسم المندوب فوق للبحث</p>`;
-  if(liveMap){
-    Object.keys(liveMarkers).forEach(k=>{ if(!filtered.find(r=>r.name===k)){ liveMap.removeLayer(liveMarkers[k]); delete liveMarkers[k]; }});
-    let bounds=[]; filtered.forEach(r=>{ if(!r.lat) return; bounds.push([r.lat,r.lng]); if(liveMarkers[r.name]) liveMarkers[r.name].setLatLng([r.lat,r.lng]); else liveMarkers[r.name]=L.marker([r.lat,r.lng]).addTo(liveMap).bindPopup(`<b>${r.name}</b><br>${r.delivered}/${r.orders} تم<br>${r.area}`); });
-    if(bounds.length) liveMap.fitBounds(bounds,{padding:[30,30]});
-  }
-  if(!liveReps.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:30px">لا يوجد مناديب فاتحين الآن<br><button class="btn btn-wa" onclick="openQuickLink('live')" style="margin-top:10px">📍 افتح صفحة اللايف الأصلية</button></div>`;return}
+  let online = liveReps.filter(r=>r.isOnline).length;
+  $('#liveCount').textContent=online+" أونلاين";
+  document.getElementById('liveQuick').innerHTML=filtered.map(r=>`<div style="display:flex;justify-content:space-between;background:#0f172a;padding:8px 10px;border-radius:10px;margin:4px 0;cursor:pointer" onclick="selectLiveRep('${r.name}')"><span>${r.isOnline?'🟢':'⚫'} <b>${r.name}</b> - ${r.area}</span><span style="color:#22c55e">${r.delivered}/${r.orders} تم ${r.hasLoc?'📍':''}</span></div>`).join("") || `<p style="color:#94a3b8">اكتب اسم المندوب فوق للبحث - أو دوس تحديث اللايف من الشيت</p>`;
+  if(!liveReps.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:30px">جاري تحميل المناديب من الشيت...<br><button class="btn btn-p" onclick="loadLiveFromCloud()" style="margin-top:10px">🔄 تحديث اللايف من الشيت</button><br><button class="btn btn-wa" onclick="openQuickLink('live')" style="margin-top:10px">📍 افتح صفحة اللايف الأصلية</button></div>`;return}
   if(!filtered.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#f87171;padding:20px">مفيش مندوب بالاسم ده فاتح دلوقتي</div>`;return}
-  let h=""; filtered.forEach(r=>{ let isOnline=Date.now()-r.lastSeen<60000; let ago=Math.round((Date.now()-r.lastSeen)/1000); h+=`<div class="live-card ${isOnline?'online':'offline'}"><div class="live-header"><div class="live-avatar">${r.name.charAt(0)}<span class="live-dot" style="background:${isOnline?'#22c55e':'#94a3b8'}"></span></div><div><b>${r.name}</b><div style="font-size:12px;color:#94a3b8">${isOnline?'🟢 أونلاين الآن':'⚫ آخر ظهور منذ '+ago+' ثانية'} • ${r.area}</div><div style="font-size:11px;color:#38bdf8">📍 ${r.lat.toFixed(4)}, ${r.lng.toFixed(4)}</div></div></div><div class="live-preview"><img src="${r.img}" onerror="this.style.display='none'"><div class="preview-overlay">📱 صفحة ${r.name} - ${r.delivered}/${r.orders} تم</div></div><div style="padding:12px"><div style="display:flex;gap:6px"><div style="flex:1;background:#1e293b;padding:8px;border-radius:10px;text-align:center"><b>${r.orders}</b><br><span style="font-size:11px;color:#94a3b8">إجمالي</span></div><div style="flex:1;background:#1e293b;padding:8px;border-radius:10px;text-align:center"><b style="color:#22c55e">${r.delivered}</b><br><span style="font-size:11px;color:#94a3b8">تم</span></div><div style="flex:1;background:#1e293b;padding:8px;border-radius:10px;text-align:center"><b>${r.cash.toLocaleString()}</b><br><span style="font-size:11px;color:#94a3b8">تحصيل</span></div></div><div style="display:flex;gap:6px;margin-top:10px"><a href="https://www.google.com/maps?q=${r.lat},${r.lng}" target="_blank" class="btn btn-p" style="flex:1;justify-content:center;text-decoration:none">📍 موقعه</a><a href="https://wa.me/${r.phone}" target="_blank" class="btn btn-wa" style="flex:1;justify-content:center;text-decoration:none">💬 واتساب</a></div></div></div>`; });
+  let h=""; filtered.forEach(r=>{
+    h+=`<div class="live-card ${r.isOnline?'online':'offline'}"><div class="live-header"><div class="live-avatar">${r.name.charAt(0)}<span class="live-dot" style="background:${r.isOnline?'#22c55e':'#94a3b8'}"></span></div><div style="flex:1"><b>${r.name}</b><div style="font-size:12px;color:#94a3b8">${r.isOnline?'🟢 فاتح التطبيق - أونلاين':'⚫ مش فاتح دلوقتي'} • ${r.area}</div><div style="font-size:11px;color:#38bdf8">${r.hasLoc?`📍 ${r.lat.toFixed(4)}, ${r.lng.toFixed(4)}`:'📍 مفيش موقع مسجل'}</div></div></div><div style="padding:12px"><div style="display:flex;gap:6px"><div style="flex:1;background:#1e293b;padding:8px;border-radius:10px;text-align:center"><b>${r.orders}</b><br><span style="font-size:11px;color:#94a3b8">إجمالي</span></div><div style="flex:1;background:#1e293b;padding:8px;border-radius:10px;text-align:center"><b style="color:#22c55e">${r.delivered}</b><br><span style="font-size:11px;color:#94a3b8">تم</span></div></div><div style="display:flex;gap:6px;margin-top:10px">${r.hasLoc?`<a href="https://www.google.com/maps?q=${r.lat},${r.lng}" target="_blank" class="btn btn-p" style="flex:1;justify-content:center;text-decoration:none">📍 موقعه على جوجل</a>`:`<span class="btn btn-g" style="flex:1;justify-content:center">مفيش موقع</span>`}<button class="btn btn-wa" style="flex:1;justify-content:center" onclick="focusRepOnMap('${r.name}')">🗺️ شوفه على الخريطة</button></div></div></div>`;
+  });
   document.getElementById('liveGrid').innerHTML=h;
 }
-function openAllMaps(){let list=liveReps.filter(r=> !liveSearchQuery || norm(r.name).includes(liveSearchQuery));if(!list.length){toast("لا يوجد مناديب");return}let dests=list.map(r=>`${r.lat},${r.lng}`).join("/");window.open(`https://www.google.com/maps/dir/${dests}`,'_blank')}
+// ===== فتح كل المواقع - يرسم كل المناديب اللي فاتحين على الخريطة قدامك =====
+function showAllOnMap(speak=true){
+  if(!liveMap){ initLiveMap(); setTimeout(()=>showAllOnMap(speak), 500); return; }
+  let withLoc = liveReps.filter(r=>r.hasLoc);
+  // امسح العلامات القديمة
+  Object.keys(liveMarkers).forEach(k=>{ liveMap.removeLayer(liveMarkers[k]); delete liveMarkers[k]; });
+  if(!withLoc.length){ toast("مفيش مناديب ليهم موقع في الشيت - خليهم يفتحوا التطبيق ويسمحوا بالموقع"); if(speak) aiSay("مفيش مناديب ليهم موقع في الشيت دلوقتي، خليهم يفتحوا التطبيق ويسمحوا بالموقع."); return; }
+  let bounds=[];
+  withLoc.forEach(r=>{
+    bounds.push([r.lat, r.lng]);
+    let color = r.isOnline ? "#22c55e" : "#94a3b8";
+    let icon = L.divIcon({ className:"", html:`<div style="background:${color};color:#fff;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:900;border:3px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.5);font-size:16px">${r.name.charAt(0)}</div>`, iconSize:[36,36], iconAnchor:[18,18] });
+    let m = L.marker([r.lat, r.lng], {icon: icon}).addTo(liveMap);
+    m.bindPopup(`<div style="text-align:right;font-family:Tahoma"><b style="font-size:15px">${r.name}</b><br>${r.isOnline?'🟢 فاتح التطبيق':'⚫ مش فاتح'}<br>📦 ${r.delivered}/${r.orders} تم<br>🕐 ${r.area}<br><a href="https://www.google.com/maps?q=${r.lat},${r.lng}" target="_blank">📍 افتح في جوجل ماب</a></div>`);
+    liveMarkers[r.name]=m;
+  });
+  if(bounds.length===1){ liveMap.setView(bounds[0], 14); }
+  else { liveMap.fitBounds(bounds, {padding:[50,50]}); }
+  // افتح أول بوب أب
+  setTimeout(()=>{ let first = withLoc[0]; if(liveMarkers[first.name]) liveMarkers[first.name].openPopup(); }, 500);
+  toast(`🗺️ ظهر ${withLoc.length} مندوب على الخريطة`);
+  if(speak) aiSay(`تمام، ظهر ${withLoc.length} مندوب على الخريطة قدامك، اللي فاتحين التطبيق باللون الأخضر.`);
+}
+function openAllMaps(){ showAllOnMap(true); }
 function openDirectCameraModal(){$('#cameraModal').style.display='flex';navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}).then(s=>{videoStream=s;$('#cameraStream').srcObject=s}).catch(()=>alert("تعذر الكاميرا"))}
 function closeCameraModal(){if(videoStream)videoStream.getTracks().forEach(t=>t.stop());$('#cameraModal').style.display='none'}
 function takeSnapshot(){let v=$('#cameraStream'),c=$('#snapshotCanvas');c.width=v.videoWidth||640;c.height=v.videoHeight||480;c.getContext('2d').drawImage(v,0,0,c.width,c.height);let a=document.createElement('a');a.download=`ايصال_${Date.now()}.png`;a.href=c.toDataURL();a.click();closeCameraModal();toast("📸 تم حفظ الإيصال")}
@@ -572,7 +628,8 @@ loadQuickLinks();
 renderRobotImage();
 loadSummary(0,"1/11/2026");
 loadSheetPhones(true);
-refreshLive();
+loadLiveFromCloud();
+setInterval(loadLiveFromCloud, 30000);
 if('speechSynthesis' in window){
   window.speechSynthesis.onvoiceschanged = ()=>{ window.speechSynthesis.getVoices(); };
   window.speechSynthesis.getVoices();
