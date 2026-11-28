@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AMIAl EXPRESS - V15 - كاميرا زي الباركود</title>
+<title>AMIAl EXPRESS - V16 - أرشيف المسح</title>
 <meta name="theme-color" content="#0f172a"/>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -28,7 +28,6 @@ body{margin:0;background:#0f172a;color:var(--text)}
 .cloud-badge{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;font-weight:900;font-size:13px;border:1px solid #22c55e;background:rgba(34,197,94,.15);color:#4ade80}
 .cloud-badge.offline{background:rgba(239,68,68,.15);border-color:#ef4444;color:#f87171}
 .cloud-dot{width:10px;height:10px;border-radius:50%;background:#22c55e;animation:pulse 1.2s infinite}
-.cloud-badge.offline .cloud-dot{background:#ef4444;animation:none}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}100%{box-shadow:0 0 0 9px rgba(34,197,94,0)}}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}
 .stat{background:#1e2937;border:1px solid var(--line);padding:14px;border-radius:16px}
@@ -45,16 +44,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 .tag{display:inline-block;padding:5px 10px;border-radius:999px;background:rgba(56,189,248,.15);color:#7dd3fc;font-size:12px}
 .live-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
 .live-card{background:#0f172a;border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.live-card.online{border-color:#22c55e;box-shadow:0 0 0 1px rgba(34,197,94,.4)}
-.live-card.offline{opacity:.7}
-.live-header{display:flex;gap:10px;align-items:center;padding:12px}
-.live-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22c55e);display:grid;place-items:center;font-size:20px;font-weight:900;color:#00111f;flex-shrink:0;position:relative}
-.live-dot{position:absolute;bottom:0;left:0;width:14px;height:14px;border-radius:50%;border:2px solid #0f172a}
 #liveMap{height:420px;border-radius:14px;border:1px solid var(--line);margin-top:12px;background:#020617}
-.input-sub{width:78px;padding:7px;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:7px;text-align:center}
-.input-pend{width:130px;padding:7px;background:#0f172a;border:1px solid #f59e0b;color:#f59e0b;border-radius:7px}
-.input-sign{width:100px;padding:7px;background:#0f172a;border:1px solid #334155;color:#fff;border-radius:7px}
-.input-wa{width:120px;padding:7px;background:#0f172a;border:1px solid #25D366;color:#25D366;border-radius:7px;text-align:center}
 .ocr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-top:12px}
 .ocr-card{background:#0f172a;border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center;font-size:12px}
 .ocr-card img{width:100%;height:90px;object-fit:cover;border-radius:8px}
@@ -64,9 +54,6 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 .progress{height:8px;background:#0f172a;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,#38bdf8,#22c55e)}
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#020617;border:1px solid #38bdf8;padding:12px 18px;border-radius:999px;display:none;z-index:10000;font-weight:700;font-size:13px}
 .order-card-mini{border-radius:12px;padding:12px;margin:8px 0;border-right:5px solid #f59e0b;background:#1e293b}
-.rep-filter-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
-.rep-filter-tabs button{padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:#0f172a;color:#fff;cursor:pointer;font-weight:800;font-size:12px}
-.rep-filter-tabs button.active{background:#38bdf8;color:#00111f}
 .search-box-big{width:100%;padding:13px 14px;background:#0f172a;border:1px solid #38bdf8;border-radius:12px;color:#fff;font-size:14px;font-weight:700;outline:none}
 .suggest-box{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .suggest-chip{padding:6px 12px;border-radius:999px;background:#111827;border:1px solid var(--line);color:#fff;cursor:pointer;font-size:12px;font-weight:700}
@@ -90,7 +77,6 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 .ai-input-row{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line);background:#0f172a}
 .ai-input-row input{flex:1;padding:10px;background:#1e293b;border:1px solid #38bdf8;border-radius:10px;color:#fff}
 .robot-upload-row{display:flex;gap:6px;padding:8px;border-top:1px dashed #38bdf8;background:#0f172a;align-items:center;font-size:11px}
-/* كاميرا زي الباركود */
 .cam-view{position:relative;width:100%;height:320px;background:#000;border-radius:12px;overflow:hidden;border:2px solid #38bdf8}
 .cam-view video{width:100%;height:100%;object-fit:cover}
 .cam-frame{position:absolute;left:10%;right:10%;top:38%;height:90px;border:3px solid #22c55e;border-radius:12px;box-shadow:0 0 0 9999px rgba(0,0,0,.35);pointer-events:none}
@@ -99,13 +85,20 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 .cam-frame.scan-fail{border-color:#ef4444}
 .scan-list{max-height:180px;overflow:auto;margin-top:10px}
 .scan-item{background:#0f172a;border:1px solid #22c55e;padding:8px 10px;border-radius:10px;margin:5px 0;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+/* أرشيف */
+.archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:12px}
+.archive-card{background:#0f172a;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.archive-card img{width:100%;height:150px;object-fit:cover;background:#020617}
+.archive-card .ac-body{padding:10px;font-size:13px;line-height:1.7}
+.archive-card .ac-thumb-noimg{height:150px;display:grid;place-items:center;background:#020617;color:#64748b;font-size:28px}
+.img-preview-modal img{width:100%;border-radius:12px}
 @media(max-width:1000px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.ai-panel{width:calc(100vw - 30px)}}
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar">
-<div class="brand"><div class="logo">A</div><div><h1 style="margin:0;font-size:19px">AMIAl EXPRESS</h1><p style="margin:0;color:var(--muted);font-size:12px">V15 - كاميرا زي الباركود - أميال</p></div></div>
+<div class="brand"><div class="logo">A</div><div><h1 style="margin:0;font-size:19px">AMIAl EXPRESS</h1><p style="margin:0;color:var(--muted);font-size:12px">V16 - أرشيف المسح - أميال</p></div></div>
 <div id="cloudBadgeSidebar" class="cloud-badge" style="margin-top:14px;width:100%;justify-content:center"><span class="cloud-dot"></span><span id="cloudTextSidebar">☁️ متصل بالسحابة</span></div>
 <div class="nav">
 <button class="active" data-tab="dashboard">🏠 الرئيسية</button>
@@ -116,6 +109,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <button data-tab="profits">📈 الأرباح</button>
 <button data-tab="branches">🏢 الرواسل</button>
 <button data-tab="ocr">🧾 قراءة البوالص OCR</button>
+<button data-tab="archive">🗂️ أرشيف المسح <span class="tag" id="archiveCount" style="background:#f59e0b;color:#00111f">0</span></button>
 </div>
 <div style="margin-top:14px;background:#111827;border:1px solid #38bdf8;padding:12px;border-radius:14px">
   <b style="font-size:13px">🔗 لينكات سريعة</b>
@@ -123,11 +117,11 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
   <div style="margin-top:12px"><label style="font-size:11px;color:#94a3b8">📍 لينك اللايف:</label><input id="linkLive" class="filter-input" style="margin:4px 0;font-size:11px" value="https://amilexprees-glitch.github.io/amial-rep-app/live-map.html" oninput="saveQuickLinks()"><div style="display:flex;gap:6px"><button class="btn btn-wa" style="flex:1;justify-content:center" onclick="openQuickLink('live')">📍 فتح اللايف</button><button class="btn btn-g" onclick="copyQuickLink('live')">📋 نسخ</button></div></div>
   <div style="margin-top:12px"><label style="font-size:11px;color:#94a3b8">📄 لينك الشيت:</label><input id="linkSheet" class="filter-input" style="margin:4px 0;font-size:11px" value="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit" oninput="saveQuickLinks()"><div style="display:flex;gap:6px"><button class="btn btn-amber" style="flex:1;justify-content:center" onclick="openQuickLink('sheet')">📄 فتح الشيت</button><button class="btn btn-g" onclick="copyQuickLink('sheet')">📋 نسخ</button></div></div>
 </div>
-<div style="margin-top:16px;background:#111827;border:1px solid var(--line);padding:12px;border-radius:14px;font-size:12px;line-height:1.7"><b>📄 الورقة النشطة:</b><div id="currentSheetLabel" style="color:#38bdf8;font-weight:900;font-size:15px">1/11/2026</div><div id="sheetDebug" style="color:#22c55e">جاري التحقق...</div></div>
+<div style="margin-top:16px;background:#111827;border:1px solid var(--line);padding:12px;border-radius:14px;font-size:12px;line-height:1.7"><b>📄 الورقة النشطة:</b><div id="currentSheetLabel" style="color:#38bdf8;font-weight:900;font-size:15px">1/11/2026</div><div id="sheetDebug" style="color:#22c55e">جاري التحقق...</div><div style="margin-top:8px;border-top:1px solid var(--line);padding-top:8px">🗂️ أرشيف المسح: <b id="archiveCount2" style="color:#f59e0b">0</b> بوليصة محفوظة<br><button class="btn btn-amber" style="margin-top:6px;width:100%;justify-content:center" onclick="showTab('archive')">🗂️ فتح الأرشيف</button></div></div>
 </aside>
 <main class="main">
 <div class="hero">
-<h2 style="margin:0">النظام الرئيسي - AMIAl EXPRESS V15</h2><p style="color:var(--muted)">أميال + كاميرا بتقرا رقم التليفون زي ماكينة الباركود + لايف من الشيت</p>
+<h2 style="margin:0">النظام الرئيسي - AMIAl EXPRESS V16</h2><p style="color:var(--muted)">أميال + كاميرا زي الباركود + أرشيف البوالص على التليفون</p>
 <div class="top-controls">
 <div class="month-picker"><select id="monthSelect" class="month-select" onchange="selectSheet(this.value)"></select></div>
 <input id="globalSearch" class="search-mini" placeholder="🔍 ابحث في النظام كله..." oninput="globalSearchFilter(this.value)"/>
@@ -143,42 +137,31 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <section id="dashboard" class="content active">
 <div class="stats"><div class="stat"><div class="label">التسليم في ورقة <span class="sheet-name-label">1/11/2026</span></div><div class="value" id="stat-delivered-count" style="color:#38bdf8">0</div></div><div class="stat"><div class="label">المبيعات K</div><div class="value" id="stat-sales">0</div></div><div class="stat"><div class="label">شحن المندوب R</div><div class="value" id="stat-expenses" style="color:#ef4444">0</div></div><div class="stat"><div class="label">صافي الربح</div><div class="value" id="stat-net-profit" style="color:#22c55e">0</div></div></div>
 <div class="stats"><div class="stat"><div class="label">صافي (سبت+أحد+اثنين)</div><div class="value" id="stat-group-1">0</div></div><div class="stat"><div class="label">صافي (ثلاثاء+أربعاء+خميس)</div><div class="value" id="stat-group-2">0</div></div></div>
-<div class="card"><h3>🟢 المناديب الأونلاين الآن - من الشيت مباشرة</h3><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح صفحة المناديب لايف الأصلية</button><button class="btn btn-p" onclick="loadLiveFromCloud()">🔄 تحديث اللايف من الشيت</button><button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت</button></div><div id="liveQuick"></div><button class="btn btn-p" style="margin-top:10px" onclick="showTab('live')">عرض الخريطة لايف →</button></div>
+<div class="card"><h3>🟢 المناديب الأونلاين الآن - من الشيت مباشرة</h3><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح صفحة المناديب لايف</button><button class="btn btn-p" onclick="loadLiveFromCloud()">🔄 تحديث اللايف من الشيت</button><button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت</button></div><div id="liveQuick"></div></div>
+<div class="card" style="margin-top:12px;border-color:#f59e0b"><h3>🗂️ آخر 5 بوالص اتمسحوا - أرشيف</h3><div id="archiveQuick"></div><button class="btn btn-amber" style="margin-top:10px" onclick="showTab('archive')">🗂️ فتح الأرشيف كله →</button></div>
 </section>
-<section id="live" class="content">
-<div class="card"><h3 style="margin:0">🟢 المناديب لايف - خريطة حقيقية من الشيت</h3><p style="color:var(--muted)">بيقرا من ورقة <b>موقع_المناديب</b> في الشيت، زي صفحة اللايف بالظبط. <span id="liveLastUpdate" style="color:#22c55e;font-weight:800"></span></p>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح صفحة اللايف الأصلية ↗</button><button class="btn btn-g" onclick="copyQuickLink('live')">📋 نسخ لينك اللايف</button><button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت</button></div>
-<input id="liveSearch" class="search-box-big" placeholder="🔍 ابحث عن مندوب... اكتب اسمه هنا" oninput="renderLive()"/>
-<div id="liveSuggest" class="suggest-box"></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-p" onclick="loadLiveFromCloud()">🔄 تحديث اللايف من الشيت</button><button class="btn btn-wa" onclick="showAllOnMap()">🗺️ فتح كل المواقع على الخريطة - كل المناديب اللي فاتحين</button><button class="btn btn-g" onclick="clearLiveSearch()">✕ مسح البحث</button></div>
-<div style="margin-top:10px;font-size:13px">🟢 فاتحين دلوقتي: <b id="liveOnlineCount" style="color:#22c55e">0</b> | 📍 ليهم موقع: <b id="liveWithLocCount" style="color:#38bdf8">0</b> | 👥 إجمالي المناديب: <b id="liveTotalCount">0</b></div>
-<div id="liveMap"></div>
-<div class="live-grid" id="liveGrid"></div>
-</div>
-</section>
-<section id="repapp" class="content">
-<div class="card"><h3 style="margin:0">📱 تطبيق المناديب - مربوط بالشيت</h3><p style="color:var(--muted)">ابحث عن المندوب بالاسم، وهتظهر أوردراته من ورقة الشهر المختارة</p>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-p" onclick="openQuickLink('rep')">📱 فتح تطبيق المناديب الأصلي ↗</button><button class="btn btn-g" onclick="copyQuickLink('rep')">📋 نسخ لينك التطبيق</button><button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت</button></div>
-<input id="repAppRepSearch" class="search-box-big" placeholder="🔍 ابحث عن المندوب... اكتب اسمه هنا" oninput="onRepSearchInput()"/>
-<div id="repSuggest" class="suggest-box"></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><input id="repAppSearch" class="select-input" style="width:260px;margin:0" placeholder="🔍 ابحث في أوردرات المندوب..." oninput="renderRepApp()"/><button class="btn btn-p" onclick="renderRepApp()">عرض</button><span class="tag" id="repAppSelectedLabel" style="font-size:13px;padding:8px 12px">اختر مندوب من البحث فوق</span></div>
-<div class="rep-filter-tabs" id="repFilterTabs"></div>
-<div style="background:#0b1120;border:1px solid var(--line);border-radius:16px;padding:12px;max-width:520px;margin:0 auto"><div style="text-align:center;font-weight:900;color:#38bdf8;margin-bottom:10px">AMIAl EXPRESS - تطبيق المندوب</div><div id="repAppStats"></div><div id="repAppList"></div></div>
-</div>
-</section>
-<section id="shipments" class="content"><div class="card"><h3>📦 إدخال المناديب - ورقة <span class="sheet-name-label">1/11/2026</span></h3><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت في تاب جديد</button><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح صفحة المناديب لايف</button><button class="btn btn-p" onclick="openQuickLink('rep')">📱 فتح تطبيق المناديب</button></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0"><div style="background:#0f172a;border:1px solid #38bdf8;padding:14px;border-radius:14px"><b>⚡ اسكنر الباركود</b><input id="barcodeScannerInput" placeholder="امسح + Enter" class="filter-input" style="margin:8px 0 0" onkeypress="handleBarcodeScan(event)"><div id="scan-result" style="color:#22c55e;font-size:12px"></div></div><div style="background:#0f172a;border:1px solid #22c55e;padding:14px;border-radius:14px"><b>📷 كاميرا - بتقرا رقم التليفون زي الباركود</b><div style="font-size:12px;color:#94a3b8;margin-top:4px">وجه الكاميرا على رقم التليفون في البوليصة، وهيطابق بآخر 7 أرقام ويسجل المندوب فوراً</div><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:8px" onclick="openDirectCameraModal()">📷 فتح الكاميرا - مسح رقم التليفون</button><div style="font-size:11px;color:#22c55e;margin-top:6px">✅ تم مسح: <b id="camScanCount">0</b> بوليصة في الجلسة دي</div></div></div></div><div class="sheet-wrap" style="height:60vh;margin-top:12px"><iframe id="sheetFrame" src="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit?gid=687102612#gid=687102612&embedded=true" width="100%" height="100%" style="border:none"></iframe></div></section>
+<section id="live" class="content"><div class="card"><h3 style="margin:0">🟢 المناديب لايف - من الشيت</h3><p style="color:var(--muted)">بيقرا من ورقة <b>موقع_المناديب</b>. <span id="liveLastUpdate" style="color:#22c55e;font-weight:800"></span></p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح صفحة اللايف الأصلية</button><button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت</button></div><input id="liveSearch" class="search-box-big" placeholder="🔍 ابحث عن مندوب..." oninput="renderLive()"/><div id="liveSuggest" class="suggest-box"></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-p" onclick="loadLiveFromCloud()">🔄 تحديث اللايف من الشيت</button><button class="btn btn-wa" onclick="showAllOnMap()">🗺️ فتح كل المواقع على الخريطة</button><button class="btn btn-g" onclick="clearLiveSearch()">✕ مسح البحث</button></div><div style="margin-top:10px">🟢 فاتحين: <b id="liveOnlineCount" style="color:#22c55e">0</b> | 📍 ليهم موقع: <b id="liveWithLocCount" style="color:#38bdf8">0</b> | 👥 إجمالي: <b id="liveTotalCount">0</b></div><div id="liveMap"></div><div class="live-grid" id="liveGrid"></div></div></section>
+<section id="repapp" class="content"><div class="card"><h3>📱 تطبيق المناديب</h3><input id="repAppRepSearch" class="search-box-big" placeholder="🔍 ابحث عن المندوب..." oninput="onRepSearchInput()"/><div id="repSuggest" class="suggest-box"></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button class="btn btn-p" onclick="renderRepApp()">عرض</button><span class="tag" id="repAppSelectedLabel">اختر مندوب</span></div><div id="repAppStats"></div><div id="repAppList"></div></div></section>
+<section id="shipments" class="content"><div class="card"><h3>📦 إدخال المناديب - ورقة <span class="sheet-name-label">1/11/2026</span></h3><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-amber" onclick="openQuickLink('sheet')">📄 فتح الشيت</button><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح اللايف</button><button class="btn btn-p" onclick="openQuickLink('rep')">📱 فتح التطبيق</button></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0"><div style="background:#0f172a;border:1px solid #38bdf8;padding:14px;border-radius:14px"><b>⚡ اسكنر الباركود</b><input id="barcodeScannerInput" placeholder="امسح + Enter" class="filter-input" style="margin:8px 0 0" onkeypress="handleBarcodeScan(event)"><div id="scan-result" style="color:#22c55e;font-size:12px"></div><div style="font-size:11px;color:#94a3b8;margin-top:6px">الباركود بيتسجل في الأرشيف برضه ✅</div></div><div style="background:#0f172a;border:1px solid #22c55e;padding:14px;border-radius:14px"><b>📷 كاميرا - بتقرا رقم التليفون زي الباركود</b><div style="font-size:12px;color:#94a3b8">وجه الكاميرا على رقم التليفون، وهيطابق ويسجل + يحفظ الصورة في الأرشيف</div><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:8px" onclick="openDirectCameraModal()">📷 فتح الكاميرا - مسح رقم التليفون</button><div style="font-size:11px;color:#22c55e;margin-top:6px">✅ تم مسح: <b id="camScanCount">0</b> بوليصة في الجلسة دي | 🗂️ الأرشيف: <b id="archiveCount3">0</b></div></div></div></div><div class="sheet-wrap" style="height:60vh;margin-top:12px"><iframe id="sheetFrame" src="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit?gid=687102612#gid=687102612&embedded=true" width="100%" height="100%" style="border:none"></iframe></div></section>
 <section id="reps" class="content"><div class="card"><h3>تحليل المناديب - <span class="sheet-name-label">1/11/2026</span></h3><input id="repFilterInput" class="filter-input" placeholder="🔍 بحث..." onkeyup="filterRepsTable()"><div class="sheet-wrap"><table><thead><tr><th>المندوب</th><th>إجمالي</th><th>المسلمة</th><th>السعر</th><th>شحن المندوب</th><th>النسبة</th><th>التفاصيل</th></tr></thead><tbody id="reps-table-body"></tbody></table></div></div></section>
 <section id="rep-detail-page" class="content"><button class="btn btn-red" onclick="backToRepsList()" style="margin-bottom:12px">← عودة</button><div class="card"><h3 id="pageRepTitle"></h3><div class="sheet-wrap"><table><thead><tr><th>المندوب</th><th>التاريخ</th><th>عدد</th><th>المسلمة</th><th>السعر</th><th>شحن المندوب</th><th>الصافي</th><th>الوارد</th><th>صورة</th><th>المعلقات</th><th>المحاسب</th><th>واتساب</th><th>إجراءات</th></tr></thead><tbody id="page-detail-table-body"></tbody></table></div></div></section>
 <section id="profits" class="content"><div class="card"><h3>الأرباح - <span class="sheet-name-label">1/11/2026</span></h3><div class="stats"><div class="stat"><div class="label">شحن المكتب</div><div class="value" id="profit-net-office">0</div></div><div class="stat"><div class="label">شحن المندوب</div><div class="value" id="profit-expenses-val" style="color:#ef4444">0</div></div></div></div></section>
 <section id="branches" class="content"><div class="card"><h3>الرواسل</h3><div class="sheet-wrap"><table><thead><tr><th>الراسل</th><th>العدد</th><th>الإجمالي</th></tr></thead><tbody id="senders-table-body"></tbody></table></div></div></section>
-<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة البوالص - سريعة - أرقام فقط - آخر 7 أرقام من عمود G</h3><p style="color:var(--muted)">لو البوليصة خط يد ومتقرتش، اكتب آخر 7 أرقام يدوي في الخانة اللي جنب كل صورة، أو استخدم الكاميرا زي الباركود.</p>
+<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة البوالص - سريعة - آخر 7 أرقام</h3><p style="color:var(--muted)">كل صورة بتتقرا بتتحفظ في الأرشيف مع صورتها، عشان ترجع لها في أي وقت.</p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"><div><label>📅 ورقة الشهر:</label><input id="ocrSheet" class="select-input" readonly></div><div><label>👤 المندوب:</label><input id="ocrRepName" class="select-input" placeholder="اكتب اسم المندوب..." list="ocrRepsList"/><datalist id="ocrRepsList"></datalist></div></div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><label>عدد الصور:</label><input type="number" id="ocrLimit" value="20" class="filter-input"></div><div><label>اختر الصور:</label><input type="file" id="ocrFiles" accept="image/*" multiple class="filter-input" onchange="previewOCRFiles()"></div></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-amber" onclick="startOCR()">🧠 بدء القراءة - سريعة</button><button class="btn btn-p" onclick="openDirectCameraModal()">📷 أو امسح بالكاميرا زي الباركود</button><button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في ورقة الشهر (عمود M)</button><button class="btn btn-p" onclick="loadSheetPhones()">📞 تحميل أرقام عمود G</button><button class="btn btn-g" onclick="toggleOCRDebug()">👁️ عرض النص اللي اتقرا</button></div>
-<div style="margin-top:12px;background:#0f172a;border:1px dashed #f59e0b;padding:12px;border-radius:12px"><b style="font-size:13px">✏️ الحل السريع لو القراءة فشلت - اكتب آخر 7 أرقام كلهم مرة واحدة:</b><textarea id="manualBulkInput" placeholder="اكتب آخر 7 أرقام، كل رقم في سطر" style="width:100%;height:70px;margin-top:8px;padding:10px;background:#1e293b;border:1px solid #f59e0b;border-radius:10px;color:#fff;font-size:14px"></textarea><button class="btn btn-amber" style="margin-top:8px" onclick="matchBulkManual()">✅ طابق كل الأرقام دي مع عمود G فوراً</button></div>
-<div style="margin-top:10px;font-size:12px;color:#94a3b8">📞 أرقام عمود G المحملة: <b id="phonesLoadedCount" style="color:#38bdf8">0</b> رقم | <span id="phonesStatus">اضغط تحميل أرقام عمود G قبل القراءة</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-amber" onclick="startOCR()">🧠 بدء القراءة - سريعة + حفظ في الأرشيف</button><button class="btn btn-p" onclick="openDirectCameraModal()">📷 أو امسح بالكاميرا</button><button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في ورقة الشهر (عمود M)</button><button class="btn btn-p" onclick="loadSheetPhones()">📞 تحميل أرقام عمود G</button><button class="btn btn-g" onclick="toggleOCRDebug()">👁️ عرض النص اللي اتقرا</button></div>
+<div style="margin-top:12px;background:#0f172a;border:1px dashed #f59e0b;padding:12px;border-radius:12px"><b>✏️ اكتب آخر 7 أرقام كلهم مرة واحدة:</b><textarea id="manualBulkInput" placeholder="اكتب آخر 7 أرقام، كل رقم في سطر" style="width:100%;height:70px;margin-top:8px;padding:10px;background:#1e293b;border:1px solid #f59e0b;border-radius:10px;color:#fff"></textarea><button class="btn btn-amber" style="margin-top:8px" onclick="matchBulkManual()">✅ طابق كل الأرقام دي</button></div>
+<div style="margin-top:10px">📞 أرقام عمود G: <b id="phonesLoadedCount" style="color:#38bdf8">0</b> | <span id="phonesStatus"></span></div>
 <div style="margin-top:12px"><span id="ocr-progress-text">جاهز...</span><div class="progress" style="margin-top:6px"><i id="ocr-bar" style="width:0%"></i></div></div><div id="ocr-preview" class="ocr-grid"></div><div id="ocr-results" style="margin-top:12px"></div><div id="ocr-debug" style="display:none;margin-top:12px;background:#020617;border:1px solid #38bdf8;padding:12px;border-radius:12px;font-size:12px;white-space:pre-wrap"></div></div></section>
+<section id="archive" class="content"><div class="card" style="border-color:#f59e0b"><h3 style="margin:0">🗂️ أرشيف المسح - كل البوالص اللي اتمسحت</h3><p style="color:var(--muted)">محفوظة على التليفون ده، حتى لو قفلت وفتحت تاني. دوس على أي صورة عشان تكبرها، أو حملها على تليفونك.</p>
+<div class="stats"><div class="stat"><div class="label">إجمالي البوالص المحفوظة</div><div class="value" id="archiveTotalStat">0</div></div><div class="stat"><div class="label">اليوم</div><div class="value" id="archiveTodayStat">0</div></div><div class="stat"><div class="label">الورقة الحالية</div><div class="value" id="archiveSheetStat">1/11/2026</div></div></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><input id="archiveSearch" class="search-box-big" style="flex:1;min-width:220px" placeholder="🔍 ابحث في الأرشيف... بالاسم أو الرقم أو المندوب أو التاريخ" oninput="renderArchive()"><select id="archiveFilterRep" class="select-input" style="width:180px;margin:0" onchange="renderArchive()"><option value="">كل المناديب</option></select><select id="archiveFilterSheet" class="select-input" style="width:160px;margin:0" onchange="renderArchive()"><option value="">كل الشهور</option></select></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-wa" onclick="exportArchiveCSV()">⬇️ تحميل نسخة Excel - CSV</button><button class="btn btn-p" onclick="downloadAllArchiveImages()">🖼️ تحميل كل الصور - ZIP يدوي</button><button class="btn btn-g" onclick="showTab('ocr')">🧾 مسح بوالص جديدة</button><button class="btn btn-red" onclick="clearArchive()">🗑️ مسح الأرشيف كله</button></div>
+<div style="margin-top:10px;font-size:12px;color:#94a3b8">💡 الصور بتتحفظ مصغّرة عشان متملاش مساحة التليفون. لو عايز الصورة الأصلية بجودة كاملة، دوس <b>📷 تحميل الصورة</b> جوه الكاميرا قبل ما تقفلها.</div>
+<div class="archive-grid" id="archiveGrid"></div>
+<div id="archiveEmpty" style="text-align:center;color:#94a3b8;padding:30px;display:none">لسه مفيش بوالص محفوظة<br>امسح أول بوليصة بالكاميرا أو بالباركود، وهتظهر هنا</div>
+</div></section>
 </main>
 </div>
 <div class="ai-fab-new" id="aiFab" onclick="toggleAI()"><div id="robotFabWrap" style="width:100%;height:100%"></div><span class="ai-badge" id="aiBadge">!</span><div class="ai-speech-bubble" id="aiBubble">أهلاً بيك! أنا أميال 🤖</div></div>
@@ -186,233 +169,220 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
   <div class="ai-header"><div class="ai-face" id="robotHeaderWrap"></div><div style="flex:1"><b>أميال - مساعد AMIAl الذكي</b><div style="font-size:11px;opacity:.8">أونلاين - بتكلم عربي 💡</div></div><div style="display:flex;gap:6px;flex-wrap:wrap"><button onclick="toggleVoice()" id="voiceBtn" style="background:#fff;border:none;padding:6px 10px;border-radius:999px;cursor:pointer">🔊 صوت</button><button onclick="testVoice()" style="background:#f59e0b;border:none;padding:6px 10px;border-radius:999px;cursor:pointer;font-weight:900">🎤 جرب صوتي</button><button onclick="toggleAI(false)" style="background:#fff;border:none;padding:6px 10px;border-radius:999px;cursor:pointer">✕</button></div></div>
   <div class="ai-messages" id="aiMessages"></div>
   <div class="robot-upload-row"><span>🖼️ غيّر شكل أميال:</span><input type="file" id="robotImageInput" accept="image/*" style="flex:1;font-size:11px" onchange="uploadRobotImage(this)"><button onclick="resetRobotImage()" style="background:#ef4444;border:none;color:#fff;padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:800">↩️ الشكل الأصلي</button></div>
-  <div class="ai-quick"><button onclick="askAI('كم الأرباح؟')">💰 الأرباح؟</button><button onclick="askAI('مين أفضل مندوب؟')">🏆 أفضل مندوب؟</button><button onclick="askAI('فيه مشكلة؟')">⚠️ فيه مشكلة؟</button><button onclick="askAI('افتح اللايف')">📍 افتح اللايف</button><button onclick="askAI('حدث البيانات')">🔄 حدث البيانات</button></div>
+  <div class="ai-quick"><button onclick="askAI('كم الأرباح؟')">💰 الأرباح؟</button><button onclick="askAI('مين أفضل مندوب؟')">🏆 أفضل مندوب؟</button><button onclick="askAI('فيه مشكلة؟')">⚠️ فيه مشكلة؟</button><button onclick="askAI('افتح اللايف')">📍 افتح اللايف</button><button onclick="askAI('افتح الأرشيف')">🗂️ افتح الأرشيف</button></div>
   <div class="ai-input-row"><input id="aiInput" placeholder="اسأل أميال أي حاجة..." onkeypress="if(event.key==='Enter') sendAIMsg()"><button class="btn btn-p" onclick="sendAIMsg()">إرسال</button><button class="btn btn-wa" onclick="startVoiceInput()">🎤</button></div>
 </div>
-<!-- كاميرا زي الباركود - بتقرا رقم التليفون -->
 <div id="cameraModal" class="modal-overlay"><div class="modal-card">
 <h3 style="margin:0">📷 كاميرا - مسح رقم التليفون زي الباركود</h3>
-<p style="color:#94a3b8;font-size:12px;margin:6px 0">وجه المستطيل الأخضر على رقم التليفون في البوليصة، ودوس <b style="color:#22c55e">امسح الرقم ده</b>. هيطابق بآخر 7 أرقام ويسجل المندوب فوراً.</p>
-<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap"><label style="font-size:12px">👤 المندوب اللي هيسجل:</label><input id="camRepName" class="select-input" style="margin:0;flex:1" placeholder="اكتب اسم المندوب هنا..." list="ocrRepsList"></div>
+<p style="color:#94a3b8;font-size:12px">وجه المستطيل الأخضر على رقم التليفون، ودوس <b style="color:#22c55e">امسح الرقم ده</b>. هيطابق ويسجل + يحفظ الصورة في الأرشيف.</p>
+<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap"><label style="font-size:12px">👤 المندوب:</label><input id="camRepName" class="select-input" style="margin:0;flex:1" placeholder="اكتب اسم المندوب..." list="ocrRepsList"></div>
 <div class="cam-view"><video id="cameraStream" autoplay playsinline muted></video><div class="cam-frame" id="camFrame"></div></div>
 <canvas id="snapshotCanvas" style="display:none"></canvas>
-<div style="margin-top:10px;background:#0f172a;padding:10px;border-radius:10px;text-align:center"><div style="font-size:12px;color:#94a3b8">آخر رقم اتقرا:</div><div id="camLastRead" style="font-size:20px;font-weight:900;color:#38bdf8;direction:ltr">—</div><div id="camMatchInfo" style="font-size:13px;color:#94a3b8"></div><div id="camRawText" style="font-size:11px;color:#64748b;direction:ltr"></div></div>
-<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn btn-p" style="flex:1;justify-content:center" onclick="scanPhoneFromCamera()">🔍 امسح الرقم ده - زي الباركود</button><button class="btn btn-amber" id="autoScanBtn" onclick="toggleAutoScan()">▶️ وضع المسح التلقائي: إيقاف</button></div>
+<div style="margin-top:10px;background:#0f172a;padding:10px;border-radius:10px;text-align:center"><div style="font-size:12px;color:#94a3b8">آخر رقم اتقرا:</div><div id="camLastRead" style="font-size:20px;font-weight:900;color:#38bdf8;direction:ltr">—</div><div id="camMatchInfo" style="font-size:13px"></div><div id="camRawText" style="font-size:11px;color:#64748b;direction:ltr"></div></div>
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn btn-p" style="flex:1;justify-content:center" onclick="scanPhoneFromCamera()">🔍 امسح الرقم ده - زي الباركود</button><button class="btn btn-amber" id="autoScanBtn" onclick="toggleAutoScan()">▶️ مسح تلقائي: إيقاف</button></div>
 <div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-wa" style="flex:1;justify-content:center" onclick="saveCamScansToSheet()">💾 حفظ كل اللي اتمسح في الشيت (عمود M)</button><button class="btn btn-g" onclick="clearCamScans()">🗑️ مسح القايمة</button></div>
-<div style="display:flex;gap:8px;margin-top:8px"><input id="camManual7" placeholder="لو متقراش، اكتب آخر 7 أرقام هنا" style="flex:1;padding:10px;background:#0f172a;border:1px solid #f59e0b;border-radius:10px;color:#fff"><button class="btn btn-amber" onclick="manualCamScan()">✏️ سجل يدوي</button></div>
+<div style="display:flex;gap:8px;margin-top:8px"><input id="camManual7" placeholder="لو متقراش، اكتب آخر 7 هنا" style="flex:1;padding:10px;background:#0f172a;border:1px solid #f59e0b;border-radius:10px;color:#fff"><button class="btn btn-amber" onclick="manualCamScan()">✏️ سجل يدوي</button></div>
+<div style="margin-top:10px;background:#0f172a;border:1px solid #f59e0b;padding:10px;border-radius:10px"><label style="font-size:12px">📷 حفظ صورة البوليصة في الأرشيف؟</label><div style="display:flex;gap:8px;margin-top:6px"><button class="btn btn-p" style="flex:1;justify-content:center" onclick="saveLastCamPhoto()">📷 حفظ صورة آخر بوليصة</button><span style="font-size:11px;color:#94a3b8;align-self:center">الصورة بتتحفظ مصغّرة تلقائي مع كل مسح</span></div></div>
 <div class="scan-list" id="camScanList"></div>
 <button class="btn btn-red" style="width:100%;justify-content:center;margin-top:10px" onclick="closeCameraModal()">✕ إغلاق الكاميرا</button>
 </div></div>
+<div id="imgModal" class="modal-overlay"><div class="modal-card img-preview-modal"><h3 id="imgModalTitle">صورة البوليصة</h3><img id="imgModalImg" src=""><div id="imgModalInfo" style="font-size:13px;margin-top:10px"></div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-wa" style="flex:1;justify-content:center" onclick="downloadCurrentImg()">⬇️ تحميل الصورة على التليفون</button><button class="btn btn-red" style="flex:1;justify-content:center" onclick="closeImgModal()">إغلاق</button></div></div></div>
 <div id="toast" class="toast"></div>
 <script>
-const WEB_APP_URL="https://script.google.com/macros/s/AKfycbwKYt94rdYHiZ0mu3udtPzL9GQ5fyU_Cj_y4iob7sJb8g9I8M0o2P_dUf6ufY63EnyIFg/exec";
+const WEB_APP_URL="https://script.google.com/macros/s/AKfycbySMXu6ZqWVfSSRqMfp6YXdeguBMzrXPSoNFvr9YYVIyLdtkF7LEmwKQfbnF6iIbqow6w/exec";
 const LINK_REP_APP="https://amilexprees-glitch.github.io/amial-rep-app/rep-app.html?v=3.4&_b=v3.5-20261121&_t=1795252276860";
 const LINK_LIVE="https://amilexprees-glitch.github.io/amial-rep-app/live-map.html";
 const LINK_SHEET="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit";
-const ROBOT_DEFAULT_SVG = `<svg viewBox="0 0 200 200" style="width:100%;height:100%;filter:drop-shadow(0 8px 18px rgba(56,189,248,.6))"><rect x="62" y="155" width="26" height="28" rx="10" fill="#f97316"/><rect x="112" y="155" width="26" height="28" rx="10" fill="#f97316"/><rect x="55" y="82" width="90" height="80" rx="22" fill="#3b82f6"/><rect x="42" y="22" width="116" height="58" rx="26" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/><rect x="28" y="38" width="18" height="28" rx="9" fill="#f97316"/><rect x="154" y="38" width="18" height="28" rx="9" fill="#f97316"/><circle cx="78" cy="48" r="11" fill="#fff"/><circle cx="78" cy="48" r="5" fill="#0f172a"/><circle cx="122" cy="48" r="11" fill="#fff"/><circle cx="122" cy="48" r="5" fill="#0f172a"/><path d="M 82 62 Q 100 74 118 62" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+const ROBOT_DEFAULT_SVG = `<svg viewBox="0 0 200 200" style="width:100%;height:100%"><rect x="55" y="82" width="90" height="80" rx="22" fill="#3b82f6"/><rect x="42" y="22" width="116" height="58" rx="26" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/><circle cx="78" cy="48" r="11" fill="#fff"/><circle cx="78" cy="48" r="5" fill="#0f172a"/><circle cx="122" cy="48" r="11" fill="#fff"/><circle cx="122" cy="48" r="5" fill="#0f172a"/><path d="M 82 62 Q 100 74 118 62" stroke="#0f172a" stroke-width="3" fill="none"/></svg>`;
 const MONTHS=[{v:"1/4/2026",label:"📅 أبريل 2026 - 1/4/2026"},{v:"1/5/2026",label:"📅 مايو 2026 - 1/5/2026"},{v:"1/6/2026",label:"📅 يونيو 2026 - 1/6/2026"},{v:"1/7/2026",label:"📅 يوليو 2026 - 1/7/2026"},{v:"1/8/2026",label:"📅 أغسطس 2026 - 1/8/2026"},{v:"1/9/2026",label:"📅 سبتمبر 2026 - 1/9/2026"},{v:"1/10/2026",label:"📅 أكتوبر 2026 - 1/10/2026"},{v:"1/11/2026",label:"📅 نوفمبر 2026 - 1/11/2026"},{v:"1/12/2026",label:"📅 ديسمبر 2026 - 1/12/2026"},{v:"1/1/2027",label:"📅 يناير 2027 - 1/1/2027"},{v:"1/2/2027",label:"📅 فبراير 2027 - 1/2/2027"}];
 let currentSheet="1/11/2026";
-let globalRepsData={},cloudRepsData={},activeRepDetailName=null,videoStream=null,ocrResults=[],liveReps=[];
+let globalRepsData={},activeRepDetailName=null,videoStream=null,ocrResults=[],liveReps=[];
 let liveMap=null, liveMarkers={}, selectedRepApp="", liveSearchQuery="";
 let sheetRequestId=0, isLoading=false, lastLoadedSheet="";
 let sheetPhones=[], sheetPhonesMap={};
 let aiOpen=false, voiceEnabled=true, aiAlertCount=0, voiceUnlocked=false, tesseractWorker=null, ocrDebugOpen=false;
-let camScans=[], camAutoTimer=null, camAutoOn=false, camScanning=false, camLastScanned7="";
+let camScans=[], camAutoTimer=null, camAutoOn=false, camScanning=false, camLastScanned7="", camLastPhoto="", currentImgUrl="", currentImgName="";
+let archiveData=[];
 const $=s=>document.querySelector(s);
 function toast(m){let t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2800)}
 function parseNum(v){if(v==null||v==="")return 0;let n=parseFloat(String(v).replace(/[^0-9.-]/g,""));return isNaN(n)?0:n}
 function norm(s){return String(s||"").trim().replace(/\s+/g," ").replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").toLowerCase()}
-function showTab(tab){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));let btn=document.querySelector(`[data-tab="${tab}"]`);if(btn)btn.classList.add('active');document.getElementById(tab).classList.add('active');if(tab==='live'){setTimeout(initLiveMap,200); loadLiveFromCloud();}}
+function showTab(tab){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));let btn=document.querySelector(`[data-tab="${tab}"]`);if(btn)btn.classList.add('active');document.getElementById(tab).classList.add('active');if(tab==='live'){setTimeout(initLiveMap,200); loadLiveFromCloud();} if(tab==='archive') renderArchive();}
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
 function buildMonthPicker(){let sel=$('#monthSelect');sel.innerHTML=MONTHS.map(m=>`<option value="${m.v}" ${m.v===currentSheet?'selected':''}>${m.label}</option>`).join('');let ocr=$('#ocrSheet'); if(ocr) ocr.value=currentSheet;}
-function setCloud(on){document.querySelectorAll('.cloud-badge').forEach(b=>b.classList.toggle('offline',!on));let t1=$('#cloudText'), t2=$('#cloudTextSidebar');if(t1) t1.textContent = on ? "☁️ متصل بالسحابة" : "☁️ غير متصل - حاول التحديث";if(t2) t2.textContent = on ? "☁️ متصل بالسحابة" : "☁️ غير متصل - حاول التحديث";}
+function setCloud(on){document.querySelectorAll('.cloud-badge').forEach(b=>b.classList.toggle('offline',!on));}
 function saveQuickLinks(){ localStorage.setItem('amial_link_rep', $('#linkRepApp').value.trim()); localStorage.setItem('amial_link_live', $('#linkLive').value.trim()); localStorage.setItem('amial_link_sheet', $('#linkSheet').value.trim()); }
 function loadQuickLinks(){ let sr=localStorage.getItem('amial_link_rep'); let sl=localStorage.getItem('amial_link_live'); let ss=localStorage.getItem('amial_link_sheet'); if($('#linkRepApp')) $('#linkRepApp').value=sr||LINK_REP_APP; if($('#linkLive')) $('#linkLive').value=sl||LINK_LIVE; if($('#linkSheet')) $('#linkSheet').value=ss||LINK_SHEET; }
-function openQuickLink(type){ let url=""; if(type==='rep') url=($('#linkRepApp')?$('#linkRepApp').value.trim():LINK_REP_APP); else if(type==='live') url=($('#linkLive')?$('#linkLive').value.trim():LINK_LIVE); else if(type==='sheet') url=($('#linkSheet')?$('#linkSheet').value.trim():LINK_SHEET); if(!url){alert("مفيش لينك");return;} if(!url.startsWith('http')) url='https://'+url; window.open(url,'_blank'); }
+function openQuickLink(type){ let url=""; if(type==='rep') url=($('#linkRepApp')?$('#linkRepApp').value.trim():LINK_REP_APP); else if(type==='live') url=($('#linkLive')?$('#linkLive').value.trim():LINK_LIVE); else if(type==='sheet') url=($('#linkSheet')?$('#linkSheet').value.trim():LINK_SHEET); if(!url) return; if(!url.startsWith('http')) url='https://'+url; window.open(url,'_blank'); }
 function copyQuickLink(type){ let url=""; if(type==='rep') url=$('#linkRepApp').value.trim(); else if(type==='live') url=$('#linkLive').value.trim(); else if(type==='sheet') url=$('#linkSheet').value.trim(); navigator.clipboard.writeText(url).then(()=>toast("✅ تم نسخ اللينك")); }
-function resetStatsUI(){ $('#stat-delivered-count').textContent="⏳"; $('#stat-sales').textContent="⏳"; $('#stat-expenses').textContent="⏳"; $('#stat-net-profit').textContent="⏳"; $('#stat-group-1').textContent="⏳"; $('#stat-group-2').textContent="⏳"; $('#profit-net-office').textContent="⏳"; $('#profit-expenses-val').textContent="⏳"; globalRepsData={}; }
-function selectSheet(sheetName){ if(sheetName===currentSheet && lastLoadedSheet===sheetName) return; currentSheet=sheetName; sheetRequestId++; let myRequest=sheetRequestId; resetStatsUI(); document.querySelectorAll('.sheet-name-label').forEach(el=>el.textContent=sheetName); $('#currentSheetLabel').textContent=sheetName; $('#monthSelect').value=sheetName; let ocrSel=$('#ocrSheet'); if(ocrSel) ocrSel.value=sheetName; $('#sheet-count').textContent=`📄 ${sheetName} • جاري التحميل...`; $('#sheetDebug').textContent=`جاري قراءة ملخص ورقة: ${sheetName}...`; $('#reps-table-body').innerHTML=`<tr><td colspan="7" style="text-align:center">⏳ جاري تحميل ملخص ${sheetName}...</td></tr>`; $('#senders-table-body').innerHTML=""; sheetPhones=[]; sheetPhonesMap={}; $('#phonesLoadedCount').textContent="0"; $('#phonesStatus').textContent="جاري تحميل أرقام عمود G..."; loadSummary(myRequest, sheetName); loadSheetPhones(true); loadLiveFromCloud(); toast("تم اختيار ورقة: "+sheetName); }
+function selectSheet(sheetName){ if(sheetName===currentSheet && lastLoadedSheet===sheetName) return; currentSheet=sheetName; sheetRequestId++; let myRequest=sheetRequestId; document.querySelectorAll('.sheet-name-label').forEach(el=>el.textContent=sheetName); $('#currentSheetLabel').textContent=sheetName; $('#monthSelect').value=sheetName; let ocrSel=$('#ocrSheet'); if(ocrSel) ocrSel.value=sheetName; $('#sheet-count').textContent=`📄 ${sheetName} • جاري التحميل...`; $('#sheetDebug').textContent=`جاري قراءة ملخص: ${sheetName}...`; $('#reps-table-body').innerHTML=`<tr><td colspan="7" style="text-align:center">⏳ جاري تحميل ${sheetName}...</td></tr>`; sheetPhones=[]; sheetPhonesMap={}; $('#phonesLoadedCount').textContent="0"; loadSummary(myRequest, sheetName); loadSheetPhones(true); loadLiveFromCloud(); toast("تم اختيار ورقة: "+sheetName); }
 function forceRefresh(){ sheetRequestId++; loadSummary(sheetRequestId, currentSheet); loadSheetPhones(true); loadLiveFromCloud(); toast("🔄 جاري تحديث "+currentSheet); }
-function loadSummary(passedRequestId, passedSheet){ if(isLoading) return; let myRequest = passedRequestId !== undefined ? passedRequestId : ++sheetRequestId; let requestedSheet = passedSheet || currentSheet; isLoading=true; let url=`${WEB_APP_URL}?action=getSummary&sheetName=${encodeURIComponent(requestedSheet)}&_t=${Date.now()}`; let controller=new AbortController(); let timeoutId=setTimeout(()=>controller.abort(),25000); fetch(url,{signal:controller.signal}).then(r=>r.json()).then(res=>{ clearTimeout(timeoutId); isLoading=false; if(myRequest!==sheetRequestId) return; if(!res||res.status!=="success"){ $('#sheetDebug').textContent=`⚠️ تعذر تحميل ${requestedSheet}`; setCloud(false); return; } if(res.sheetFound===false){ $('#sheetDebug').textContent=`⚠️ ورقة ${requestedSheet} مش موجودة`; $('#sheet-count').textContent=`📄 ${requestedSheet} • 0 صف`; resetStatsUI(); $('#stat-delivered-count').textContent="0"; $('#stat-sales').textContent="0"; $('#reps-table-body').innerHTML=`<tr><td colspan="7" style="text-align:center">لا توجد بيانات في ورقة ${requestedSheet}</td></tr>`; return; } lastLoadedSheet=requestedSheet; setCloud(true); $('#sheetDebug').textContent=`✅ ورقة ${requestedSheet} - ${res.rowCount||0} صف`; processSummary(res, requestedSheet); checkForProblems(res); }).catch(()=>{ clearTimeout(timeoutId); isLoading=false; }); }
-function processSummary(res, useSheet){ document.querySelectorAll('.sheet-name-label').forEach(el=>el.textContent=useSheet); $('#sheet-count').textContent=`📄 ${useSheet} • ${res.rowCount||0} صف`; $('#currentSheetLabel').textContent=useSheet; let st=res.stats||{}; $('#stat-delivered-count').textContent=st.delivered||0; $('#stat-sales').textContent=(st.sales||0).toLocaleString()+" ج.م"; $('#stat-expenses').textContent=(st.expenses||0).toLocaleString()+" ج.م"; $('#stat-net-profit').textContent=(st.net||0).toLocaleString()+" ج.م"; $('#stat-group-1').textContent=(st.g1||0).toLocaleString()+" ج.م"; $('#stat-group-2').textContent=(st.g2||0).toLocaleString()+" ج.م"; $('#profit-net-office').textContent=(st.office||0).toLocaleString()+" ج.م"; $('#profit-expenses-val').textContent=(st.expenses||0).toLocaleString()+" ج.م"; globalRepsData={}; (res.reps||[]).forEach(r=>{ globalRepsData[r.name]={totalCount:r.total, deliveredCount:r.delivered, totalAmountJ:r.amountJ, totalRepShippingR:r.shippingR, days:{}}; (r.days||[]).forEach(d=>{ globalRepsData[r.name].days[d.day]={dayName:d.day, date:d.date, count:d.count, deliveredCount:d.delivered, amountJ:d.amountJ, deliveredSalesK:d.sales, shippingR:d.shipping}; }); }); let rh=""; for(let r in globalRepsData){let d=globalRepsData[r]; let rate=d.totalCount?Math.round(d.deliveredCount/d.totalCount*100):0; rh+=`<tr><td><b>${r}</b></td><td>${d.totalCount}</td><td style="color:#22c55e;font-weight:800">${d.deliveredCount}</td><td>${d.totalAmountJ.toLocaleString()} ج.م</td><td style="color:#ef4444">${d.totalRepShippingR.toLocaleString()} ج.م</td><td>${rate}%</td><td><button class="btn btn-p" onclick="openRepDetailPage('${r}')">📂 فتح</button></td></tr>`} $('#reps-table-body').innerHTML=rh||`<tr><td colspan="7" style="text-align:center">لا توجد بيانات في ورقة ${useSheet}</td></tr>`; let sh=""; (res.senders||[]).forEach(s=>{ sh+=`<tr><td>${s.name}</td><td>${s.count}</td><td>${s.total.toLocaleString()} ج.م</td></tr>` }); $('#senders-table-body').innerHTML=sh; let reps=Object.keys(globalRepsData); let dl=$('#ocrRepsList'); if(dl) dl.innerHTML=reps.map(n=>`<option value="${n}">`).join(""); if(!selectedRepApp&&reps.length) selectedRepApp=reps[0]; updateRepSuggest(); updateLiveSuggest(); if(activeRepDetailName&&globalRepsData[activeRepDetailName]) renderRepDetailTable(activeRepDetailName,false); renderRepAppFromSummary(); }
-async function loadSheetPhones(silent){ if(!silent) $('#phonesStatus').textContent="⏳ جاري تحميل أرقام عمود G..."; try{ let res=await fetch(`${WEB_APP_URL}?action=getPhones&sheetName=${encodeURIComponent(currentSheet)}&_t=${Date.now()}`).then(r=>r.json()); if(res&&res.phones){ sheetPhones=res.phones; sheetPhonesMap={}; res.phones.forEach(p=>{ sheetPhonesMap[p.last7]=p; sheetPhonesMap[p.last8]=p; sheetPhonesMap[p.full]=p; }); $('#phonesLoadedCount').textContent=res.phones.length; $('#phonesStatus').textContent=`✅ تم تحميل ${res.phones.length} رقم من عمود G`; if(!silent) toast(`✅ تم تحميل ${res.phones.length} رقم`); } }catch(e){ $('#phonesStatus').textContent="⚠️ تعذر تحميل أرقام عمود G"; } }
+function loadSummary(passedRequestId, passedSheet){ if(isLoading) return; let myRequest = passedRequestId !== undefined ? passedRequestId : ++sheetRequestId; let requestedSheet = passedSheet || currentSheet; isLoading=true; let url=`${WEB_APP_URL}?action=getSummary&sheetName=${encodeURIComponent(requestedSheet)}&_t=${Date.now()}`; fetch(url).then(r=>r.json()).then(res=>{ isLoading=false; if(myRequest!==sheetRequestId) return; if(!res||res.status!=="success"){ $('#sheetDebug').textContent=`⚠️ تعذر تحميل`; return; } if(res.sheetFound===false){ $('#sheetDebug').textContent=`⚠️ ورقة مش موجودة`; return; } lastLoadedSheet=requestedSheet; setCloud(true); $('#sheetDebug').textContent=`✅ ورقة ${requestedSheet} - ${res.rowCount||0} صف`; processSummary(res, requestedSheet); checkForProblems(res); }).catch(()=>{ isLoading=false; }); }
+function processSummary(res, useSheet){ document.querySelectorAll('.sheet-name-label').forEach(el=>el.textContent=useSheet); $('#sheet-count').textContent=`📄 ${useSheet} • ${res.rowCount||0} صف`; $('#currentSheetLabel').textContent=useSheet; let st=res.stats||{}; $('#stat-delivered-count').textContent=st.delivered||0; $('#stat-sales').textContent=(st.sales||0).toLocaleString()+" ج.م"; $('#stat-expenses').textContent=(st.expenses||0).toLocaleString()+" ج.م"; $('#stat-net-profit').textContent=(st.net||0).toLocaleString()+" ج.م"; $('#stat-group-1').textContent=(st.g1||0).toLocaleString()+" ج.م"; $('#stat-group-2').textContent=(st.g2||0).toLocaleString()+" ج.م"; $('#profit-net-office').textContent=(st.office||0).toLocaleString()+" ج.م"; $('#profit-expenses-val').textContent=(st.expenses||0).toLocaleString()+" ج.م"; globalRepsData={}; (res.reps||[]).forEach(r=>{ globalRepsData[r.name]={totalCount:r.total, deliveredCount:r.delivered, totalAmountJ:r.amountJ, totalRepShippingR:r.shippingR, days:{}}; (r.days||[]).forEach(d=>{ globalRepsData[r.name].days[d.day]={dayName:d.day, date:d.date, count:d.count, deliveredCount:d.delivered, amountJ:d.amountJ, deliveredSalesK:d.sales, shippingR:d.shipping}; }); }); let rh=""; for(let r in globalRepsData){let d=globalRepsData[r]; let rate=d.totalCount?Math.round(d.deliveredCount/d.totalCount*100):0; rh+=`<tr><td><b>${r}</b></td><td>${d.totalCount}</td><td style="color:#22c55e">${d.deliveredCount}</td><td>${d.totalAmountJ.toLocaleString()} ج.م</td><td style="color:#ef4444">${d.totalRepShippingR.toLocaleString()} ج.م</td><td>${rate}%</td><td><button class="btn btn-p" onclick="openRepDetailPage('${r}')">📂 فتح</button></td></tr>`} $('#reps-table-body').innerHTML=rh; let sh=""; (res.senders||[]).forEach(s=>{ sh+=`<tr><td>${s.name}</td><td>${s.count}</td><td>${s.total.toLocaleString()} ج.م</td></tr>` }); $('#senders-table-body').innerHTML=sh; let reps=Object.keys(globalRepsData); let dl=$('#ocrRepsList'); if(dl) dl.innerHTML=reps.map(n=>`<option value="${n}">`).join(""); if(!selectedRepApp&&reps.length) selectedRepApp=reps[0]; updateRepSuggest(); updateLiveSuggest(); renderRepAppFromSummary(); }
+async function loadSheetPhones(silent){ try{ let res=await fetch(`${WEB_APP_URL}?action=getPhones&sheetName=${encodeURIComponent(currentSheet)}&_t=${Date.now()}`).then(r=>r.json()); if(res&&res.phones){ sheetPhones=res.phones; sheetPhonesMap={}; res.phones.forEach(p=>{ sheetPhonesMap[p.last7]=p; sheetPhonesMap[p.last8]=p; sheetPhonesMap[p.full]=p; }); $('#phonesLoadedCount').textContent=res.phones.length; $('#phonesStatus').textContent=`✅ تم تحميل ${res.phones.length} رقم`; } }catch(e){} }
+// ===== الأرشيف - حفظ الأرقام والصور على التليفون =====
+function loadArchive(){ try{ archiveData = JSON.parse(localStorage.getItem('amial_archive_v16')||"[]"); }catch(e){ archiveData=[]; } updateArchiveCounts(); }
+function saveArchive(){ try{ localStorage.setItem('amial_archive_v16', JSON.stringify(archiveData)); }catch(e){ alert("مساحة التليفون اتملت - الأرشيف كبير. حمّل نسخة Excel وامسح القديم."); return false; } updateArchiveCounts(); return true; }
+function updateArchiveCounts(){
+  let c = archiveData.length;
+  ['archiveCount','archiveCount2','archiveCount3'].forEach(id=>{ let el=document.getElementById(id); if(el) el.textContent=c; });
+  if($('#archiveTotalStat')) $('#archiveTotalStat').textContent=c;
+  let today = new Date().toLocaleDateString('ar-EG');
+  let todayCount = archiveData.filter(a=> (a.date||"").includes(new Date().getDate()+"/") || a.dateStr===new Date().toISOString().slice(0,10)).length;
+  if($('#archiveTodayStat')) $('#archiveTodayStat').textContent=todayCount;
+  if($('#archiveSheetStat')) $('#archiveSheetStat').textContent=currentSheet;
+}
+function addToArchive(item){
+  // item: {phone, client, rep, sheet, source, image, price, last7}
+  let now = new Date();
+  let rec = {
+    id: Date.now()+"_"+Math.floor(Math.random()*1000),
+    phone: item.phone||"",
+    client: item.client||"",
+    rep: item.rep||"",
+    sheet: item.sheet||currentSheet,
+    source: item.source||"كاميرا",
+    price: item.price||"",
+    last7: item.last7|| (item.phone? item.phone.slice(-7):""),
+    date: now.toLocaleDateString('ar-EG'),
+    dateStr: now.toISOString().slice(0,10),
+    time: now.toLocaleTimeString('ar-EG'),
+    timestamp: now.getTime(),
+    image: item.image||"",
+    savedToSheet: false
+  };
+  archiveData.unshift(rec);
+  // خلي آخر 500 بس عشان المساحة
+  if(archiveData.length>500) archiveData = archiveData.slice(0,500);
+  saveArchive();
+  renderArchive();
+  return rec;
+}
+function renderArchive(){
+  let q = norm($('#archiveSearch') ? $('#archiveSearch').value : "");
+  let repF = $('#archiveFilterRep') ? $('#archiveFilterRep').value : "";
+  let sheetF = $('#archiveFilterSheet') ? $('#archiveFilterSheet').value : "";
+  // املأ فلاتر المناديب والشهور
+  let reps = [...new Set(archiveData.map(a=>a.rep).filter(Boolean))];
+  let sheets = [...new Set(archiveData.map(a=>a.sheet).filter(Boolean))];
+  if($('#archiveFilterRep')){ let cur = $('#archiveFilterRep').value; $('#archiveFilterRep').innerHTML = `<option value="">كل المناديب</option>` + reps.map(r=>`<option ${r===cur?'selected':''}>${r}</option>`).join(""); }
+  if($('#archiveFilterSheet')){ let cur2 = $('#archiveFilterSheet').value; $('#archiveFilterSheet').innerHTML = `<option value="">كل الشهور</option>` + sheets.map(s=>`<option ${s===cur2?'selected':''}>${s}</option>`).join(""); }
+  let filtered = archiveData.filter(a=>{
+    if(repF && a.rep!==repF) return false;
+    if(sheetF && a.sheet!==sheetF) return false;
+    if(q){ let hay = norm(a.client+" "+a.phone+" "+a.rep+" "+a.sheet+" "+a.date+" "+a.last7); if(!hay.includes(q)) return false; }
+    return true;
+  });
+  let grid = $('#archiveGrid');
+  let empty = $('#archiveEmpty');
+  if(!filtered.length){ if(grid) grid.innerHTML=""; if(empty) empty.style.display="block"; }
+  else { if(empty) empty.style.display="none"; if(grid) grid.innerHTML = filtered.map(a=>`
+    <div class="archive-card">
+      ${a.image ? `<img src="${a.image}" onclick="openImgModal('${a.id}')" style="cursor:pointer">` : `<div class="ac-thumb-noimg" onclick="openImgModal('${a.id}')">🧾</div>`}
+      <div class="ac-body">
+        <b>👤 ${a.client||"عميل غير معروف"}</b><br>
+        📞 <span dir="ltr" style="color:#38bdf8;font-weight:900">${a.phone}</span> <span style="color:#94a3b8">(آخر 7: ${a.last7})</span><br>
+        👤 المندوب: <b style="color:#22c55e">${a.rep}</b><br>
+        📅 ${a.date} - 🕐 ${a.time}<br>
+        📄 ورقة: ${a.sheet} | 🔍 المصدر: ${a.source} ${a.price?` | 💰 ${a.price} ج.م`:""}<br>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <button class="btn btn-p" style="flex:1;justify-content:center" onclick="openImgModal('${a.id}')">🖼️ عرض الصورة</button>
+          <button class="btn btn-wa" style="flex:1;justify-content:center" onclick="downloadArchiveOne('${a.id}')">⬇️ تحميل</button>
+          <button class="btn btn-red" onclick="deleteArchiveOne('${a.id}')">🗑️</button>
+        </div>
+      </div>
+    </div>`).join("");
+  }
+  // آخر 5 في الرئيسية
+  let quick = $('#archiveQuick');
+  if(quick){ quick.innerHTML = archiveData.slice(0,5).map(a=>`<div style="display:flex;justify-content:space-between;background:#0f172a;padding:8px 10px;border-radius:10px;margin:4px 0"><span>🧾 <b>${a.client||"عميل"}</b> - <span dir="ltr">${a.phone}</span> - ${a.rep}</span><span style="font-size:11px;color:#94a3b8">${a.date} ${a.time}</span></div>`).join("") || `<p style="color:#94a3b8">لسه مفيش بوالص</p>`; }
+}
+function openImgModal(id){
+  let a = archiveData.find(x=>x.id===id); if(!a) return;
+  currentImgUrl = a.image||""; currentImgName = `بوليصة_${a.client||a.phone}_${a.date}.png`;
+  $('#imgModalTitle').textContent = `صورة البوليصة - ${a.client||a.phone}`;
+  let img = $('#imgModalImg'); if(a.image){ img.src=a.image; img.style.display="block"; } else { img.style.display="none"; }
+  $('#imgModalInfo').innerHTML = `👤 العميل: <b>${a.client}</b><br>📞 الرقم: <span dir="ltr">${a.phone}</span><br>👤 المندوب: ${a.rep}<br>📅 ${a.date} - ${a.time}<br>📄 ورقة: ${a.sheet}`;
+  $('#imgModal').style.display="flex";
+}
+function closeImgModal(){ $('#imgModal').style.display="none"; }
+function downloadCurrentImg(){ if(!currentImgUrl){ alert("مفيش صورة محفوظة للبوليصة دي"); return; } let a=document.createElement('a'); a.href=currentImgUrl; a.download=currentImgName; a.click(); toast("✅ تم تحميل الصورة على التليفون"); }
+function downloadArchiveOne(id){ let a=archiveData.find(x=>x.id===id); if(!a||!a.image){ alert("مفيش صورة"); return; } let el=document.createElement('a'); el.href=a.image; el.download=`بوليصة_${a.client||a.phone}.png`; el.click(); }
+function deleteArchiveOne(id){ if(!confirm("مسح البوليصة دي من الأرشيف؟")) return; archiveData = archiveData.filter(x=>x.id!==id); saveArchive(); renderArchive(); toast("تم المسح"); }
+function clearArchive(){ if(!confirm("متأكد؟ هتمسح كل الأرشيف (الأرقام والصور) من التليفون ده")) return; archiveData=[]; saveArchive(); renderArchive(); toast("تم مسح الأرشيف"); }
+function exportArchiveCSV(){
+  if(!archiveData.length){ alert("الأرشيف فاضي"); return; }
+  let csv = "العميل,رقم التليفون,اخر 7,المندوب,الورقة,التاريخ,الوقت,المصدر,السعر\n";
+  archiveData.forEach(a=>{ csv += `"${a.client}","${a.phone}","${a.last7}","${a.rep}","${a.sheet}","${a.date}","${a.time}","${a.source}","${a.price}"\n`; });
+  let blob = new Blob(["\uFEFF"+csv], {type:"text/csv;charset=utf-8"});
+  let url = URL.createObjectURL(blob); let a=document.createElement('a'); a.href=url; a.download=`ارشيف_البوالص_${new Date().toISOString().slice(0,10)}.csv`; a.click(); toast("✅ تم تحميل ملف الأرشيف");
+}
+function downloadAllArchiveImages(){ if(!archiveData.length){ alert("الأرشيف فاضي"); return; } alert("دوس على كل صورة ودوس تحميل، أو حمّل ملف الـ CSV الأول. لو عايز كل الصور مرة واحدة، دوس على كل كارت ودوس تحميل."); showTab('archive'); }
 function renderRobotImage(){ let saved = localStorage.getItem('amial_robot_img'); let fab = $('#robotFabWrap'); let head = $('#robotHeaderWrap'); if(saved){ if(fab) fab.innerHTML = `<img src="${saved}" class="robot-img">`; if(head) head.innerHTML = `<img src="${saved}">`; } else { if(fab) fab.innerHTML = ROBOT_DEFAULT_SVG; if(head) head.innerHTML = ROBOT_DEFAULT_SVG; } }
-function uploadRobotImage(input){ let f = input.files && input.files[0]; if(!f) return; let reader = new FileReader(); reader.onload = (e)=>{ try{ localStorage.setItem('amial_robot_img', e.target.result); }catch(err){ alert("الصورة كبيرة أوي"); return; } renderRobotImage(); toast("✅ تم تغيير شكل أميال!"); }; reader.readAsDataURL(f); }
+function uploadRobotImage(input){ let f = input.files && input.files[0]; if(!f) return; let reader = new FileReader(); reader.onload = (e)=>{ try{ localStorage.setItem('amial_robot_img', e.target.result); }catch(err){ alert("الصورة كبيرة"); return; } renderRobotImage(); }; reader.readAsDataURL(f); }
 function resetRobotImage(){ localStorage.removeItem('amial_robot_img'); renderRobotImage(); }
-function toggleAI(forceOpen){ aiOpen = forceOpen!==undefined ? forceOpen : !aiOpen; $('#aiPanel').style.display = aiOpen ? 'flex' : 'none'; if(aiOpen){ $('#aiBadge').style.display='none'; aiAlertCount=0; if($('#aiMessages').children.length===0) aiSay("أهلاً بيك! أنا أميال مساعدك الذكي. اسألني أي حاجة.", false); } }
-function aiSay(text, isWarn){ let box=$('#aiMessages'); let div=document.createElement('div'); div.className=isWarn?'ai-msg warn':'ai-msg bot'; div.innerHTML=text; box.appendChild(div); box.scrollTop=box.scrollHeight; if(isWarn){ aiAlertCount++; $('#aiBadge').textContent=aiAlertCount; $('#aiBadge').style.display='block'; } speakText(text.replace(/<[^>]*>/g,'')); return div; }
+function toggleAI(forceOpen){ aiOpen = forceOpen!==undefined ? forceOpen : !aiOpen; $('#aiPanel').style.display = aiOpen ? 'flex' : 'none'; if(aiOpen && $('#aiMessages').children.length===0) aiSay("أهلاً بيك! أنا أميال مساعدك الذكي. اسألني أي حاجة، أو قولي افتح الأرشيف.", false); }
+function aiSay(text, isWarn){ let box=$('#aiMessages'); let div=document.createElement('div'); div.className=isWarn?'ai-msg warn':'ai-msg bot'; div.innerHTML=text; box.appendChild(div); box.scrollTop=box.scrollHeight; speakText(text.replace(/<[^>]*>/g,'')); return div; }
 function aiUserSay(text){ let box=$('#aiMessages'); let div=document.createElement('div'); div.className='ai-msg user'; div.textContent=text; box.appendChild(div); box.scrollTop=box.scrollHeight; }
 function unlockVoice(){ if(voiceUnlocked) return; voiceUnlocked = true; try{ let u = new SpeechSynthesisUtterance(" "); u.volume = 0; window.speechSynthesis.speak(u); }catch(e){} }
 document.addEventListener('click', unlockVoice, {once:false});
-function speakText(text){ if(!voiceEnabled) return; unlockVoice(); try{ let clean = text.replace(/<[^>]*>/g,'').replace(/أمي(?![ال])/g,'أميال').replace(/🤖|✅|⚠️|📍|📱|💰|🏆|📉|🔄|🧾|👤|📞|😊/g,'').trim().slice(0,250); if(!clean) return; window.speechSynthesis.cancel(); let u = new SpeechSynthesisUtterance(clean); let voices = window.speechSynthesis.getVoices(); let arVoice = voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('ar')); if(arVoice){ u.voice = arVoice; u.lang = arVoice.lang; } else { u.lang = 'ar-EG'; } u.rate = 0.9; window.speechSynthesis.speak(u); let bubble = $('#aiBubble'); if(bubble){ bubble.textContent = clean.slice(0,50); bubble.style.display='block'; setTimeout(()=>bubble.style.display='none', 4000); } }catch(e){} }
+function speakText(text){ if(!voiceEnabled) return; unlockVoice(); try{ let clean = text.replace(/<[^>]*>/g,'').replace(/أمي(?![ال])/g,'أميال').replace(/🤖|✅|⚠️|📍|📱|💰|🏆|📉|🔄|🧾|👤|📞|😊/g,'').trim().slice(0,250); if(!clean) return; window.speechSynthesis.cancel(); let u = new SpeechSynthesisUtterance(clean); let voices = window.speechSynthesis.getVoices(); let arVoice = voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('ar')); if(arVoice){ u.voice = arVoice; u.lang = arVoice.lang; } else { u.lang = 'ar-EG'; } u.rate = 0.9; window.speechSynthesis.speak(u); }catch(e){} }
 function testVoice(){ speakText("أهلاً بيك! أنا أميال، مساعدك الذكي."); }
 function toggleVoice(){ voiceEnabled=!voiceEnabled; $('#voiceBtn').textContent = voiceEnabled ? "🔊 صوت" : "🔇 صوت"; }
 function aiWarn(msg){ aiSay("⚠️ تنبيه! "+msg, true); }
-function checkForProblems(res){ let st=res.stats||{}; (res.reps||[]).forEach(r=>{ if(r.total>=10){ let rate=r.total?Math.round(r.delivered/r.total*100):0; if(rate<30){ aiWarn(`المندوب ${r.name} نسبته ${rate}% فقط`); } } }); if(st.net<0) aiWarn(`صافي الربح بالسالب`); }
+function checkForProblems(res){ let st=res.stats||{}; (res.reps||[]).forEach(r=>{ if(r.total>=10){ let rate=r.total?Math.round(r.delivered/r.total*100):0; if(rate<30) aiWarn(`المندوب ${r.name} نسبته ${rate}%`); } }); }
 function sendAIMsg(){ let v=$('#aiInput').value.trim(); if(!v) return; askAI(v); $('#aiInput').value=""; }
 function askAI(q){ if(!aiOpen) toggleAI(true); aiUserSay(q); setTimeout(()=>{ handleAICommand(q); },300); }
-function startVoiceInput(){ try{ let Rec = window.SpeechRecognition || window.webkitSpeechRecognition; if(!Rec){ toast("المتصفح مش بيدعم الصوت"); return; } let rec=new Rec(); rec.lang='ar-EG'; rec.onresult=(e)=>{ let txt=e.results[0][0].transcript; askAI(txt); }; rec.start(); }catch(e){} }
-function handleAICommand(qRaw){ let q=norm(qRaw); if(q.includes("حدث")){ forceRefresh(); aiSay("بحدث بيانات ورقة "+currentSheet); return; } if(q.includes("شيت")){ openQuickLink('sheet'); aiSay("فتحتلك الشيت."); return; } if(q.includes("لايف")){ showTab('live'); loadLiveFromCloud(); aiSay("فتحتلك اللايف."); return; } if(q.includes("كاميرا")||q.includes("مسح")||q.includes("باركود")){ openDirectCameraModal(); aiSay("فتحتلك الكاميرا، وجهها على رقم التليفون ودوس امسح الرقم ده."); return; } if(q.includes("ارباح")){ aiSay(`صافي الربح: ${$('#stat-net-profit').textContent}`); return; } if(q.includes("ازيك")||q.includes("اهلا")){ aiSay("أهلاً بيك! أنا أميال، مساعدك الذكي."); return; } aiSay("أنا أميال، جرب تقولي: كم الأرباح؟ أو افتح اللايف، أو افتح الكاميرا"); }
+function startVoiceInput(){ try{ let Rec = window.SpeechRecognition || window.webkitSpeechRecognition; if(!Rec) return; let rec=new Rec(); rec.lang='ar-EG'; rec.onresult=(e)=>{ askAI(e.results[0][0].transcript); }; rec.start(); }catch(e){} }
+function handleAICommand(qRaw){ let q=norm(qRaw); if(q.includes("حدث")){ forceRefresh(); aiSay("بحدث البيانات"); return; } if(q.includes("شيت")){ openQuickLink('sheet'); aiSay("فتحتلك الشيت."); return; } if(q.includes("لايف")){ showTab('live'); loadLiveFromCloud(); aiSay("فتحتلك اللايف."); return; } if(q.includes("ارشيف")||q.includes("سجل")){ showTab('archive'); aiSay(`فتحتلك الأرشيف، فيه ${archiveData.length} بوليصة محفوظة.`); return; } if(q.includes("كاميرا")||q.includes("مسح")||q.includes("باركود")){ openDirectCameraModal(); aiSay("فتحتلك الكاميرا."); return; } if(q.includes("ارباح")){ aiSay(`صافي الربح: ${$('#stat-net-profit').textContent}`); return; } if(q.includes("ازيك")||q.includes("اهلا")){ aiSay("أهلاً بيك! أنا أميال."); return; } aiSay("أنا أميال، جرب تقولي: افتح الأرشيف، أو كم الأرباح؟"); }
 function globalSearchFilter(q){q=(q||"").toLowerCase();document.querySelectorAll('#reps-table-body tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?"":"none");}
 function onRepSearchInput(){ let q=norm($('#repAppRepSearch').value); if(!q){ updateRepSuggest(); return; } let reps=Object.keys(globalRepsData).filter(r=>norm(r).includes(q)); let exact=reps.find(r=>norm(r)===q); if(exact){ selectRepApp(exact); return; } $('#repSuggest').innerHTML=reps.slice(0,10).map(r=>`<button class="suggest-chip" onclick="selectRepApp('${r}')">👤 ${r}</button>`).join(""); }
 function updateRepSuggest(){let reps=Object.keys(globalRepsData);$('#repSuggest').innerHTML=reps.slice(0,12).map(r=>`<button class="suggest-chip" onclick="selectRepApp('${r}')">👤 ${r}</button>`).join("");}
 function selectRepApp(rep){selectedRepApp=rep;$('#repAppRepSearch').value=rep;$('#repAppSelectedLabel').textContent=`المندوب: ${rep}`;updateRepSuggest();renderRepAppFromSummary();}
-function renderRepAppFromSummary(){ let rep=selectedRepApp; let list=$('#repAppList'); if(!rep){list.innerHTML=`<div style="text-align:center;color:#94a3b8;padding:20px">اكتب اسم المندوب فوق</div>`;$('#repAppStats').innerHTML="";return} $('#repAppSelectedLabel').textContent=`المندوب: ${rep} - ورقة ${currentSheet}`; let d=globalRepsData[rep]; if(!d){list.innerHTML=`<div style="text-align:center;color:#94a3b8;padding:20px">لا توجد بيانات</div>`;return} $('#repAppStats').innerHTML=`<div style="display:flex;gap:6px;margin-bottom:10px"><div style="flex:1;background:#1e293b;padding:8px;border-radius:10px;text-align:center"><b>${d.totalCount}</b><br><span style="font-size:11px">إجمالي</span></div><div style="flex:1;background:#1e293b;padding:8px;border-radius:10px;text-align:center"><b style="color:#22c55e">${d.deliveredCount}</b><br><span style="font-size:11px">تم</span></div></div>`; let days=Object.values(d.days); list.innerHTML=days.map(day=>`<div class="order-card-mini"><div style="display:flex;justify-content:space-between"><b>${day.dayName}</b><span style="color:#38bdf8;font-weight:900">${day.deliveredSalesK.toLocaleString()} ج.م</span></div><div style="font-size:12px;color:#94a3b8">📅 ${day.date} | 📦 ${day.count} | ✅ ${day.deliveredCount}</div></div>`).join(""); }
+function renderRepAppFromSummary(){ let rep=selectedRepApp; let list=$('#repAppList'); if(!rep){list.innerHTML=`<div style="text-align:center;color:#94a3b8;padding:20px">اكتب اسم المندوب فوق</div>`;return} $('#repAppSelectedLabel').textContent=`المندوب: ${rep} - ورقة ${currentSheet}`; let d=globalRepsData[rep]; if(!d){list.innerHTML=`لا توجد بيانات`;return} $('#repAppStats').innerHTML=`<div style="display:flex;gap:6px"><div style="flex:1;background:#1e293b;padding:8px;text-align:center"><b>${d.totalCount}</b><br>إجمالي</div><div style="flex:1;background:#1e293b;padding:8px;text-align:center"><b style="color:#22c55e">${d.deliveredCount}</b><br>تم</div></div>`; let days=Object.values(d.days); list.innerHTML=days.map(day=>`<div class="order-card-mini"><b>${day.dayName}</b> - ${day.deliveredSalesK.toLocaleString()} ج.م - ${day.count} أوردر</div>`).join(""); }
 function renderRepApp(){ renderRepAppFromSummary(); }
 function initLiveMap(){if(liveMap){liveMap.invalidateSize();return;}liveMap=L.map('liveMap').setView([30.7865,31.0004],8);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(liveMap);}
-async function loadLiveFromCloud(){ try{ let res = await fetch(`${WEB_APP_URL}?action=getRepsOverview&sheetName=${encodeURIComponent(currentSheet)}&_t=${Date.now()}`).then(r=>r.json()); if(!res || res.status!=="success") return; liveReps = (res.reps||[]).map(r=>{ let lat = parseFloat(r.lat||""); let lng = parseFloat(r.lng||""); let hasLoc = !isNaN(lat) && !isNaN(lng) && lat!==0; let isOnline = r.consentStatus==="granted" && hasLoc; return { name: r.repName, area: r.lastSeen||"", lat: hasLoc?lat:30.7865, lng: hasLoc?lng:31.0004, hasLoc: hasLoc, isOnline: isOnline, orders: r.totalOrders||0, delivered: r.deliveredOrders||0, mapsUrl: r.mapsUrl||"" }; }); let online = liveReps.filter(r=>r.isOnline).length; let withLoc = liveReps.filter(r=>r.hasLoc).length; $('#liveCount').textContent = online+" أونلاين"; if($('#liveOnlineCount')) $('#liveOnlineCount').textContent = online; if($('#liveWithLocCount')) $('#liveWithLocCount').textContent = withLoc; if($('#liveTotalCount')) $('#liveTotalCount').textContent = liveReps.length; if($('#liveLastUpdate')) $('#liveLastUpdate').textContent = "• آخر تحديث: "+new Date().toLocaleTimeString('ar-EG'); updateLiveSuggest(); renderLive(); }catch(e){} }
+async function loadLiveFromCloud(){ try{ let res = await fetch(`${WEB_APP_URL}?action=getRepsOverview&sheetName=${encodeURIComponent(currentSheet)}&_t=${Date.now()}`).then(r=>r.json()); if(!res || res.status!=="success") return; liveReps = (res.reps||[]).map(r=>{ let lat = parseFloat(r.lat||""); let lng = parseFloat(r.lng||""); let hasLoc = !isNaN(lat) && !isNaN(lng) && lat!==0; return { name: r.repName, area: r.lastSeen||"", lat: hasLoc?lat:30.7865, lng: hasLoc?lng:31.0004, hasLoc: hasLoc, isOnline: r.consentStatus==="granted" && hasLoc, orders: r.totalOrders||0, delivered: r.deliveredOrders||0 }; }); let online = liveReps.filter(r=>r.isOnline).length; $('#liveCount').textContent = online+" أونلاين"; if($('#liveOnlineCount')) $('#liveOnlineCount').textContent = online; if($('#liveWithLocCount')) $('#liveWithLocCount').textContent = liveReps.filter(r=>r.hasLoc).length; if($('#liveTotalCount')) $('#liveTotalCount').textContent = liveReps.length; if($('#liveLastUpdate')) $('#liveLastUpdate').textContent = "• آخر تحديث: "+new Date().toLocaleTimeString('ar-EG'); updateLiveSuggest(); renderLive(); }catch(e){} }
 function clearLiveSearch(){$('#liveSearch').value="";liveSearchQuery="";renderLive();}
 function updateLiveSuggest(){let names=[...new Set(liveReps.map(r=>r.name))];$('#liveSuggest').innerHTML=names.slice(0,12).map(n=>`<button class="suggest-chip" onclick="selectLiveRep('${n}')">🟢 ${n}</button>`).join("");}
 function selectLiveRep(name){$('#liveSearch').value=name;liveSearchQuery=norm(name);renderLive(); focusRepOnMap(name);}
 function focusRepOnMap(name){ if(!liveMap) return; let r = liveReps.find(x=>x.name===name); if(r && r.hasLoc){ liveMap.setView([r.lat, r.lng], 14); let m = liveMarkers[r.name]; if(m) m.openPopup(); } }
-function renderLive(){ liveSearchQuery=norm($('#liveSearch')?$('#liveSearch').value:""); let filtered=liveReps.filter(r=> !liveSearchQuery || norm(r.name).includes(liveSearchQuery)); let online = liveReps.filter(r=>r.isOnline).length; $('#liveCount').textContent=online+" أونلاين"; document.getElementById('liveQuick').innerHTML=filtered.map(r=>`<div style="display:flex;justify-content:space-between;background:#0f172a;padding:8px 10px;border-radius:10px;margin:4px 0;cursor:pointer" onclick="selectLiveRep('${r.name}')"><span>${r.isOnline?'🟢':'⚫'} <b>${r.name}</b></span><span>${r.delivered}/${r.orders} تم ${r.hasLoc?'📍':''}</span></div>`).join("") || `<p style="color:#94a3b8">دوس تحديث اللايف من الشيت</p>`; if(!liveReps.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:30px">جاري تحميل المناديب من الشيت...<br><button class="btn btn-p" onclick="loadLiveFromCloud()" style="margin-top:10px">🔄 تحديث اللايف</button></div>`;return} let h=""; filtered.forEach(r=>{ h+=`<div class="live-card ${r.isOnline?'online':'offline'}"><div class="live-header"><div class="live-avatar">${r.name.charAt(0)}</div><div><b>${r.name}</b><div style="font-size:12px;color:#94a3b8">${r.isOnline?'🟢 فاتح التطبيق':'⚫ مش فاتح'} • ${r.area}</div></div></div><div style="padding:12px"><button class="btn btn-wa" style="width:100%;justify-content:center" onclick="focusRepOnMap('${r.name}')">🗺️ شوفه على الخريطة</button></div></div>`; }); document.getElementById('liveGrid').innerHTML=h; }
-function showAllOnMap(speak=true){ if(!liveMap){ initLiveMap(); setTimeout(()=>showAllOnMap(speak), 500); return; } let withLoc = liveReps.filter(r=>r.hasLoc); Object.keys(liveMarkers).forEach(k=>{ liveMap.removeLayer(liveMarkers[k]); delete liveMarkers[k]; }); if(!withLoc.length){ toast("مفيش مناديب ليهم موقع"); return; } let bounds=[]; withLoc.forEach(r=>{ bounds.push([r.lat, r.lng]); let color = r.isOnline ? "#22c55e" : "#94a3b8"; let icon = L.divIcon({ html:`<div style="background:${color};color:#fff;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:900;border:3px solid #fff;font-size:16px">${r.name.charAt(0)}</div>`, iconSize:[36,36], iconAnchor:[18,18] }); let m = L.marker([r.lat, r.lng], {icon: icon}).addTo(liveMap); m.bindPopup(`<b>${r.name}</b><br>${r.isOnline?'🟢 فاتح':'⚫ مش فاتح'}<br>📦 ${r.delivered}/${r.orders} تم`); liveMarkers[r.name]=m; }); if(bounds.length===1){ liveMap.setView(bounds[0], 14); } else { liveMap.fitBounds(bounds, {padding:[50,50]}); } toast(`🗺️ ظهر ${withLoc.length} مندوب على الخريطة`); if(speak) aiSay(`ظهر ${withLoc.length} مندوب على الخريطة`); }
+function renderLive(){ liveSearchQuery=norm($('#liveSearch')?$('#liveSearch').value:""); let filtered=liveReps.filter(r=> !liveSearchQuery || norm(r.name).includes(liveSearchQuery)); let online = liveReps.filter(r=>r.isOnline).length; $('#liveCount').textContent=online+" أونلاين"; document.getElementById('liveQuick').innerHTML=filtered.map(r=>`<div style="display:flex;justify-content:space-between;background:#0f172a;padding:8px 10px;border-radius:10px;margin:4px 0"><span>${r.isOnline?'🟢':'⚫'} <b>${r.name}</b></span><span>${r.delivered}/${r.orders} تم</span></div>`).join("") || `<p style="color:#94a3b8">دوس تحديث اللايف</p>`; if(!liveReps.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:30px">جاري تحميل المناديب...</div>`;return} let h=""; filtered.forEach(r=>{ h+=`<div class="live-card"><div style="padding:12px"><b>${r.name}</b> - ${r.isOnline?'🟢 فاتح':'⚫ مش فاتح'} - ${r.delivered}/${r.orders} تم<br><button class="btn btn-wa" style="margin-top:8px" onclick="focusRepOnMap('${r.name}')">🗺️ شوفه على الخريطة</button></div></div>`; }); document.getElementById('liveGrid').innerHTML=h; }
+function showAllOnMap(speak=true){ if(!liveMap){ initLiveMap(); setTimeout(()=>showAllOnMap(speak), 500); return; } let withLoc = liveReps.filter(r=>r.hasLoc); Object.keys(liveMarkers).forEach(k=>{ liveMap.removeLayer(liveMarkers[k]); delete liveMarkers[k]; }); if(!withLoc.length){ toast("مفيش مناديب ليهم موقع"); return; } let bounds=[]; withLoc.forEach(r=>{ bounds.push([r.lat, r.lng]); let color = r.isOnline ? "#22c55e" : "#94a3b8"; let icon = L.divIcon({ html:`<div style="background:${color};color:#fff;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:900;border:3px solid #fff">${r.name.charAt(0)}</div>`, iconSize:[36,36], iconAnchor:[18,18] }); let m = L.marker([r.lat, r.lng], {icon: icon}).addTo(liveMap); m.bindPopup(`<b>${r.name}</b><br>${r.delivered}/${r.orders} تم`); liveMarkers[r.name]=m; }); if(bounds.length===1) liveMap.setView(bounds[0], 14); else liveMap.fitBounds(bounds, {padding:[50,50]}); toast(`🗺️ ظهر ${withLoc.length} مندوب`); }
 function openAllMaps(){ showAllOnMap(true); }
-// ===== الكاميرا زي الباركود - بتقرا رقم التليفون =====
-function beep(ok){
-  try{
-    let ctx = new (window.AudioContext||window.webkitAudioContext)();
-    let o = ctx.createOscillator(); let g = ctx.createGain();
-    o.connect(g); g.connect(ctx.destination);
-    o.frequency.value = ok ? 880 : 220; o.type = ok ? "sine" : "square";
-    g.gain.value = 0.15; o.start(); setTimeout(()=>o.stop(), ok?180:300);
-  }catch(e){}
-}
-async function openDirectCameraModal(){
-  if(!sheetPhones.length){ await loadSheetPhones(true); }
-  $('#cameraModal').style.display='flex';
-  let rep = $('#ocrRepName') ? $('#ocrRepName').value : "";
-  if(!rep) rep = selectedRepApp||"";
-  if($('#camRepName')) $('#camRepName').value = rep;
-  try{
-    videoStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment", width:{ideal:1280}, height:{ideal:720}}});
-    $('#cameraStream').srcObject = videoStream;
-  }catch(e){ alert("تعذر فتح الكاميرا - لازم تسمح للمتصفح بالكاميرا، ولازم تفتح النظام من HTTPS"); }
-}
+function beep(ok){ try{ let ctx = new (window.AudioContext||window.webkitAudioContext)(); let o = ctx.createOscillator(); let g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value = ok ? 880 : 220; o.type = ok ? "sine" : "square"; g.gain.value = 0.15; o.start(); setTimeout(()=>o.stop(), ok?180:300); }catch(e){} }
+async function openDirectCameraModal(){ if(!sheetPhones.length){ await loadSheetPhones(true); } $('#cameraModal').style.display='flex'; let rep = $('#ocrRepName') ? $('#ocrRepName').value : ""; if(!rep) rep = selectedRepApp||""; if($('#camRepName')) $('#camRepName').value = rep; try{ videoStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment", width:{ideal:1280}, height:{ideal:720}}}); $('#cameraStream').srcObject = videoStream; }catch(e){ alert("تعذر فتح الكاميرا - لازم تسمح بالكاميرا وتفتح من HTTPS"); } }
 function closeCameraModal(){ camAutoOn=false; if(camAutoTimer) clearInterval(camAutoTimer); if(videoStream) videoStream.getTracks().forEach(t=>t.stop()); $('#cameraModal').style.display='none'; }
-function takeSnapshot(){let v=$('#cameraStream'),c=$('#snapshotCanvas');c.width=v.videoWidth||640;c.height=v.videoHeight||480;c.getContext('2d').drawImage(v,0,0,c.width,c.height);let a=document.createElement('a');a.download=`ايصال_${Date.now()}.png`;a.href=c.toDataURL();a.click();toast("📸 تم حفظ الإيصال")}
-function handleBarcodeScan(e){if(e.key==='Enter'){let v=e.target.value.trim();if(v){$('#scan-result').textContent=`⚡ تم مسح: ${v}`;toast("تم مسح "+v);e.target.value=""}}}
+function handleBarcodeScan(e){ if(e.key==='Enter'){ let v=e.target.value.trim(); if(!v) return; $('#scan-result').textContent=`⚡ تم مسح: ${v}`; // سجل الباركود في الأرشيف برضه
+  let rep = selectedRepApp||""; let m = sheetPhonesMap[v.slice(-7)] || null; if(m){ addToArchive({phone:m.full, client:m.client, rep:rep, sheet:currentSheet, source:"باركود", last7:v.slice(-7)}); toast(`✅ تم مسح ${v} واتسجل في الأرشيف`); } else { addToArchive({phone:v, client:"", rep:rep, sheet:currentSheet, source:"باركود"}); toast("تم مسح "+v); } e.target.value=""; } }
 function openRepDetailPage(n){activeRepDetailName=n;renderRepDetailTable(n,true)}
-function renderRepDetailTable(rep,cv){$('#pageRepTitle').textContent=`تفاصيل: ${rep} - ورقة ${currentSheet}`;let rd=globalRepsData[rep];if(!rd) return;let h="";for(let k in rd.days){let d=rd.days[k];let net=d.deliveredSalesK-d.shippingR;h+=`<tr><td><b>${rep}</b></td><td><span class="tag">${d.date}</span></td><td>${d.count}</td><td style="color:#22c55e">${d.deliveredCount}</td><td>${d.deliveredSalesK.toLocaleString()} ج.م</td><td style="color:#ef4444">${d.shippingR.toLocaleString()} ج.م</td><td style="color:#22c55e;font-weight:900">${net.toLocaleString()} ج.م</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>`} $('#page-detail-table-body').innerHTML=h;if(cv){document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));$('#rep-detail-page').classList.add('active')}}
+function renderRepDetailTable(rep,cv){$('#pageRepTitle').textContent=`تفاصيل: ${rep} - ورقة ${currentSheet}`;let rd=globalRepsData[rep];if(!rd) return;let h="";for(let k in rd.days){let d=rd.days[k];let net=d.deliveredSalesK-d.shippingR;h+=`<tr><td><b>${rep}</b></td><td><span class="tag">${d.date}</span></td><td>${d.count}</td><td>${d.deliveredCount}</td><td>${d.deliveredSalesK.toLocaleString()} ج.م</td><td>${d.shippingR.toLocaleString()} ج.م</td><td>${net.toLocaleString()} ج.م</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>`} $('#page-detail-table-body').innerHTML=h;if(cv){document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));$('#rep-detail-page').classList.add('active')}}
 function backToRepsList(){document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));$('#reps').classList.add('active')}
 function filterRepsTable(){let v=$('#repFilterInput').value.toLowerCase();document.querySelectorAll('#reps-table-body tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(v)?"":"none")}
 function previewOCRFiles(){let files=document.getElementById('ocrFiles').files;let lim=parseInt($('#ocrLimit').value||20);let show=Math.min(files.length,lim);let h="";for(let i=0;i<show;i++){let url=URL.createObjectURL(files[i]);h+=`<div class="ocr-card" id="ocr-card-${i}"><img src="${url}"><div>صورة ${i+1}</div><div id="ocr-phone-${i}" style="color:#f59e0b">بانتظار...</div><div id="ocr-name-${i}"></div><div id="ocr-price-${i}"></div><div id="ocr-match-${i}"></div></div>`}document.getElementById('ocr-preview').innerHTML=h}
 function extractPrice(text){let m=text.match(/(\d{2,5})\s*(ج|EGP|جنيه|LE)/); if(m) return m[1]; let nums=(text.match(/\b\d{2,5}\b/g)||[]); return nums.length? nums[nums.length-1] : "";}
 async function getWorker(){ if(tesseractWorker) return tesseractWorker; tesseractWorker = await Tesseract.createWorker('eng', 1, { tessedit_char_whitelist: '0123456789', tessedit_pageseg_mode: '6' }); return tesseractWorker; }
 function fastResize(file){ return new Promise((resolve)=>{ let img = new Image(); let url = URL.createObjectURL(file); img.onload = ()=>{ let scale = Math.min(1, 1000 / Math.max(img.width, img.height)); let canvas = document.createElement('canvas'); canvas.width = img.width * scale; canvas.height = img.height * scale; let ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, canvas.width, canvas.height); let d = ctx.getImageData(0,0,canvas.width,canvas.height); let px = d.data; for(let i=0;i<px.length;i+=4){ let g=(px[i]*0.3+px[i+1]*0.59+px[i+2]*0.11); let bw=g>145?255:0; px[i]=bw; px[i+1]=bw; px[i+2]=bw; } ctx.putImageData(d,0,0); canvas.toBlob(b=>resolve(b), 'image/png'); }; img.src = url; }); }
+function fileToThumb(file){ return new Promise((resolve)=>{ let img = new Image(); let url = URL.createObjectURL(file); img.onload = ()=>{ let scale = Math.min(1, 600 / Math.max(img.width, img.height)); let canvas = document.createElement('canvas'); canvas.width = img.width*scale; canvas.height = img.height*scale; let ctx = canvas.getContext('2d'); ctx.drawImage(img,0,0,canvas.width,canvas.height); resolve(canvas.toDataURL('image/jpeg', 0.7)); }; img.src = url; }); }
 function extractLast7Only(text){ let onlyDigits = String(text||"").replace(/[^0-9]/g," "); let parts = onlyDigits.split(/\s+/).filter(x=>x.length>=7); let cands = []; for(let p of parts){ for(let i=0;i<=p.length-7;i++){ cands.push(p.slice(i,i+7)); } } return cands; }
 function toggleOCRDebug(){ ocrDebugOpen=!ocrDebugOpen; $('#ocr-debug').style.display=ocrDebugOpen?'block':'none'; }
-async function startOCR(){ if(!sheetPhones.length){ await loadSheetPhones(true); } if(!sheetPhones.length){ alert("أرقام عمود G لسه 0"); return; } let files=document.getElementById('ocrFiles').files; let rep=$('#ocrRepName').value||selectedRepApp||""; if(!files.length){ alert("اختر الصور"); return; } let lim=parseInt($('#ocrLimit').value||20); let total=Math.min(files.length,lim); ocrResults=[]; $('#btnSaveToSheet').disabled=true; let worker = await getWorker(); let matchedCount=0; for(let i=0;i<total;i++){ try{ let smallBlob = await fastResize(files[i]); let res = await worker.recognize(smallBlob); let txt = res.data.text||""; let foundMatch=null, foundDigits=""; let cands = extractLast7Only(txt); for(let c of cands){ if(sheetPhonesMap[c]){ foundMatch=sheetPhonesMap[c]; foundDigits=c; break; } } if(foundMatch) matchedCount++; ocrResults.push({ index:i, fileName:files[i].name, phone:foundMatch?foundMatch.full:"لم يتم العثور", price:extractPrice(txt), rep:rep, sheet:currentSheet, matched:!!foundMatch, sheetRow:foundMatch?foundMatch.row:null, sheetClient:foundMatch?foundMatch.client:"" }); }catch(e){} } $('#ocr-results').innerHTML=ocrResults.map(r=>`<div style="background:#0f172a;padding:10px;border-radius:10px;margin:5px 0">📷 ${r.index+1} | 👤 ${r.sheetClient||"-"} | 📞 ${r.phone} ${r.matched?"✅":"⚠️"}</div>`).join(""); $('#btnSaveToSheet').disabled=false; toast(`تم - طابقنا ${matchedCount} من ${total}`); }
-function manualPhoneFast(idx){ let inp = document.getElementById('manual7-'+idx); let p = inp ? inp.value : ""; if(!p) return; p=p.replace(/[^0-9]/g,''); let last7=p.slice(-7); let match=sheetPhonesMap[last7]; if(match){ ocrResults[idx].phone=match.full; ocrResults[idx].matched=true; ocrResults[idx].sheetClient=match.client; toast(`✅ ${match.client}`); } }
-function matchBulkManual(){ let txt = $('#manualBulkInput').value||""; let lines = txt.split(/[\n,;\s]+/).map(s=>s.replace(/[^0-9]/g,'')).filter(s=>s.length>=7); if(!lines.length){ alert("اكتب أرقام"); return; } if(!sheetPhones.length){ alert("دوس تحميل أرقام عمود G"); return; } let rep=$('#ocrRepName').value||selectedRepApp||""; let matched=0; lines.forEach((raw,idx)=>{ let last7 = raw.slice(-7); let m = sheetPhonesMap[last7]; if(m){ matched++; ocrResults.push({index:1000+idx, fileName:"يدوي", phone:m.full, rep:rep, sheet:currentSheet, matched:true, sheetRow:m.row, sheetClient:m.client}); } }); $('#btnSaveToSheet').disabled=false; toast(`✅ طابقنا ${matched}`); }
+async function startOCR(){ if(!sheetPhones.length){ await loadSheetPhones(true); } if(!sheetPhones.length){ alert("أرقام عمود G لسه 0"); return; } let files=document.getElementById('ocrFiles').files; let rep=$('#ocrRepName').value||selectedRepApp||""; if(!files.length){ alert("اختر الصور"); return; } let lim=parseInt($('#ocrLimit').value||20); let total=Math.min(files.length,lim); ocrResults=[]; $('#btnSaveToSheet').disabled=true; let worker = await getWorker(); let matchedCount=0; for(let i=0;i<total;i++){ try{ let thumb = await fileToThumb(files[i]); let smallBlob = await fastResize(files[i]); let res = await worker.recognize(smallBlob); let txt = res.data.text||""; let foundMatch=null, foundDigits=""; let cands = extractLast7Only(txt); for(let c of cands){ if(sheetPhonesMap[c]){ foundMatch=sheetPhonesMap[c]; foundDigits=c; break; } } if(foundMatch){ matchedCount++; ocrResults.push({index:i, phone:foundMatch.full, rep:rep, sheet:currentSheet, matched:true, sheetRow:foundMatch.row, sheetClient:foundMatch.client}); addToArchive({phone:foundMatch.full, client:foundMatch.client, rep:rep, sheet:currentSheet, source:"قراءة صور", image:thumb, price:extractPrice(txt), last7:foundDigits}); } else { ocrResults.push({index:i, phone:"لم يتم العثور", rep:rep, sheet:currentSheet, matched:false}); } }catch(e){} } $('#ocr-results').innerHTML=ocrResults.map(r=>`<div style="background:#0f172a;padding:10px;border-radius:10px;margin:5px 0">📷 ${r.index+1} | 👤 ${r.sheetClient||"-"} | 📞 ${r.phone} ${r.matched?"✅":"⚠️"}</div>`).join(""); $('#btnSaveToSheet').disabled=false; toast(`تم - طابقنا ${matchedCount} من ${total} واتحفظوا في الأرشيف`); }
+function matchBulkManual(){ let txt = $('#manualBulkInput').value||""; let lines = txt.split(/[\n,;\s]+/).map(s=>s.replace(/[^0-9]/g,'')).filter(s=>s.length>=7); if(!lines.length){ alert("اكتب أرقام"); return; } if(!sheetPhones.length){ alert("دوس تحميل أرقام عمود G"); return; } let rep=$('#ocrRepName').value||selectedRepApp||""; let matched=0; lines.forEach((raw,idx)=>{ let last7 = raw.slice(-7); let m = sheetPhonesMap[last7]; if(m){ matched++; ocrResults.push({index:1000+idx, phone:m.full, rep:rep, sheet:currentSheet, matched:true, sheetRow:m.row, sheetClient:m.client}); addToArchive({phone:m.full, client:m.client, rep:rep, sheet:currentSheet, source:"يدوي", last7:last7}); } }); $('#btnSaveToSheet').disabled=false; toast(`✅ طابقنا ${matched} واتحفظوا في الأرشيف`); }
 async function saveOCRToSheet(){ let rep=$('#ocrRepName').value||selectedRepApp||""; let valid=ocrResults.filter(r=>r.phone&&r.phone.startsWith("01")); if(!valid.length){alert("لا توجد أرقام");return} if(!confirm(`سيتم كتابة "${rep}" في ورقة "${currentSheet}" لـ ${valid.length} صف؟`))return; try{ await fetch(WEB_APP_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({action:"assignRepByPhone",repName:rep,phones:valid.map(v=>v.phone),sheetName:currentSheet,sheet:currentSheet})}); toast(`✅ تم إرسال ${rep}`); forceRefresh(); }catch(e){} }
-// ===== الكاميرا - مسح رقم التليفون =====
-function captureCameraFrameBlob(){
-  let v = $('#cameraStream');
-  let c = $('#snapshotCanvas');
-  // قص المستطيل الأخضر بس - اللي في نص الكاميرا
-  let vw = v.videoWidth||640, vh = v.videoHeight||480;
-  let sx = vw*0.10, sy = vh*0.38, sw = vw*0.80, sh = vh*0.24;
-  c.width = sw*2; c.height = sh*2;
-  let ctx = c.getContext('2d');
-  ctx.fillStyle="#fff"; ctx.fillRect(0,0,c.width,c.height);
-  ctx.drawImage(v, sx, sy, sw, sh, 0, 0, c.width, c.height);
-  // أبيض وأسود
-  let d = ctx.getImageData(0,0,c.width,c.height); let px=d.data;
-  for(let i=0;i<px.length;i+=4){ let g=(px[i]*0.3+px[i+1]*0.59+px[i+2]*0.11); let bw=g>140?255:0; px[i]=bw; px[i+1]=bw; px[i+2]=bw; }
-  ctx.putImageData(d,0,0);
-  return new Promise(res=>c.toBlob(b=>res(b),'image/png'));
-}
-async function scanPhoneFromCamera(){
-  if(camScanning) return;
-  if(!sheetPhones.length){ await loadSheetPhones(true); if(!sheetPhones.length){ alert("دوس تحميل أرقام عمود G الأول"); return; } }
-  let rep = $('#camRepName').value.trim() || $('#ocrRepName').value.trim() || selectedRepApp || "";
-  if(!rep){ alert("اكتب اسم المندوب الأول في الخانة اللي فوق الكاميرا"); return; }
-  camScanning=true;
-  $('#camMatchInfo').textContent="⏳ بقرا الرقم...";
-  $('#camFrame').className="cam-frame";
-  try{
-    let blob = await captureCameraFrameBlob();
-    let worker = await getWorker();
-    let res = await worker.recognize(blob);
-    let txt = (res.data.text||"").trim();
-    $('#camRawText').textContent = "اللي اتقرا: ["+txt.replace(/\n/g,' ')+"]";
-    let cands = extractLast7Only(txt);
-    let found=null, found7="";
-    for(let c of cands){ if(sheetPhonesMap[c]){ found=sheetPhonesMap[c]; found7=c; break; } }
-    if(found){
-      // لو نفس الرقم اتمسح قبل كده، متسجلوش تاني
-      if(camScans.find(s=>s.phone===found.full)){ $('#camMatchInfo').textContent="⚠️ الرقم ده اتسجل قبل كده"; beep(false); $('#camFrame').className="cam-frame scan-fail"; }
-      else {
-        $('#camLastRead').textContent = found.full;
-        $('#camMatchInfo').innerHTML = `✅ طابق! العميل: <b style="color:#22c55e">${found.client}</b> - آخر 7: ${found7} - هيتسجل لـ <b>${rep}</b>`;
-        $('#camFrame').className="cam-frame scan-ok";
-        beep(true);
-        camScans.push({phone:found.full, client:found.client, row:found.row, rep:rep, last7:found7, time:new Date().toLocaleTimeString('ar-EG')});
-        renderCamScans();
-        speakText(`تمام، سجلت ${found.client}`);
-        camLastScanned7 = found7;
-        // لو في وضع تلقائي، استنى ثانيتين قبل اللي بعده
-        if(camAutoOn){ await new Promise(r=>setTimeout(r,1500)); }
-      }
-    } else {
-      $('#camLastRead').textContent = cands.length ? cands[0] : "مش واضح";
-      $('#camMatchInfo').textContent = "❌ الرقم مش موجود في عمود G، قرب الكاميرا أكتر أو اكتبه يدوي تحت";
-      $('#camFrame').className="cam-frame scan-fail";
-      beep(false);
-    }
-  }catch(e){ $('#camMatchInfo').textContent="❌ حصل خطأ، حاول تاني"; }
-  camScanning=false;
-}
-function toggleAutoScan(){
-  camAutoOn = !camAutoOn;
-  $('#autoScanBtn').textContent = camAutoOn ? "⏸️ إيقاف المسح التلقائي - شغال دلوقتي" : "▶️ وضع المسح التلقائي: إيقاف";
-  $('#autoScanBtn').style.background = camAutoOn ? "#ef4444" : "#f59e0b";
-  if(camAutoOn){
-    toast("وضع تلقائي شغال - وجه الكاميرا على كل بوليصة، وهيتسجل لوحده");
-    camAutoTimer = setInterval(()=>{ if(!camScanning) scanPhoneFromCamera(); }, 2500);
-  } else {
-    if(camAutoTimer) clearInterval(camAutoTimer);
-  }
-}
-function renderCamScans(){
-  $('#camScanList').innerHTML = camScans.map((s,i)=>`<div class="scan-item"><span>✅ ${s.client} - <span dir="ltr">${s.phone}</span> - ${s.rep}</span><span style="font-size:11px;color:#94a3b8">${s.time}</span></div>`).join("") || `<div style="color:#94a3b8;text-align:center;padding:10px">لسه ممسحتش حاجة</div>`;
-  if($('#camScanCount')) $('#camScanCount').textContent = camScans.length;
-  // حدّث ocrResults عشان الحفظ يشتغل
-  ocrResults = camScans.map((s,i)=>({index:i, phone:s.phone, rep:s.rep, sheet:currentSheet, matched:true, sheetRow:s.row, sheetClient:s.client}));
-}
+function captureCameraFrameBlob(){ let v = $('#cameraStream'); let c = $('#snapshotCanvas'); let vw = v.videoWidth||640, vh = v.videoHeight||480; let sx = vw*0.10, sy = vh*0.38, sw = vw*0.80, sh = vh*0.24; c.width = sw*2; c.height = sh*2; let ctx = c.getContext('2d'); ctx.fillStyle="#fff"; ctx.fillRect(0,0,c.width,c.height); ctx.drawImage(v, sx, sy, sw, sh, 0, 0, c.width, c.height); let d = ctx.getImageData(0,0,c.width,c.height); let px=d.data; for(let i=0;i<px.length;i+=4){ let g=(px[i]*0.3+px[i+1]*0.59+px[i+2]*0.11); let bw=g>140?255:0; px[i]=bw; px[i+1]=bw; px[i+2]=bw; } ctx.putImageData(d,0,0); return new Promise(res=>c.toBlob(b=>res(b),'image/png')); }
+function captureCameraThumb(){ try{ let v=$('#cameraStream'); let c=document.createElement('canvas'); let scale=Math.min(1, 600/Math.max(v.videoWidth||640, v.videoHeight||480)); c.width=(v.videoWidth||640)*scale; c.height=(v.videoHeight||480)*scale; let ctx=c.getContext('2d'); ctx.drawImage(v,0,0,c.width,c.height); camLastPhoto=c.toDataURL('image/jpeg',0.7); return camLastPhoto; }catch(e){ return ""; } }
+async function scanPhoneFromCamera(){ if(camScanning) return; if(!sheetPhones.length){ await loadSheetPhones(true); if(!sheetPhones.length){ alert("دوس تحميل أرقام عمود G"); return; } } let rep = $('#camRepName').value.trim() || $('#ocrRepName').value.trim() || selectedRepApp || ""; if(!rep){ alert("اكتب اسم المندوب الأول"); return; } camScanning=true; $('#camMatchInfo').textContent="⏳ بقرا الرقم..."; $('#camFrame').className="cam-frame"; try{ captureCameraThumb(); let blob = await captureCameraFrameBlob(); let worker = await getWorker(); let res = await worker.recognize(blob); let txt = (res.data.text||"").trim(); $('#camRawText').textContent = "اللي اتقرا: ["+txt.replace(/\n/g,' ')+"]"; let cands = extractLast7Only(txt); let found=null, found7=""; for(let c of cands){ if(sheetPhonesMap[c]){ found=sheetPhonesMap[c]; found7=c; break; } } if(found){ if(camScans.find(s=>s.phone===found.full)){ $('#camMatchInfo').textContent="⚠️ الرقم ده اتسجل قبل كده"; beep(false); $('#camFrame').className="cam-frame scan-fail"; } else { $('#camLastRead').textContent = found.full; $('#camMatchInfo').innerHTML = `✅ طابق! العميل: <b style="color:#22c55e">${found.client}</b> - هيتسجل لـ <b>${rep}</b> + اتحفظ في الأرشيف`; $('#camFrame').className="cam-frame scan-ok"; beep(true); camScans.push({phone:found.full, client:found.client, row:found.row, rep:rep, last7:found7, time:new Date().toLocaleTimeString('ar-EG')}); addToArchive({phone:found.full, client:found.client, rep:rep, sheet:currentSheet, source:"كاميرا", image:camLastPhoto, last7:found7}); renderCamScans(); speakText(`تمام، سجلت ${found.client}`); if(camAutoOn){ await new Promise(r=>setTimeout(r,1500)); } } } else { $('#camLastRead').textContent = cands.length ? cands[0] : "مش واضح"; $('#camMatchInfo').textContent = "❌ الرقم مش موجود في عمود G، قرب أكتر أو اكتبه يدوي"; $('#camFrame').className="cam-frame scan-fail"; beep(false); } }catch(e){ $('#camMatchInfo').textContent="❌ حصل خطأ، حاول تاني"; } camScanning=false; }
+function toggleAutoScan(){ camAutoOn = !camAutoOn; $('#autoScanBtn').textContent = camAutoOn ? "⏸️ إيقاف المسح التلقائي - شغال" : "▶️ مسح تلقائي: إيقاف"; $('#autoScanBtn').style.background = camAutoOn ? "#ef4444" : "#f59e0b"; if(camAutoOn){ toast("وضع تلقائي شغال"); camAutoTimer = setInterval(()=>{ if(!camScanning) scanPhoneFromCamera(); }, 2500); } else { if(camAutoTimer) clearInterval(camAutoTimer); } }
+function renderCamScans(){ $('#camScanList').innerHTML = camScans.map((s,i)=>`<div class="scan-item"><span>✅ ${s.client} - <span dir="ltr">${s.phone}</span> - ${s.rep}</span><span style="font-size:11px">${s.time}</span></div>`).join("") || `<div style="color:#94a3b8;text-align:center;padding:10px">لسه ممسحتش حاجة</div>`; if($('#camScanCount')) $('#camScanCount').textContent = camScans.length; ocrResults = camScans.map((s,i)=>({index:i, phone:s.phone, rep:s.rep, sheet:currentSheet, matched:true, sheetRow:s.row, sheetClient:s.client})); }
 function clearCamScans(){ camScans=[]; renderCamScans(); $('#camLastRead').textContent="—"; $('#camMatchInfo').textContent=""; }
-function manualCamScan(){
-  let p = $('#camManual7').value.trim().replace(/[^0-9]/g,'');
-  if(p.length<7){ alert("اكتب 7 أرقام على الأقل"); return; }
-  let last7 = p.slice(-7);
-  let rep = $('#camRepName').value.trim() || selectedRepApp || "";
-  if(!rep){ alert("اكتب اسم المندوب الأول"); return; }
-  let m = sheetPhonesMap[last7];
-  if(!m){ alert("الرقم مش موجود في عمود G"); beep(false); return; }
-  if(camScans.find(s=>s.phone===m.full)){ toast("اتسجل قبل كده"); return; }
-  $('#camLastRead').textContent = m.full;
-  $('#camMatchInfo').innerHTML = `✅ طابق يدوي: ${m.client}`;
-  beep(true);
-  camScans.push({phone:m.full, client:m.client, row:m.row, rep:rep, last7:last7, time:new Date().toLocaleTimeString('ar-EG')});
-  $('#camManual7').value="";
-  renderCamScans();
-}
-async function saveCamScansToSheet(){
-  if(!camScans.length){ alert("لسه ممسحتش حاجة"); return; }
-  let rep = $('#camRepName').value.trim() || camScans[0].rep;
-  // لو فيه أكتر من مندوب، اسأل
-  if(!confirm(`سيتم تسجيل ${camScans.length} بوليصة لـ "${rep}" في ورقة "${currentSheet}" - عمود M. متأكد؟`)) return;
-  try{
-    await fetch(WEB_APP_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({action:"assignRepByPhone",repName:rep,phones:camScans.map(v=>v.phone),sheetName:currentSheet,sheet:currentSheet})});
-    toast(`✅ تم حفظ ${camScans.length} بوليصة لـ ${rep} في الشيت`);
-    aiSay(`تم حفظ ${camScans.length} بوليصة لـ ${rep} في الشيت`);
-    forceRefresh();
-  }catch(e){ toast("تم إرسال الطلب"); }
-}
+function manualCamScan(){ let p = $('#camManual7').value.trim().replace(/[^0-9]/g,''); if(p.length<7){ alert("اكتب 7 أرقام"); return; } let last7 = p.slice(-7); let rep = $('#camRepName').value.trim() || selectedRepApp || ""; if(!rep){ alert("اكتب اسم المندوب"); return; } let m = sheetPhonesMap[last7]; if(!m){ alert("الرقم مش موجود في عمود G"); beep(false); return; } if(camScans.find(s=>s.phone===m.full)){ toast("اتسجل قبل كده"); return; } captureCameraThumb(); $('#camLastRead').textContent = m.full; $('#camMatchInfo').innerHTML = `✅ طابق يدوي: ${m.client} + اتحفظ في الأرشيف`; beep(true); camScans.push({phone:m.full, client:m.client, row:m.row, rep:rep, last7:last7, time:new Date().toLocaleTimeString('ar-EG')}); addToArchive({phone:m.full, client:m.client, rep:rep, sheet:currentSheet, source:"كاميرا - يدوي", image:camLastPhoto, last7:last7}); $('#camManual7').value=""; renderCamScans(); }
+function saveLastCamPhoto(){ captureCameraThumb(); if(!camLastPhoto){ alert("افتح الكاميرا الأول"); return; } let rep = $('#camRepName').value.trim()||selectedRepApp||""; let last = camScans[camScans.length-1]; if(last){ let rec = archiveData.find(a=>a.phone===last.phone); if(rec){ rec.image = camLastPhoto; saveArchive(); renderArchive(); toast("✅ تم حفظ صورة البوليصة"); return; } } addToArchive({phone:last?last.phone:"", client:last?last.client:"", rep:rep, sheet:currentSheet, source:"صورة كاميرا", image:camLastPhoto}); toast("✅ تم حفظ الصورة"); }
+async function saveCamScansToSheet(){ if(!camScans.length){ alert("لسه ممسحتش حاجة"); return; } let rep = $('#camRepName').value.trim() || camScans[0].rep; if(!confirm(`سيتم تسجيل ${camScans.length} بوليصة لـ "${rep}" في ورقة "${currentSheet}"؟`)) return; try{ await fetch(WEB_APP_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({action:"assignRepByPhone",repName:rep,phones:camScans.map(v=>v.phone),sheetName:currentSheet,sheet:currentSheet})}); toast(`✅ تم حفظ ${camScans.length} بوليصة`); forceRefresh(); }catch(e){} }
 buildMonthPicker();
 loadQuickLinks();
 renderRobotImage();
+loadArchive();
+renderArchive();
 loadSummary(0,"1/11/2026");
 loadSheetPhones(true);
 loadLiveFromCloud();
