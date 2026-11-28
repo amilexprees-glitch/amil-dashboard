@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AMIAl EXPRESS - V10 + مساعد ذكي 🤖</title>
+<title>AMIAl EXPRESS - V11 + مساعد ذكي 🤖</title>
 <meta name="theme-color" content="#0f172a"/>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -74,13 +74,16 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 .search-box-big{width:100%;padding:13px 14px;background:#0f172a;border:1px solid #38bdf8;border-radius:12px;color:#fff;font-size:14px;font-weight:700;outline:none}
 .suggest-box{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .suggest-chip{padding:6px 12px;border-radius:999px;background:#111827;border:1px solid var(--line);color:#fff;cursor:pointer;font-size:12px;font-weight:700}
-/* ===== الروبوت المساعد 🤖 ===== */
-.ai-fab{position:fixed;bottom:20px;right:20px;width:72px;height:72px;border-radius:50%;border:3px solid #38bdf8;background:linear-gradient(135deg,#38bdf8,#22c55e);cursor:pointer;z-index:10001;font-size:38px;display:grid;place-items:center;box-shadow:0 8px 25px rgba(56,189,248,.5);animation:robotFloat 2s infinite}
-@keyframes robotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.ai-fab.has-alert{border-color:#ef4444;animation:robotAlert .5s infinite}
-@keyframes robotAlert{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.7)}50%{box-shadow:0 0 0 12px rgba(239,68,68,0)}}
-.ai-badge{position:absolute;top:-4px;left:-4px;background:#ef4444;color:#fff;font-size:11px;font-weight:900;padding:2px 7px;border-radius:999px;display:none}
-.ai-panel{position:fixed;bottom:100px;right:20px;width:360px;max-width:calc(100vw - 30px);height:520px;max-height:calc(100vh - 130px);background:#1e293b;border:2px solid #38bdf8;border-radius:20px;z-index:10001;display:none;flex-direction:column;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,.6)}
+/* ===== الروبوت الجديد - مرسوم جوة الكود ===== */
+.ai-fab-new{position:fixed;bottom:18px;right:18px;width:92px;height:92px;border-radius:50%;cursor:pointer;z-index:10001;animation:robotFloat 2s infinite}
+.ai-fab-new.has-alert{animation:robotAlert .5s infinite}
+@keyframes robotFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+@keyframes robotAlert{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.ai-speech-bubble{position:absolute;bottom:96px;right:0;background:#fff;color:#00111f;padding:8px 12px;border-radius:14px;font-size:12px;font-weight:900;white-space:nowrap;box-shadow:0 8px 20px rgba(0,0,0,.4);display:none}
+.ai-speech-bubble:after{content:"";position:absolute;bottom:-6px;right:38px;width:12px;height:12px;background:#fff;transform:rotate(45deg)}
+.ai-fab-new:hover .ai-speech-bubble{display:block}
+.ai-badge{position:absolute;top:0;left:0;background:#ef4444;color:#fff;font-size:11px;font-weight:900;padding:3px 8px;border-radius:999px;display:none;z-index:2}
+.ai-panel{position:fixed;bottom:118px;right:20px;width:360px;max-width:calc(100vw - 30px);height:520px;max-height:calc(100vh - 150px);background:#1e293b;border:2px solid #38bdf8;border-radius:20px;z-index:10001;display:none;flex-direction:column;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,.6)}
 .ai-header{background:linear-gradient(135deg,#38bdf8,#22c55e);color:#00111f;padding:12px;display:flex;gap:10px;align-items:center}
 .ai-face{width:48px;height:48px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:28px;flex-shrink:0}
 .ai-messages{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
@@ -98,7 +101,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <body>
 <div class="app">
 <aside class="sidebar">
-<div class="brand"><div class="logo">A</div><div><h1 style="margin:0;font-size:19px">AMIAl EXPRESS</h1><p style="margin:0;color:var(--muted);font-size:12px">النظام الرئيسي V10 + مساعد ذكي 🤖</p></div></div>
+<div class="brand"><div class="logo">A</div><div><h1 style="margin:0;font-size:19px">AMIAl EXPRESS</h1><p style="margin:0;color:var(--muted);font-size:12px">النظام الرئيسي V11 + مساعد ذكي 🤖</p></div></div>
 <div id="cloudBadgeSidebar" class="cloud-badge" style="margin-top:14px;width:100%;justify-content:center"><span class="cloud-dot"></span><span id="cloudTextSidebar">☁️ متصل بالسحابة</span></div>
 <div class="nav">
 <button class="active" data-tab="dashboard">🏠 الرئيسية</button>
@@ -108,7 +111,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <button data-tab="reps">🧑‍💼 تحليل المناديب</button>
 <button data-tab="profits">📈 الأرباح</button>
 <button data-tab="branches">🏢 الرواسل</button>
-<button data-tab="ocr">🧾 قراءة الإيصالات OCR</button>
+<button data-tab="ocr">🧾 قراءة البوالص OCR</button>
 </div>
 <div style="margin-top:14px;background:#111827;border:1px solid #38bdf8;padding:12px;border-radius:14px">
   <b style="font-size:13px">🔗 لينكات سريعة</b>
@@ -127,7 +130,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 </aside>
 <main class="main">
 <div class="hero">
-<h2 style="margin:0">النظام الرئيسي - AMIAl EXPRESS V10</h2><p style="color:var(--muted)">ملخص خفيف + مطابقة بآخر 7 أرقام + مساعد ذكي 🤖</p>
+<h2 style="margin:0">النظام الرئيسي - AMIAl EXPRESS V11</h2><p style="color:var(--muted)">ملخص خفيف + مطابقة بآخر 7 أرقام + مساعد ذكي بيتكلم عربي 🤖</p>
 <div class="top-controls">
 <div class="month-picker"><select id="monthSelect" class="month-select" onchange="selectSheet(this.value)"></select></div>
 <input id="globalSearch" class="search-mini" placeholder="🔍 ابحث في النظام كله..." oninput="globalSearchFilter(this.value)"/>
@@ -173,21 +176,68 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <section id="rep-detail-page" class="content"><button class="btn btn-red" onclick="backToRepsList()" style="margin-bottom:12px">← عودة</button><div class="card"><h3 id="pageRepTitle"></h3><div class="sheet-wrap"><table><thead><tr><th>المندوب</th><th>التاريخ</th><th>عدد</th><th>المسلمة</th><th>السعر</th><th>شحن المندوب</th><th>الصافي</th><th>الوارد</th><th>صورة</th><th>المعلقات</th><th>المحاسب</th><th>واتساب</th><th>إجراءات</th></tr></thead><tbody id="page-detail-table-body"></tbody></table></div></div></section>
 <section id="profits" class="content"><div class="card"><h3>الأرباح - <span class="sheet-name-label">1/11/2026</span></h3><div class="stats"><div class="stat"><div class="label">شحن المكتب</div><div class="value" id="profit-net-office">0</div></div><div class="stat"><div class="label">شحن المندوب</div><div class="value" id="profit-expenses-val" style="color:#ef4444">0</div></div></div></div></section>
 <section id="branches" class="content"><div class="card"><h3>الرواسل</h3><div class="sheet-wrap"><table><thead><tr><th>الراسل</th><th>العدد</th><th>الإجمالي</th></tr></thead><tbody id="senders-table-body"></tbody></table></div></div></section>
-<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة الإيصالات OCR - مطابقة بآخر 7 أرقام من عمود G</h3><p style="color:var(--muted)">بنقرا أي 7 أرقام من الإيصال، وبنطابقها بآخر 7 أرقام من عمود G في الشيت. لو طابقت، هيظهر اسم العميل الصح ✅</p>
+<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة البوالص - نطاق ضيق - أرقام فقط - آخر 7 أرقام من عمود G</h3><p style="color:var(--muted)">بنقص مناطق ضيقة من الصورة، وبنقرا أرقام بس، وبنطابق بآخر 7 أرقام من عمود G في الشيت. لو طابقت، هيظهر اسم العميل الصح ✅</p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"><div><label>📅 ورقة الشهر:</label><input id="ocrSheet" class="select-input" readonly></div><div><label>👤 المندوب:</label><input id="ocrRepName" class="select-input" placeholder="اكتب اسم المندوب..." list="ocrRepsList"/><datalist id="ocrRepsList"></datalist></div></div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><label>عدد الصور:</label><input type="number" id="ocrLimit" value="20" class="filter-input"></div><div><label>اختر الصور:</label><input type="file" id="ocrFiles" accept="image/*" multiple class="filter-input" onchange="previewOCRFiles()"></div></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-amber" onclick="startOCR()">🧠 بدء القراءة + مطابقة بعمود G</button><button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في ورقة الشهر (عمود M)</button><button class="btn btn-p" onclick="loadSheetPhones()">📞 تحميل أرقام عمود G للمطابقة</button></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-amber" onclick="startOCR()">🧠 بدء القراءة - نطاق ضيق - أرقام فقط</button><button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في ورقة الشهر (عمود M)</button><button class="btn btn-p" onclick="loadSheetPhones()">📞 تحميل أرقام عمود G للمطابقة</button></div>
 <div style="margin-top:10px;font-size:12px;color:#94a3b8">📞 أرقام عمود G المحملة: <b id="phonesLoadedCount" style="color:#38bdf8">0</b> رقم | <span id="phonesStatus">اضغط تحميل أرقام عمود G قبل القراءة</span></div>
 <div style="margin-top:12px"><span id="ocr-progress-text">جاهز...</span><div class="progress" style="margin-top:6px"><i id="ocr-bar" style="width:0%"></i></div></div><div id="ocr-preview" class="ocr-grid"></div><div id="ocr-results" style="margin-top:12px"></div></div></section>
 </main>
 </div>
 
-<!-- ===== الروبوت المساعد 🤖 ===== -->
-<div class="ai-fab" id="aiFab" onclick="toggleAI()">🤖<span class="ai-badge" id="aiBadge">!</span></div>
+<!-- ===== الروبوت الجديد - مرسوم جوة الكود، مش محتاج صورة ===== -->
+<div class="ai-fab-new" id="aiFab" onclick="toggleAI()">
+  <svg viewBox="0 0 200 200" style="width:100%;height:100%;filter:drop-shadow(0 8px 18px rgba(56,189,248,.6))">
+    <rect x="62" y="155" width="26" height="28" rx="10" fill="#f97316"/>
+    <rect x="112" y="155" width="26" height="28" rx="10" fill="#f97316"/>
+    <ellipse cx="75" cy="186" rx="18" ry="8" fill="#ea580c"/>
+    <ellipse cx="125" cy="186" rx="18" ry="8" fill="#ea580c"/>
+    <rect x="22" y="95" width="22" height="42" rx="11" fill="#60a5fa"/>
+    <circle cx="33" cy="142" r="11" fill="#f97316"/>
+    <rect x="156" y="95" width="22" height="42" rx="11" fill="#60a5fa"/>
+    <circle cx="167" cy="142" r="11" fill="#f97316"/>
+    <rect x="55" y="82" width="90" height="80" rx="22" fill="#3b82f6"/>
+    <rect x="55" y="82" width="90" height="80" rx="22" fill="none" stroke="#1d4ed8" stroke-width="3"/>
+    <rect x="78" y="105" width="44" height="30" rx="10" fill="#dbeafe"/>
+    <circle cx="100" cy="120" r="10" fill="#fff" stroke="#f97316" stroke-width="2"/>
+    <circle cx="100" cy="120" r="4" fill="#f97316"/>
+    <rect x="88" y="72" width="24" height="14" fill="#60a5fa"/>
+    <rect x="42" y="22" width="116" height="58" rx="26" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/>
+    <rect x="28" y="38" width="18" height="28" rx="9" fill="#f97316"/>
+    <rect x="154" y="38" width="18" height="28" rx="9" fill="#f97316"/>
+    <line x1="100" y1="22" x2="100" y2="8" stroke="#1d4ed8" stroke-width="3"/>
+    <circle cx="100" cy="7" r="6" fill="#f97316" stroke="#fff" stroke-width="2"/>
+    <circle cx="78" cy="48" r="11" fill="#fff"/>
+    <circle cx="78" cy="48" r="5" fill="#0f172a"/>
+    <circle cx="80" cy="46" r="2" fill="#fff"/>
+    <circle cx="122" cy="48" r="11" fill="#fff"/>
+    <circle cx="122" cy="48" r="5" fill="#0f172a"/>
+    <circle cx="124" cy="46" r="2" fill="#fff"/>
+    <path d="M 82 62 Q 100 74 118 62" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="62" cy="58" r="5" fill="#fca5a5" opacity=".7"/>
+    <circle cx="138" cy="58" r="5" fill="#fca5a5" opacity=".7"/>
+  </svg>
+  <span class="ai-badge" id="aiBadge">!</span>
+  <div class="ai-speech-bubble" id="aiBubble">أهلاً بيك! أنا أمي 🤖</div>
+</div>
+
 <div class="ai-panel" id="aiPanel">
   <div class="ai-header">
-    <div class="ai-face" id="aiFace">🤖</div>
-    <div style="flex:1"><b>أمي - مساعد AMIAl الذكي</b><div style="font-size:11px;opacity:.8" id="aiStatus">أونلاين - بفهم كل حاجة في النظام 💡</div></div>
+    <div class="ai-face" style="padding:4px;overflow:hidden;background:#fff">
+      <svg viewBox="0 0 200 200" style="width:100%;height:100%">
+        <rect x="62" y="155" width="26" height="28" rx="10" fill="#f97316"/>
+        <rect x="112" y="155" width="26" height="28" rx="10" fill="#f97316"/>
+        <rect x="55" y="82" width="90" height="80" rx="22" fill="#3b82f6"/>
+        <rect x="78" y="105" width="44" height="30" rx="10" fill="#dbeafe"/>
+        <rect x="42" y="22" width="116" height="58" rx="26" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/>
+        <rect x="28" y="38" width="18" height="28" rx="9" fill="#f97316"/>
+        <rect x="154" y="38" width="18" height="28" rx="9" fill="#f97316"/>
+        <circle cx="78" cy="48" r="11" fill="#fff"/><circle cx="78" cy="48" r="5" fill="#0f172a"/>
+        <circle cx="122" cy="48" r="11" fill="#fff"/><circle cx="122" cy="48" r="5" fill="#0f172a"/>
+        <path d="M 82 62 Q 100 74 118 62" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div style="flex:1"><b>أمي - مساعد AMIAl الذكي</b><div style="font-size:11px;opacity:.8" id="aiStatus">أونلاين - بتكلم عربي 💡</div></div>
     <div style="display:flex;gap:6px"><button onclick="toggleVoice()" id="voiceBtn" style="background:#fff;border:none;padding:6px 10px;border-radius:999px;cursor:pointer">🔊 صوت: تشغيل</button><button onclick="toggleAI(false)" style="background:#fff;border:none;padding:6px 10px;border-radius:999px;cursor:pointer">✕</button></div>
   </div>
   <div class="ai-messages" id="aiMessages"></div>
@@ -205,7 +255,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <div id="cameraModal" class="modal-overlay"><div class="modal-card"><h3>📸 التقاط إيصال</h3><video id="cameraStream" autoplay playsinline style="width:100%;height:230px;background:#000;border-radius:12px"></video><canvas id="snapshotCanvas" style="display:none"></canvas><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:10px" onclick="takeSnapshot()">📸 التقاط</button><button class="btn btn-red" style="width:100%;justify-content:center;margin-top:8px" onclick="closeCameraModal()">إغلاق</button></div></div>
 <div id="toast" class="toast"></div>
 <script>
-const WEB_APP_URL="https://script.google.com/macros/s/AKfycbzhlIExt4alU8NXmXUh-I8rkBEzqL4eafNnZQf3j9zTVGTOxTfP6HhC7lX68JpUFD5U_Q/exec";
+const WEB_APP_URL="https://script.google.com/macros/s/AKfycbyXSyNzl0cRNpCGBhSjy6z2A7zM9dqVne_NNXUpYHKwX1RQchd7B_2HBtAN8-1zKWn0/exec";
 const LINK_REP_APP="https://amilexprees-glitch.github.io/amial-rep-app/rep-app.html?v=3.4&_b=v3.5-20261121&_t=1795252276860";
 const LINK_LIVE="https://amilexprees-glitch.github.io/amial-rep-app/live-map.html";
 const MONTHS=[
@@ -280,7 +330,6 @@ function processSummary(res, useSheet){
   let reps=Object.keys(globalRepsData); let dl=$('#ocrRepsList'); if(dl) dl.innerHTML=reps.map(n=>`<option value="${n}">`).join("");
   if(!selectedRepApp&&reps.length) selectedRepApp=reps[0]; updateRepSuggest(); updateLiveSuggest(); if(activeRepDetailName&&globalRepsData[activeRepDetailName]) renderRepDetailTable(activeRepDetailName,false); renderRepAppFromSummary();
 }
-// ===== تحميل أرقام عمود G للمطابقة =====
 async function loadSheetPhones(silent){
   if(!silent) $('#phonesStatus').textContent="⏳ جاري تحميل أرقام عمود G...";
   try{
@@ -289,28 +338,22 @@ async function loadSheetPhones(silent){
   }catch(e){ $('#phonesStatus').textContent="⚠️ تعذر تحميل أرقام عمود G - دوس تحميل تاني"; }
 }
 function findMatchByLast7(ocrText){
-  // طلع كل الأرقام من النص
   let allDigits = (ocrText||"").replace(/[^0-9]/g," ");
   let chunks = allDigits.split(/\s+/).filter(x=>x.length>=7);
-  // جرب كل 7 أرقام متتالية في كل قطعة
   for(let chunk of chunks){
     for(let i=0;i<=chunk.length-7;i++){
       let last7 = chunk.slice(i,i+7);
       if(sheetPhonesMap[last7]) return {match:sheetPhonesMap[last7], foundDigits:last7, method:"آخر 7 أرقام"};
-      // جرب 8 أرقام كمان
       if(i+8<=chunk.length){ let last8=chunk.slice(i,i+8); if(sheetPhonesMap[last8]) return {match:sheetPhonesMap[last8], foundDigits:last8, method:"آخر 8 أرقام"}; }
     }
   }
-  // جرب الرقم الكامل لو اتقرا كامل
-  let full = (ocrText||"").replace(/[^0-9]/g,"");
-  if(full.length>=11 && sheetPhonesMap[full]) return {match:sheetPhonesMap[full], foundDigits:full, method:"رقم كامل"};
   return null;
 }
-// ===== المساعد الذكي 🤖 =====
+// ===== المساعد الذكي - بيتكلم عربي مصري =====
 function toggleAI(forceOpen){
   aiOpen = forceOpen!==undefined ? forceOpen : !aiOpen;
   $('#aiPanel').style.display = aiOpen ? 'flex' : 'none';
-  if(aiOpen){ $('#aiBadge').style.display='none'; aiAlertCount=0; $('#aiFab').classList.remove('has-alert'); if($('#aiMessages').children.length===0) aiSay("أهلاً بيك! أنا أمي 🤖 مساعدك الذكي. أنا فاهم كل حاجة في النظام: الأرباح، المناديب، الإيصالات، واللايف. اسألني أي حاجة أو اديني أمر، وأنا هنفذهولك! جرب تقولي: مين أفضل مندوب؟ أو كم الأرباح؟", false); }
+  if(aiOpen){ $('#aiBadge').style.display='none'; aiAlertCount=0; $('#aiFab').classList.remove('has-alert'); if($('#aiMessages').children.length===0) aiSay("أهلاً بيك! أنا أمي 🤖 مساعدك الذكي. أنا فاهم كل حاجة في النظام: الأرباح، المناديب، البوالص، واللايف. اسألني أي حاجة أو اديني أمر، وأنا هنفذهولك! جرب تقولي: مين أفضل مندوب؟ أو كم الأرباح؟", false); }
 }
 function aiSay(text, isWarn){
   let box=$('#aiMessages'); let div=document.createElement('div'); div.className=isWarn?'ai-msg warn':'ai-msg bot'; div.innerHTML=text; box.appendChild(div); box.scrollTop=box.scrollHeight;
@@ -321,17 +364,31 @@ function aiSay(text, isWarn){
 function aiUserSay(text){ let box=$('#aiMessages'); let div=document.createElement('div'); div.className='ai-msg user'; div.textContent=text; box.appendChild(div); box.scrollTop=box.scrollHeight; }
 function speakText(text){
   if(!voiceEnabled) return;
-  try{ let clean=text.replace(/🤖|✅|⚠️|📍|📱|💰|🏆|📉|🔄/g,'').slice(0,300); let u=new SpeechSynthesisUtterance(clean); u.lang='ar-EG'; u.rate=1.05; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); }catch(e){}
+  try{
+    let clean = text.replace(/<[^>]*>/g,'').replace(/🤖|✅|⚠️|📍|📱|💰|🏆|📉|🔄|🧾|👤|📞|😊/g,'').trim().slice(0,280);
+    if(!clean) return;
+    window.speechSynthesis.cancel();
+    let u = new SpeechSynthesisUtterance(clean);
+    let voices = window.speechSynthesis.getVoices();
+    let arVoice = voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('ar'));
+    if(arVoice) u.voice = arVoice;
+    u.lang = 'ar-EG';
+    u.rate = 0.95;
+    u.pitch = 1.15;
+    u.volume = 1;
+    let fab = $('#aiFab');
+    if(fab){ fab.style.animation='robotAlert .4s infinite'; setTimeout(()=>{ fab.style.animation=''; }, clean.length*45); }
+    let bubble = $('#aiBubble');
+    if(bubble){ bubble.textContent = clean.slice(0,50); bubble.style.display='block'; setTimeout(()=>bubble.style.display='none', 4000); }
+    window.speechSynthesis.speak(u);
+  }catch(e){}
 }
 function toggleVoice(){ voiceEnabled=!voiceEnabled; $('#voiceBtn').textContent = voiceEnabled ? "🔊 صوت: تشغيل" : "🔇 صوت: إيقاف"; if(voiceEnabled) speakText("تم تشغيل الصوت"); }
 function aiWarn(msg){ aiSay("⚠️ <b>تنبيه!</b> "+msg, true); }
 function checkForProblems(res){
   let st=res.stats||{}; let reps=res.reps||[];
-  // تحذير: مندوب نسبته ضعيفة
   reps.forEach(r=>{ if(r.total>=10){ let rate=r.total?Math.round(r.delivered/r.total*100):0; if(rate<30){ aiWarn(`المندوب ${r.name} نسبته ضعيفة جداً: ${rate}% فقط (${r.delivered}/${r.total}) - راجعه فوراً`); } } });
-  // تحذير: صافي ربح سالب
   if(st.net<0) aiWarn(`صافي الربح في ورقة ${currentSheet} بالسالب: ${st.net.toLocaleString()} ج.م - راجع المصاريف!`);
-  // تحذير: مفيش بيانات
   if((res.rowCount||0)===0) aiWarn(`ورقة ${currentSheet} فاضية، مفيش بيانات`);
 }
 function sendAIMsg(){ let v=$('#aiInput').value.trim(); if(!v) return; askAI(v); $('#aiInput').value=""; }
@@ -344,13 +401,10 @@ function startVoiceInput(){
 }
 function handleAICommand(qRaw){
   let q=norm(qRaw);
-  $('#aiFace').textContent="🤔";
-  setTimeout(()=>{ $('#aiFace').textContent="🤖"; },1200);
-  // أوامر تنفيذية
   if(q.includes("حدث")||q.includes("تحديث")||q.includes("refresh")){ forceRefresh(); aiSay("🔄 تمام، بحدث بيانات ورقة "+currentSheet+" دلوقتي..."); return; }
   if(q.includes("لايف")||q.includes("موقع")||q.includes("خريطه")){ showTab('live'); openQuickLink('live'); aiSay("📍 فتحتلك صفحة اللايف، وكمان فتحت صفحة اللايف الأصلية في تاب جديد."); return; }
-  if(q.includes("تطبيق")||q.includes("ابليكيشن")||q.includes("مناديب")&&q.includes("افتح")){ showTab('repapp'); openQuickLink('rep'); aiSay("📱 فتحتلك تطبيق المناديب الأصلي."); return; }
-  if(q.includes("ايصال")||q.includes("ocr")||q.includes("قراءه")){ showTab('ocr'); aiSay("🧾 فتحتلك صفحة الإيصالات. دوس <b>تحميل أرقام عمود G</b> الأول، وبعدين اختر الصور ودوس بدء القراءة. أنا هطابق بآخر 7 أرقام أوتوماتيك."); return; }
+  if(q.includes("تطبيق")||q.includes("ابليكيشن")){ showTab('repapp'); openQuickLink('rep'); aiSay("📱 فتحتلك تطبيق المناديب الأصلي."); return; }
+  if(q.includes("بوليص")||q.includes("ايصال")||q.includes("ocr")||q.includes("قراءه")){ showTab('ocr'); aiSay("🧾 فتحتلك صفحة البوالص. دوس تحميل أرقام عمود G الأول، وبعدين اختر الصور ودوس بدء القراءة. أنا هطابق بآخر 7 أرقام أوتوماتيك."); return; }
   if(q.includes("ارباح")||q.includes("ربح")||q.includes("مكسب")){ let s=$('#stat-net-profit').textContent; let sales=$('#stat-sales').textContent; let exp=$('#stat-expenses').textContent; aiSay(`💰 في ورقة <b>${currentSheet}</b>:<br>• المبيعات: <b>${sales}</b><br>• شحن المندوب: <b>${exp}</b><br>• صافي الربح: <b>${s}</b><br>${parseNum(s)<0 ? "⚠️ الصافي بالسالب، راجع المصاريف!" : "✅ الوضع كويس، استمر!"}`); return; }
   if(q.includes("افضل")||q.includes("احسن")||q.includes("اعلي")||q.includes("توب")){
     let best=null, bestRate=-1; for(let n in globalRepsData){ let d=globalRepsData[n]; let rate=d.totalCount?Math.round(d.deliveredCount/d.totalCount*100):0; if(d.totalCount>=5 && rate>bestRate){bestRate=rate; best={name:n, ...d, rate};} }
@@ -369,17 +423,12 @@ function handleAICommand(qRaw){
   }
   if(q.includes("كم")&&q.includes("مندوب")){ let c=Object.keys(globalRepsData).length; aiSay(`👥 عندك <b>${c}</b> مندوب في ورقة ${currentSheet}.`); return; }
   if(q.includes("غير")&&q.includes("شهر")||q.includes("ورقه")||q.includes("ورقة")){
-    // حاول تلاقي رقم الشهر في السؤال
     let m=qRaw.match(/1\/\d+\/202\d/); if(m){ selectSheet(m[0]); aiSay(`📅 تمام، غيرت الورقة لـ <b>${m[0]}</b>، وبحمل بياناتها دلوقتي...`); } else { aiSay("📅 قولي الشهر بالظبط زي كده: <b>غير الشهر لـ 1/10/2026</b>"); }
     return;
   }
   if(q.includes("ازيك")||q.includes("عامل ايه")||q.includes("اهلا")||q.includes("سلام")){ aiSay("أهلاً بيك! 😊 أنا أمي، مساعدك الذكي. أنا صاحي ومركز معاك في كل حاجة. عايز تعرف الأرباح؟ ولا تشوف أفضل مندوب؟ ولا أفتحلك اللايف؟"); return; }
   if(q.includes("شكرا")||q.includes("تمام")||q.includes("ممتاز")){ aiSay("العفو! 😊 أنا موجود هنا على طول، لو احتجت أي حاجة قولي بس."); return; }
-  if(q.includes("مين")||q.includes("ايه")||q.includes("ازاي")||q.includes("ليه")){
-    aiSay(`🤔 سؤالك حلو! أنا فاهم النظام كله:<br>• <b>الأرباح:</b> قولي "كم الأرباح؟"<br>• <b>المناديب:</b> قولي "مين أفضل مندوب؟" أو "مين أسوأ مندوب؟"<br>• <b>المشاكل:</b> قولي "فيه مشكلة؟"<br>• <b>الأوامر:</b> قولي "حدث البيانات" أو "افتح اللايف" أو "غير الشهر لـ 1/10/2026"<br>• <b>الإيصالات:</b> قولي "افتح الإيصالات"<br>جرب واحد منهم!`);
-    return;
-  }
-  aiSay(`🤖 فهمتك، بس عايز توضيح أكتر. أنا بعرف أعمل:<br>• أقولك الأرباح والمناديب والمشاكل<br>• أنفذ أوامر زي: حدث، افتح اللايف، غير الشهر<br>• أساعدك في الإيصالات والمطابقة<br>جرب تقولي: <b>كم الأرباح؟</b>`);
+  aiSay(`🤔 فهمتك، بس عايز توضيح أكتر. أنا بعرف أعمل:<br>• أقولك الأرباح والمناديب والمشاكل<br>• أنفذ أوامر زي: حدث، افتح اللايف، غير الشهر<br>• أساعدك في البوالص والمطابقة<br>جرب تقولي: <b>كم الأرباح؟</b>`);
 }
 function globalSearchFilter(q){q=(q||"").toLowerCase();document.querySelectorAll('#reps-table-body tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?"":"none");}
 function onRepSearchInput(){
@@ -437,65 +486,115 @@ function filterRepsTable(){let v=$('#repFilterInput').value.toLowerCase();docume
 function previewOCRFiles(){let files=document.getElementById('ocrFiles').files;let lim=parseInt($('#ocrLimit').value||20);let show=Math.min(files.length,lim);let h="";for(let i=0;i<show;i++){let url=URL.createObjectURL(files[i]);h+=`<div class="ocr-card" id="ocr-card-${i}"><img src="${url}"><div>صورة ${i+1}</div><div id="ocr-phone-${i}" style="color:#f59e0b">بانتظار...</div><div id="ocr-name-${i}" style="color:#94a3b8;font-size:11px"></div><div id="ocr-price-${i}" style="color:#38bdf8;font-weight:800"></div><div id="ocr-match-${i}" style="color:#22c55e;font-size:11px"></div></div>`}document.getElementById('ocr-preview').innerHTML=h}
 function extractPrice(text){let m=text.match(/(\d{2,5})\s*(ج|EGP|جنيه|LE)/); if(m) return m[1]; let nums=(text.match(/\b\d{2,5}\b/g)||[]); return nums.length? nums[nums.length-1] : "";}
 function extractName(text){let lines=text.split("\n").map(s=>s.trim()).filter(s=>s.length>2 && !/^\d+$/.test(s));let arabic=lines.filter(l=>/[\u0600-\u06FF]/.test(l));return arabic[0]||lines[0]||"";}
-function preprocessImage(file){
+// ===== قراءة ضيقة - أرقام فقط - آخر 7 أرقام =====
+function cropImageToZone(file, zone){
   return new Promise((resolve)=>{
-    let img=new Image(); let url=URL.createObjectURL(file);
-    img.onload=()=>{ let canvas=document.createElement('canvas'); canvas.width=img.width*2; canvas.height=img.height*2; let ctx=canvas.getContext('2d'); ctx.drawImage(img,0,0,canvas.width,canvas.height); let imgData=ctx.getImageData(0,0,canvas.width,canvas.height); let d=imgData.data; for(let i=0;i<d.length;i+=4){ let gray=(d[i]*0.3+d[i+1]*0.59+d[i+2]*0.11); let contrast=gray>140?255:0; d[i]=contrast; d[i+1]=contrast; d[i+2]=contrast; } ctx.putImageData(imgData,0,0); canvas.toBlob(b=>resolve(b),'image/png'); };
-    img.src=url;
+    let img = new Image();
+    let url = URL.createObjectURL(file);
+    img.onload = ()=>{
+      let canvas = document.createElement('canvas');
+      let sx=0, sy=0, sw=img.width, sh=img.height;
+      if(zone===1){ sy = img.height*0.35; sh = img.height*0.65; }
+      if(zone===2){ sy = img.height*0.25; sh = img.height*0.50; }
+      if(zone===3){ sy = 0; sh = img.height*0.45; }
+      canvas.width = sw*3;
+      canvas.height = sh*3;
+      let ctx = canvas.getContext('2d');
+      ctx.fillStyle="#fff"; ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+      let imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+      let d = imgData.data;
+      for(let i=0;i<d.length;i+=4){
+        let gray = (d[i]*0.3 + d[i+1]*0.59 + d[i+2]*0.11);
+        let bw = gray > 145 ? 255 : 0;
+        d[i]=bw; d[i+1]=bw; d[i+2]=bw;
+      }
+      ctx.putImageData(imgData,0,0);
+      canvas.toBlob(b=>resolve(b), 'image/png');
+    };
+    img.src = url;
   });
 }
-function extractPhoneSmart(text){
-  let cleaned=text.replace(/[\s\-\(\)\[\]]/g,''); cleaned=cleaned.replace(/[OoQ]/g,'0').replace(/[lI|]/g,'1').replace(/S/g,'5').replace(/B/g,'8');
-  let m=cleaned.match(/01[0125][0-9]{8}/g); if(m) return m[0];
-  let m2=cleaned.match(/1[0125][0-9]{8}/g); if(m2) return "0"+m2[0];
-  let m3=cleaned.match(/[0-9]{11}/g); if(m3) return m3[0]; return null;
+function extractLast7Only(text){
+  let onlyDigits = String(text||"").replace(/[^0-9]/g," ");
+  let parts = onlyDigits.split(/\s+/).filter(x=>x.length>=7);
+  let candidates = [];
+  for(let p of parts){
+    for(let i=0;i<=p.length-7;i++){
+      candidates.push(p.slice(i, i+7));
+    }
+  }
+  return candidates;
 }
 async function startOCR(){
-  // لو أرقام عمود G مش محملة، حملها الأول
-  if(!sheetPhones.length){ $('#ocr-progress-text').textContent="⏳ بحمل أرقام عمود G للمطابقة الأول..."; await loadSheetPhones(true); }
-  let files=document.getElementById('ocrFiles').files;let rep=$('#ocrRepName').value||selectedRepApp||"";let sheet=currentSheet;
-  if(!files.length){alert("اختر الصور");return}
-  let lim=parseInt($('#ocrLimit').value||20);let total=Math.min(files.length,lim);ocrResults=[];$('#btnSaveToSheet').disabled=true;$('#ocr-progress-text').textContent=`⏳ بننضف وبنقرا ${total} صورة + مطابقة بآخر 7 أرقام من عمود G...`;
+  if(!sheetPhones.length){ $('#ocr-progress-text').textContent="⏳ بحمل أرقام عمود G الأول..."; await loadSheetPhones(true); }
+  let files=document.getElementById('ocrFiles').files;
+  let rep=$('#ocrRepName').value||selectedRepApp||"";
+  let sheet=currentSheet;
+  if(!files.length){ alert("اختر الصور"); return; }
+  let lim=parseInt($('#ocrLimit').value||20);
+  let total=Math.min(files.length,lim);
+  ocrResults=[]; $('#btnSaveToSheet').disabled=true;
+  $('#ocr-progress-text').textContent=`⏳ بقرا أرقام بس - نطاق ضيق - وبطابق بآخر 7 أرقام من عمود G...`;
   let matchedCount=0;
   for(let i=0;i<total;i++){
     try{
-      let cleanBlob=await preprocessImage(files[i]);
-      let res1=await Tesseract.recognize(cleanBlob,'eng+ara',{tessedit_pageseg_mode:'6'});
-      let txt1=res1.data.text||"";
-      let phone=extractPhoneSmart(txt1);
-      if(!phone){ let res2=await Tesseract.recognize(cleanBlob,'eng',{tessedit_char_whitelist:'0123456789+', tessedit_pageseg_mode:'6'}); phone=extractPhoneSmart(res2.data.text||""); txt1+="\n"+(res2.data.text||""); }
-      // ===== المطابقة بآخر 7 أرقام من عمود G =====
-      let matchInfo = findMatchByLast7(txt1 + " " + (phone||""));
-      let finalPhone = phone||"لم يتم العثور";
-      let matchedClient="", matchedFull="", matchLabel="";
-      if(matchInfo){
-        matchedCount++;
-        finalPhone = matchInfo.match.full;
-        matchedClient = matchInfo.match.client;
-        matchedFull = matchInfo.match.full;
-        matchLabel = `✅ طابق: ${matchInfo.method} ${matchInfo.foundDigits} = ${matchedClient}`;
-        // لو الرقم اتقرا غلط في أوله، صححه بالرقم الصح من الشيت
-        if(phone && phone!==finalPhone) matchLabel += ` (صححت ${phone} → ${finalPhone})`;
+      let txtAll = "";
+      let foundMatch = null;
+      let foundDigits = "";
+      let triedZones = [1,2,0,3];
+      for(let zone of triedZones){
+        if(foundMatch) break;
+        let zoneBlob = await cropImageToZone(files[i], zone);
+        let res = await Tesseract.recognize(zoneBlob,'eng',{
+          tessedit_char_whitelist: '0123456789',
+          tessedit_pageseg_mode: '6',
+        });
+        let txt = res.data.text||"";
+        txtAll += "\n[منطقة "+zone+"] "+txt;
+        let cands = extractLast7Only(txt);
+        for(let c of cands){
+          if(sheetPhonesMap[c]){ foundMatch = sheetPhonesMap[c]; foundDigits=c; break; }
+        }
       }
-      let price=extractPrice(txt1); let name=extractName(txt1) || matchedClient;
-      ocrResults.push({index:i,fileName:files[i].name,phone:finalPhone,rawPhone:phone,price:price,name:matchedClient||name,rep:rep,sheet:sheet,text:txt1,matched:!!matchInfo, matchInfo:matchInfo, sheetRow:matchInfo?matchInfo.match.row:null, sheetClient:matchedClient});
-      let card=document.getElementById(`ocr-card-${i}`);let ph=document.getElementById(`ocr-phone-${i}`);let nm=document.getElementById(`ocr-name-${i}`);let pr=document.getElementById(`ocr-price-${i}`);let mt=document.getElementById(`ocr-match-${i}`);
-      if(matchInfo){ card.classList.add('matched'); ph.textContent="📞 "+finalPhone; ph.style.color="#22c55e"; if(mt) mt.textContent=matchLabel; }
-      else if(phone){ card.classList.add('ok'); ph.textContent="📞 "+phone+" (مش موجود في عمود G)"; ph.style.color="#f59e0b"; if(mt) mt.textContent="⚠️ الرقم مش موجود في عمود G"; }
-      else { card.classList.add('fail'); ph.textContent="❌ لم يتم العثور"; ph.style.color="#ef4444"; if(mt) mt.textContent="مفيش 7 أرقام اتقرت"; }
-      if(nm) nm.textContent=matchedClient? "👤 "+matchedClient.slice(0,30) : (name? "👤 "+name.slice(0,30):"");
+      if(!foundMatch){
+        let fullBlob = await cropImageToZone(files[i], 0);
+        let res2 = await Tesseract.recognize(fullBlob,'eng+ara',{ tessedit_pageseg_mode: '6' });
+        txtAll += "\n[كامل] "+(res2.data.text||"");
+        let cands2 = extractLast7Only(res2.data.text||"");
+        for(let c of cands2){ if(sheetPhonesMap[c]){ foundMatch=sheetPhonesMap[c]; foundDigits=c; break; } }
+      }
+      let finalPhone = foundMatch ? foundMatch.full : "لم يتم العثور";
+      let matchedClient = foundMatch ? foundMatch.client : "";
+      if(foundMatch) matchedCount++;
+      let price = extractPrice(txtAll);
+      ocrResults.push({ index:i, fileName:files[i].name, phone:finalPhone, price:price, name:matchedClient, rep:rep, sheet:sheet, text:txtAll, matched:!!foundMatch, matchInfo:foundMatch?{match:foundMatch, foundDigits:foundDigits}:null, sheetRow:foundMatch?foundMatch.row:null, sheetClient:matchedClient });
+      let card=document.getElementById(`ocr-card-${i}`);
+      let ph=document.getElementById(`ocr-phone-${i}`);
+      let nm=document.getElementById(`ocr-name-${i}`);
+      let pr=document.getElementById(`ocr-price-${i}`);
+      let mt=document.getElementById(`ocr-match-${i}`);
+      if(foundMatch){
+        card.classList.add('matched');
+        ph.textContent="📞 "+finalPhone; ph.style.color="#22c55e";
+        if(mt) mt.textContent=`✅ طابق آخر 7: ${foundDigits} = ${matchedClient}`;
+        if(nm) nm.textContent="👤 "+matchedClient;
+      } else {
+        card.classList.add('fail');
+        ph.textContent="❌ مفيش مطابقة - آخر 7 مش موجودين في عمود G"; ph.style.color="#ef4444";
+        if(mt) mt.textContent="حاول تصور أوضح أو اكتب آخر 7 يدوي";
+      }
       if(pr) pr.textContent=price? "💰 "+price+" ج.م":"";
       $('#ocr-bar').style.width=((i+1)/total*100)+"%";
-      $('#ocr-progress-text').textContent=`⏳ ${i+1}/${total} - طابقنا ${matchedCount} من عمود G لحد دلوقتي`;
+      $('#ocr-progress-text').textContent=`⏳ ${i+1}/${total} - طابقنا ${matchedCount} بآخر 7 أرقام`;
     }catch(e){ ocrResults.push({index:i,fileName:files[i].name,phone:"خطأ",rep:rep,sheet:sheet}); }
   }
-  let found=ocrResults.filter(r=>r.phone.startsWith("01")).length;
-  $('#ocr-progress-text').textContent=`✅ تم - وجدنا ${found} رقم، وطابقنا ${matchedCount} بآخر 7 أرقام من عمود G - ورقة ${sheet} - المندوب ${rep}`;
-  $('#ocr-results').innerHTML=ocrResults.map(r=>`<div style="background:#0f172a;padding:10px;border-radius:10px;margin:5px 0;font-size:13px">📷 صورة ${r.index+1} | 👤 ${r.sheetClient||r.name||"-"} | 📞 ${r.phone} ${r.matched?`✅ طابق عمود G (صف ${r.sheetRow})`:"⚠️ مش مطابق"} | 💰 ${r.price||"-"} ج.م | 👤 المندوب: <b style="color:#38bdf8">${r.rep}</b> ${!r.matched?'<button onclick="manualPhone('+r.index+')" style="background:#f59e0b;border:none;padding:4px 8px;border-radius:6px;cursor:pointer;font-weight:800">✏️ اكتب الرقم يدوي</button>':''}</div>`).join("");
+  $('#ocr-progress-text').textContent=`✅ تم - طابقنا ${matchedCount} من ${total} بآخر 7 أرقام من عمود G`;
+  $('#ocr-results').innerHTML=ocrResults.map(r=>`<div style="background:#0f172a;padding:10px;border-radius:10px;margin:5px 0;font-size:13px">📷 صورة ${r.index+1} | 👤 ${r.sheetClient||r.name||"-"} | 📞 ${r.phone} ${r.matched?`✅ طابق آخر 7 (صف ${r.sheetRow})`:"⚠️ مش مطابق"} | 💰 ${r.price||"-"} ج.م | 👤 المندوب: <b style="color:#38bdf8">${r.rep}</b> ${!r.matched?'<button onclick="manualPhone('+r.index+')" style="background:#f59e0b;border:none;padding:4px 8px;border-radius:6px;cursor:pointer;font-weight:800">✏️ اكتب آخر 7 يدوي</button>':''}</div>`).join("");
   $('#btnSaveToSheet').disabled=false;
-  if(matchedCount>0) aiSay(`🧾 خلصت قراءة الإيصالات! طابقت <b>${matchedCount}</b> إيصال بآخر 7 أرقام من عمود G في ورقة ${sheet}.`);
-  else aiWarn("قراءة الإيصالات خلصت بس مفيش ولا إيصال طابق عمود G - اتأكد إنك حملت أرقام عمود G وإن الصور واضحة");
-  toast(found>0?`تمت القراءة ✅ - طابقنا ${matchedCount} من عمود G`:"مفيش أرقام اتقرت");
+  if(matchedCount>0) aiSay(`خلصت قراءة البوالص! طابقت ${matchedCount} بوليصة بآخر 7 أرقام من عمود G.`);
+  else aiWarn("خلصت القراءة بس مفيش ولا بوليصة طابقت عمود G، جرب تصور أوضح أو اكتب آخر 7 أرقام يدوي");
+  toast(matchedCount>0?`تم ✅ - طابقنا ${matchedCount} بآخر 7`:"مفيش مطابقة");
 }
 function manualPhone(idx){
   let p=prompt("اكتب أي 7 أرقام من رقم التليفون (آخر 7 أرقام):");
@@ -520,6 +619,11 @@ loadQuickLinks();
 loadSummary(0,"1/11/2026");
 loadSheetPhones(true);
 refreshLive();
+if('speechSynthesis' in window){
+  window.speechSynthesis.onvoiceschanged = ()=>{ window.speechSynthesis.getVoices(); };
+  window.speechSynthesis.getVoices();
+}
+setTimeout(()=>{ speakText("أهلاً بيك! أنا أمي، مساعدك الذكي. أنا موجود هنا عشان أساعدك في كل حاجة في النظام."); }, 2000);
 setTimeout(()=>{ if(!aiOpen) aiSay("أهلاً بيك! 🤖 أنا أمي، مساعدك الذكي. أنا شايف كل حاجة في النظام دلوقتي. لو فيه مشكلة هقولك بصوتي على طول. دوس عليا واسألني أي حاجة!", false); },2500);
 </script>
 </body>
