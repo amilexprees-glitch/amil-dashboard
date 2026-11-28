@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AMIAl EXPRESS - V11 + مساعد ذكي 🤖</title>
+<title>AMIAl EXPRESS - V12 سريع + مساعد ذكي</title>
 <meta name="theme-color" content="#0f172a"/>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -74,7 +74,6 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 .search-box-big{width:100%;padding:13px 14px;background:#0f172a;border:1px solid #38bdf8;border-radius:12px;color:#fff;font-size:14px;font-weight:700;outline:none}
 .suggest-box{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .suggest-chip{padding:6px 12px;border-radius:999px;background:#111827;border:1px solid var(--line);color:#fff;cursor:pointer;font-size:12px;font-weight:700}
-/* ===== الروبوت الجديد - مرسوم جوة الكود ===== */
 .ai-fab-new{position:fixed;bottom:18px;right:18px;width:92px;height:92px;border-radius:50%;cursor:pointer;z-index:10001;animation:robotFloat 2s infinite}
 .ai-fab-new.has-alert{animation:robotAlert .5s infinite}
 @keyframes robotFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
@@ -101,7 +100,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <body>
 <div class="app">
 <aside class="sidebar">
-<div class="brand"><div class="logo">A</div><div><h1 style="margin:0;font-size:19px">AMIAl EXPRESS</h1><p style="margin:0;color:var(--muted);font-size:12px">النظام الرئيسي V11 + مساعد ذكي 🤖</p></div></div>
+<div class="brand"><div class="logo">A</div><div><h1 style="margin:0;font-size:19px">AMIAl EXPRESS</h1><p style="margin:0;color:var(--muted);font-size:12px">النظام الرئيسي V12 - سريع + مساعد ذكي</p></div></div>
 <div id="cloudBadgeSidebar" class="cloud-badge" style="margin-top:14px;width:100%;justify-content:center"><span class="cloud-dot"></span><span id="cloudTextSidebar">☁️ متصل بالسحابة</span></div>
 <div class="nav">
 <button class="active" data-tab="dashboard">🏠 الرئيسية</button>
@@ -130,7 +129,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 </aside>
 <main class="main">
 <div class="hero">
-<h2 style="margin:0">النظام الرئيسي - AMIAl EXPRESS V11</h2><p style="color:var(--muted)">ملخص خفيف + مطابقة بآخر 7 أرقام + مساعد ذكي بيتكلم عربي 🤖</p>
+<h2 style="margin:0">النظام الرئيسي - AMIAl EXPRESS V12</h2><p style="color:var(--muted)">ملخص خفيف + قراءة سريعة بآخر 7 أرقام + مساعد ذكي بيتكلم عربي</p>
 <div class="top-controls">
 <div class="month-picker"><select id="monthSelect" class="month-select" onchange="selectSheet(this.value)"></select></div>
 <input id="globalSearch" class="search-mini" placeholder="🔍 ابحث في النظام كله..." oninput="globalSearchFilter(this.value)"/>
@@ -142,13 +141,11 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <button class="btn btn-amber" onclick="toggleAI(true)">🤖 اسأل المساعد</button>
 </div>
 </div>
-
 <section id="dashboard" class="content active">
 <div class="stats"><div class="stat"><div class="label">التسليم في ورقة <span class="sheet-name-label">1/11/2026</span></div><div class="value" id="stat-delivered-count" style="color:#38bdf8">0</div></div><div class="stat"><div class="label">المبيعات K</div><div class="value" id="stat-sales">0</div></div><div class="stat"><div class="label">شحن المندوب R</div><div class="value" id="stat-expenses" style="color:#ef4444">0</div></div><div class="stat"><div class="label">صافي الربح</div><div class="value" id="stat-net-profit" style="color:#22c55e">0</div></div></div>
 <div class="stats"><div class="stat"><div class="label">صافي (سبت+أحد+اثنين)</div><div class="value" id="stat-group-1">0</div></div><div class="stat"><div class="label">صافي (ثلاثاء+أربعاء+خميس)</div><div class="value" id="stat-group-2">0</div></div></div>
 <div class="card"><h3>🟢 المناديب الأونلاين الآن</h3><div id="liveQuick"></div><button class="btn btn-p" style="margin-top:10px" onclick="showTab('live')">عرض الخريطة لايف →</button> <button class="btn btn-wa" style="margin-top:10px" onclick="openQuickLink('live')">📍 فتح صفحة اللايف الأصلية</button></div>
 </section>
-
 <section id="live" class="content">
 <div class="card"><h3 style="margin:0">🟢 المناديب لايف - خريطة حقيقية</h3><p style="color:var(--muted)">ابحث عن أي مندوب بالاسم - أو افتح صفحة اللايف الأصلية</p>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح صفحة اللايف الأصلية ↗</button><button class="btn btn-g" onclick="copyQuickLink('live')">📋 نسخ لينك اللايف</button></div>
@@ -159,7 +156,6 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <div class="live-grid" id="liveGrid"></div>
 </div>
 </section>
-
 <section id="repapp" class="content">
 <div class="card"><h3 style="margin:0">📱 تطبيق المناديب - مربوط بالشيت</h3><p style="color:var(--muted)">ابحث عن المندوب بالاسم، وهتظهر أوردراته من ورقة الشهر المختارة</p>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-p" onclick="openQuickLink('rep')">📱 فتح تطبيق المناديب الأصلي ↗</button><button class="btn btn-g" onclick="copyQuickLink('rep')">📋 نسخ لينك التطبيق</button></div>
@@ -170,75 +166,54 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <div style="background:#0b1120;border:1px solid var(--line);border-radius:16px;padding:12px;max-width:520px;margin:0 auto"><div style="text-align:center;font-weight:900;color:#38bdf8;margin-bottom:10px">AMIAl EXPRESS - تطبيق المندوب</div><div id="repAppStats"></div><div id="repAppList"></div></div>
 </div>
 </section>
-
 <section id="shipments" class="content"><div class="card"><h3>📦 إدخال المناديب - ورقة <span class="sheet-name-label">1/11/2026</span></h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0"><div style="background:#0f172a;border:1px solid #38bdf8;padding:14px;border-radius:14px"><b>⚡ اسكنر الباركود</b><input id="barcodeScannerInput" placeholder="امسح + Enter" class="filter-input" style="margin:8px 0 0" onkeypress="handleBarcodeScan(event)"><div id="scan-result" style="color:#22c55e;font-size:12px"></div></div><div style="background:#0f172a;border:1px solid #22c55e;padding:14px;border-radius:14px"><b>📷 كاميرا</b><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:8px" onclick="openDirectCameraModal()">📷 فتح الكاميرا</button></div></div></div><div class="sheet-wrap" style="height:60vh;margin-top:12px"><iframe id="sheetFrame" src="https://docs.google.com/spreadsheets/d/1dR7NLy94ZNleaife-kdeR_Q02b7brDjL_oXtAHDSReI/edit?gid=687102612#gid=687102612&embedded=true" width="100%" height="100%" style="border:none"></iframe></div></section>
 <section id="reps" class="content"><div class="card"><h3>تحليل المناديب - <span class="sheet-name-label">1/11/2026</span></h3><input id="repFilterInput" class="filter-input" placeholder="🔍 بحث..." onkeyup="filterRepsTable()"><div class="sheet-wrap"><table><thead><tr><th>المندوب</th><th>إجمالي</th><th>المسلمة</th><th>السعر</th><th>شحن المندوب</th><th>النسبة</th><th>التفاصيل</th></tr></thead><tbody id="reps-table-body"></tbody></table></div></div></section>
 <section id="rep-detail-page" class="content"><button class="btn btn-red" onclick="backToRepsList()" style="margin-bottom:12px">← عودة</button><div class="card"><h3 id="pageRepTitle"></h3><div class="sheet-wrap"><table><thead><tr><th>المندوب</th><th>التاريخ</th><th>عدد</th><th>المسلمة</th><th>السعر</th><th>شحن المندوب</th><th>الصافي</th><th>الوارد</th><th>صورة</th><th>المعلقات</th><th>المحاسب</th><th>واتساب</th><th>إجراءات</th></tr></thead><tbody id="page-detail-table-body"></tbody></table></div></div></section>
 <section id="profits" class="content"><div class="card"><h3>الأرباح - <span class="sheet-name-label">1/11/2026</span></h3><div class="stats"><div class="stat"><div class="label">شحن المكتب</div><div class="value" id="profit-net-office">0</div></div><div class="stat"><div class="label">شحن المندوب</div><div class="value" id="profit-expenses-val" style="color:#ef4444">0</div></div></div></div></section>
 <section id="branches" class="content"><div class="card"><h3>الرواسل</h3><div class="sheet-wrap"><table><thead><tr><th>الراسل</th><th>العدد</th><th>الإجمالي</th></tr></thead><tbody id="senders-table-body"></tbody></table></div></div></section>
-<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة البوالص - نطاق ضيق - أرقام فقط - آخر 7 أرقام من عمود G</h3><p style="color:var(--muted)">بنقص مناطق ضيقة من الصورة، وبنقرا أرقام بس، وبنطابق بآخر 7 أرقام من عمود G في الشيت. لو طابقت، هيظهر اسم العميل الصح ✅</p>
+<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة البوالص - سريعة - أرقام فقط - آخر 7 أرقام من عمود G</h3><p style="color:var(--muted)">بنقرا الصورة مرة واحدة بس، أرقام بس، وبنطابق بآخر 7 أرقام من عمود G. لو متقرتش، اكتب آخر 7 في الخانة اللي جنب كل صورة.</p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"><div><label>📅 ورقة الشهر:</label><input id="ocrSheet" class="select-input" readonly></div><div><label>👤 المندوب:</label><input id="ocrRepName" class="select-input" placeholder="اكتب اسم المندوب..." list="ocrRepsList"/><datalist id="ocrRepsList"></datalist></div></div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><label>عدد الصور:</label><input type="number" id="ocrLimit" value="20" class="filter-input"></div><div><label>اختر الصور:</label><input type="file" id="ocrFiles" accept="image/*" multiple class="filter-input" onchange="previewOCRFiles()"></div></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-amber" onclick="startOCR()">🧠 بدء القراءة - نطاق ضيق - أرقام فقط</button><button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في ورقة الشهر (عمود M)</button><button class="btn btn-p" onclick="loadSheetPhones()">📞 تحميل أرقام عمود G للمطابقة</button></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-amber" onclick="startOCR()">🧠 بدء القراءة - سريعة - مرة واحدة</button><button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في ورقة الشهر (عمود M)</button><button class="btn btn-p" onclick="loadSheetPhones()">📞 تحميل أرقام عمود G للمطابقة</button></div>
 <div style="margin-top:10px;font-size:12px;color:#94a3b8">📞 أرقام عمود G المحملة: <b id="phonesLoadedCount" style="color:#38bdf8">0</b> رقم | <span id="phonesStatus">اضغط تحميل أرقام عمود G قبل القراءة</span></div>
 <div style="margin-top:12px"><span id="ocr-progress-text">جاهز...</span><div class="progress" style="margin-top:6px"><i id="ocr-bar" style="width:0%"></i></div></div><div id="ocr-preview" class="ocr-grid"></div><div id="ocr-results" style="margin-top:12px"></div></div></section>
 </main>
 </div>
-
-<!-- ===== الروبوت الجديد - مرسوم جوة الكود، مش محتاج صورة ===== -->
 <div class="ai-fab-new" id="aiFab" onclick="toggleAI()">
   <svg viewBox="0 0 200 200" style="width:100%;height:100%;filter:drop-shadow(0 8px 18px rgba(56,189,248,.6))">
-    <rect x="62" y="155" width="26" height="28" rx="10" fill="#f97316"/>
-    <rect x="112" y="155" width="26" height="28" rx="10" fill="#f97316"/>
-    <ellipse cx="75" cy="186" rx="18" ry="8" fill="#ea580c"/>
-    <ellipse cx="125" cy="186" rx="18" ry="8" fill="#ea580c"/>
-    <rect x="22" y="95" width="22" height="42" rx="11" fill="#60a5fa"/>
-    <circle cx="33" cy="142" r="11" fill="#f97316"/>
-    <rect x="156" y="95" width="22" height="42" rx="11" fill="#60a5fa"/>
-    <circle cx="167" cy="142" r="11" fill="#f97316"/>
-    <rect x="55" y="82" width="90" height="80" rx="22" fill="#3b82f6"/>
-    <rect x="55" y="82" width="90" height="80" rx="22" fill="none" stroke="#1d4ed8" stroke-width="3"/>
-    <rect x="78" y="105" width="44" height="30" rx="10" fill="#dbeafe"/>
-    <circle cx="100" cy="120" r="10" fill="#fff" stroke="#f97316" stroke-width="2"/>
-    <circle cx="100" cy="120" r="4" fill="#f97316"/>
+    <rect x="62" y="155" width="26" height="28" rx="10" fill="#f97316"/><rect x="112" y="155" width="26" height="28" rx="10" fill="#f97316"/>
+    <ellipse cx="75" cy="186" rx="18" ry="8" fill="#ea580c"/><ellipse cx="125" cy="186" rx="18" ry="8" fill="#ea580c"/>
+    <rect x="22" y="95" width="22" height="42" rx="11" fill="#60a5fa"/><circle cx="33" cy="142" r="11" fill="#f97316"/>
+    <rect x="156" y="95" width="22" height="42" rx="11" fill="#60a5fa"/><circle cx="167" cy="142" r="11" fill="#f97316"/>
+    <rect x="55" y="82" width="90" height="80" rx="22" fill="#3b82f6"/><rect x="55" y="82" width="90" height="80" rx="22" fill="none" stroke="#1d4ed8" stroke-width="3"/>
+    <rect x="78" y="105" width="44" height="30" rx="10" fill="#dbeafe"/><circle cx="100" cy="120" r="10" fill="#fff" stroke="#f97316" stroke-width="2"/><circle cx="100" cy="120" r="4" fill="#f97316"/>
     <rect x="88" y="72" width="24" height="14" fill="#60a5fa"/>
     <rect x="42" y="22" width="116" height="58" rx="26" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/>
-    <rect x="28" y="38" width="18" height="28" rx="9" fill="#f97316"/>
-    <rect x="154" y="38" width="18" height="28" rx="9" fill="#f97316"/>
-    <line x1="100" y1="22" x2="100" y2="8" stroke="#1d4ed8" stroke-width="3"/>
-    <circle cx="100" cy="7" r="6" fill="#f97316" stroke="#fff" stroke-width="2"/>
-    <circle cx="78" cy="48" r="11" fill="#fff"/>
-    <circle cx="78" cy="48" r="5" fill="#0f172a"/>
-    <circle cx="80" cy="46" r="2" fill="#fff"/>
-    <circle cx="122" cy="48" r="11" fill="#fff"/>
-    <circle cx="122" cy="48" r="5" fill="#0f172a"/>
-    <circle cx="124" cy="46" r="2" fill="#fff"/>
+    <rect x="28" y="38" width="18" height="28" rx="9" fill="#f97316"/><rect x="154" y="38" width="18" height="28" rx="9" fill="#f97316"/>
+    <line x1="100" y1="22" x2="100" y2="8" stroke="#1d4ed8" stroke-width="3"/><circle cx="100" cy="7" r="6" fill="#f97316" stroke="#fff" stroke-width="2"/>
+    <circle cx="78" cy="48" r="11" fill="#fff"/><circle cx="78" cy="48" r="5" fill="#0f172a"/><circle cx="80" cy="46" r="2" fill="#fff"/>
+    <circle cx="122" cy="48" r="11" fill="#fff"/><circle cx="122" cy="48" r="5" fill="#0f172a"/><circle cx="124" cy="46" r="2" fill="#fff"/>
     <path d="M 82 62 Q 100 74 118 62" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <circle cx="62" cy="58" r="5" fill="#fca5a5" opacity=".7"/>
-    <circle cx="138" cy="58" r="5" fill="#fca5a5" opacity=".7"/>
+    <circle cx="62" cy="58" r="5" fill="#fca5a5" opacity=".7"/><circle cx="138" cy="58" r="5" fill="#fca5a5" opacity=".7"/>
   </svg>
   <span class="ai-badge" id="aiBadge">!</span>
   <div class="ai-speech-bubble" id="aiBubble">أهلاً بيك! أنا أمي 🤖</div>
 </div>
-
 <div class="ai-panel" id="aiPanel">
   <div class="ai-header">
     <div class="ai-face" style="padding:4px;overflow:hidden;background:#fff">
       <svg viewBox="0 0 200 200" style="width:100%;height:100%">
-        <rect x="62" y="155" width="26" height="28" rx="10" fill="#f97316"/>
-        <rect x="112" y="155" width="26" height="28" rx="10" fill="#f97316"/>
-        <rect x="55" y="82" width="90" height="80" rx="22" fill="#3b82f6"/>
-        <rect x="78" y="105" width="44" height="30" rx="10" fill="#dbeafe"/>
+        <rect x="62" y="155" width="26" height="28" rx="10" fill="#f97316"/><rect x="112" y="155" width="26" height="28" rx="10" fill="#f97316"/>
+        <rect x="55" y="82" width="90" height="80" rx="22" fill="#3b82f6"/><rect x="78" y="105" width="44" height="30" rx="10" fill="#dbeafe"/>
         <rect x="42" y="22" width="116" height="58" rx="26" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/>
-        <rect x="28" y="38" width="18" height="28" rx="9" fill="#f97316"/>
-        <rect x="154" y="38" width="18" height="28" rx="9" fill="#f97316"/>
+        <rect x="28" y="38" width="18" height="28" rx="9" fill="#f97316"/><rect x="154" y="38" width="18" height="28" rx="9" fill="#f97316"/>
         <circle cx="78" cy="48" r="11" fill="#fff"/><circle cx="78" cy="48" r="5" fill="#0f172a"/>
         <circle cx="122" cy="48" r="11" fill="#fff"/><circle cx="122" cy="48" r="5" fill="#0f172a"/>
         <path d="M 82 62 Q 100 74 118 62" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
       </svg>
     </div>
     <div style="flex:1"><b>أمي - مساعد AMIAl الذكي</b><div style="font-size:11px;opacity:.8" id="aiStatus">أونلاين - بتكلم عربي 💡</div></div>
-    <div style="display:flex;gap:6px"><button onclick="toggleVoice()" id="voiceBtn" style="background:#fff;border:none;padding:6px 10px;border-radius:999px;cursor:pointer">🔊 صوت: تشغيل</button><button onclick="toggleAI(false)" style="background:#fff;border:none;padding:6px 10px;border-radius:999px;cursor:pointer">✕</button></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap"><button onclick="toggleVoice()" id="voiceBtn" style="background:#fff;border:none;padding:6px 10px;border-radius:999px;cursor:pointer">🔊 صوت</button><button onclick="testVoice()" style="background:#f59e0b;border:none;padding:6px 10px;border-radius:999px;cursor:pointer;font-weight:900">🎤 جرب صوتي</button><button onclick="toggleAI(false)" style="background:#fff;border:none;padding:6px 10px;border-radius:999px;cursor:pointer">✕</button></div>
   </div>
   <div class="ai-messages" id="aiMessages"></div>
   <div class="ai-quick">
@@ -251,7 +226,6 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
   </div>
   <div class="ai-input-row"><input id="aiInput" placeholder="اسألني أي حاجة... مثال: غير الشهر لـ 1/10" onkeypress="if(event.key==='Enter') sendAIMsg()"><button class="btn btn-p" onclick="sendAIMsg()">إرسال</button><button class="btn btn-wa" onclick="startVoiceInput()">🎤</button></div>
 </div>
-
 <div id="cameraModal" class="modal-overlay"><div class="modal-card"><h3>📸 التقاط إيصال</h3><video id="cameraStream" autoplay playsinline style="width:100%;height:230px;background:#000;border-radius:12px"></video><canvas id="snapshotCanvas" style="display:none"></canvas><button class="btn btn-p" style="width:100%;justify-content:center;margin-top:10px" onclick="takeSnapshot()">📸 التقاط</button><button class="btn btn-red" style="width:100%;justify-content:center;margin-top:8px" onclick="closeCameraModal()">إغلاق</button></div></div>
 <div id="toast" class="toast"></div>
 <script>
@@ -272,11 +246,11 @@ const MONTHS=[
  {v:"1/2/2027",label:"📅 فبراير 2027 - 1/2/2027"},
 ];
 let currentSheet="1/11/2026";
-let globalRepsData={},rawSheetRows=[],cloudRepsData={},activeRepDetailName=null,videoStream=null,ocrResults=[],liveReps=[];
-let repAppFilter="all", liveMap=null, liveMarkers={}, selectedRepApp="", liveSearchQuery="";
+let globalRepsData={},cloudRepsData={},activeRepDetailName=null,videoStream=null,ocrResults=[],liveReps=[];
+let liveMap=null, liveMarkers={}, selectedRepApp="", liveSearchQuery="";
 let sheetRequestId=0, isLoading=false, lastLoadedSheet="";
 let sheetPhones=[], sheetPhonesMap={};
-let aiOpen=false, voiceEnabled=true, aiAlertCount=0;
+let aiOpen=false, voiceEnabled=true, aiAlertCount=0, voiceUnlocked=false, tesseractWorker=null;
 const $=s=>document.querySelector(s);
 function toast(m){let t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2800)}
 function parseNum(v){if(v==null||v==="")return 0;let n=parseFloat(String(v).replace(/[^0-9.-]/g,""));return isNaN(n)?0:n}
@@ -337,23 +311,10 @@ async function loadSheetPhones(silent){
     if(res&&res.phones){ sheetPhones=res.phones; sheetPhonesMap={}; res.phones.forEach(p=>{ sheetPhonesMap[p.last7]=p; sheetPhonesMap[p.last8]=p; sheetPhonesMap[p.full]=p; }); $('#phonesLoadedCount').textContent=res.phones.length; $('#phonesStatus').textContent=`✅ تم تحميل ${res.phones.length} رقم من عمود G - المطابقة جاهزة بآخر 7 أرقام`; if(!silent) toast(`✅ تم تحميل ${res.phones.length} رقم للمطابقة`); }
   }catch(e){ $('#phonesStatus').textContent="⚠️ تعذر تحميل أرقام عمود G - دوس تحميل تاني"; }
 }
-function findMatchByLast7(ocrText){
-  let allDigits = (ocrText||"").replace(/[^0-9]/g," ");
-  let chunks = allDigits.split(/\s+/).filter(x=>x.length>=7);
-  for(let chunk of chunks){
-    for(let i=0;i<=chunk.length-7;i++){
-      let last7 = chunk.slice(i,i+7);
-      if(sheetPhonesMap[last7]) return {match:sheetPhonesMap[last7], foundDigits:last7, method:"آخر 7 أرقام"};
-      if(i+8<=chunk.length){ let last8=chunk.slice(i,i+8); if(sheetPhonesMap[last8]) return {match:sheetPhonesMap[last8], foundDigits:last8, method:"آخر 8 أرقام"}; }
-    }
-  }
-  return null;
-}
-// ===== المساعد الذكي - بيتكلم عربي مصري =====
 function toggleAI(forceOpen){
   aiOpen = forceOpen!==undefined ? forceOpen : !aiOpen;
   $('#aiPanel').style.display = aiOpen ? 'flex' : 'none';
-  if(aiOpen){ $('#aiBadge').style.display='none'; aiAlertCount=0; $('#aiFab').classList.remove('has-alert'); if($('#aiMessages').children.length===0) aiSay("أهلاً بيك! أنا أمي 🤖 مساعدك الذكي. أنا فاهم كل حاجة في النظام: الأرباح، المناديب، البوالص، واللايف. اسألني أي حاجة أو اديني أمر، وأنا هنفذهولك! جرب تقولي: مين أفضل مندوب؟ أو كم الأرباح؟", false); }
+  if(aiOpen){ $('#aiBadge').style.display='none'; aiAlertCount=0; $('#aiFab').classList.remove('has-alert'); if($('#aiMessages').children.length===0) aiSay("أهلاً بيك! أنا أمي مساعدك الذكي. أنا فاهم كل حاجة في النظام: الأرباح، المناديب، البوالص، واللايف. اسألني أي حاجة أو اديني أمر، وأنا هنفذهولك! جرب تقولي: مين أفضل مندوب؟ أو كم الأرباح؟", false); }
 }
 function aiSay(text, isWarn){
   let box=$('#aiMessages'); let div=document.createElement('div'); div.className=isWarn?'ai-msg warn':'ai-msg bot'; div.innerHTML=text; box.appendChild(div); box.scrollTop=box.scrollHeight;
@@ -362,29 +323,39 @@ function aiSay(text, isWarn){
   return div;
 }
 function aiUserSay(text){ let box=$('#aiMessages'); let div=document.createElement('div'); div.className='ai-msg user'; div.textContent=text; box.appendChild(div); box.scrollTop=box.scrollHeight; }
+function unlockVoice(){
+  if(voiceUnlocked) return;
+  voiceUnlocked = true;
+  try{ let u = new SpeechSynthesisUtterance(" "); u.volume = 0; window.speechSynthesis.speak(u); window.speechSynthesis.getVoices(); }catch(e){}
+}
+document.addEventListener('click', unlockVoice, {once:false});
+document.addEventListener('touchstart', unlockVoice, {once:false});
 function speakText(text){
   if(!voiceEnabled) return;
+  unlockVoice();
   try{
-    let clean = text.replace(/<[^>]*>/g,'').replace(/🤖|✅|⚠️|📍|📱|💰|🏆|📉|🔄|🧾|👤|📞|😊/g,'').trim().slice(0,280);
+    let clean = text.replace(/<[^>]*>/g,'').replace(/🤖|✅|⚠️|📍|📱|💰|🏆|📉|🔄|🧾|👤|📞|😊/g,'').trim().slice(0,250);
     if(!clean) return;
     window.speechSynthesis.cancel();
     let u = new SpeechSynthesisUtterance(clean);
     let voices = window.speechSynthesis.getVoices();
     let arVoice = voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('ar'));
-    if(arVoice) u.voice = arVoice;
-    u.lang = 'ar-EG';
-    u.rate = 0.95;
-    u.pitch = 1.15;
-    u.volume = 1;
-    let fab = $('#aiFab');
-    if(fab){ fab.style.animation='robotAlert .4s infinite'; setTimeout(()=>{ fab.style.animation=''; }, clean.length*45); }
+    if(arVoice){ u.voice = arVoice; u.lang = arVoice.lang; }
+    else {
+      let googleAr = voices.find(v=>v.name && v.name.toLowerCase().includes('arabic'));
+      if(googleAr){ u.voice = googleAr; u.lang = googleAr.lang; }
+      else { u.lang = 'ar-EG'; }
+    }
+    u.rate = 0.9; u.pitch = 1.0; u.volume = 1;
+    u.onerror = ()=>{ setTimeout(()=>{ try{ window.speechSynthesis.speak(u); }catch(e){} }, 500); };
+    window.speechSynthesis.speak(u);
     let bubble = $('#aiBubble');
     if(bubble){ bubble.textContent = clean.slice(0,50); bubble.style.display='block'; setTimeout(()=>bubble.style.display='none', 4000); }
-    window.speechSynthesis.speak(u);
   }catch(e){}
 }
-function toggleVoice(){ voiceEnabled=!voiceEnabled; $('#voiceBtn').textContent = voiceEnabled ? "🔊 صوت: تشغيل" : "🔇 صوت: إيقاف"; if(voiceEnabled) speakText("تم تشغيل الصوت"); }
-function aiWarn(msg){ aiSay("⚠️ <b>تنبيه!</b> "+msg, true); }
+function testVoice(){ speakText("أهلاً بيك! أنا أمي، مساعدك الذكي. لو سامع صوتي بالعربي يبقى تمام."); }
+function toggleVoice(){ voiceEnabled=!voiceEnabled; $('#voiceBtn').textContent = voiceEnabled ? "🔊 صوت" : "🔇 صوت"; if(voiceEnabled) speakText("تم تشغيل الصوت"); }
+function aiWarn(msg){ aiSay("⚠️ تنبيه! "+msg, true); }
 function checkForProblems(res){
   let st=res.stats||{}; let reps=res.reps||[];
   reps.forEach(r=>{ if(r.total>=10){ let rate=r.total?Math.round(r.delivered/r.total*100):0; if(rate<30){ aiWarn(`المندوب ${r.name} نسبته ضعيفة جداً: ${rate}% فقط (${r.delivered}/${r.total}) - راجعه فوراً`); } } });
@@ -401,34 +372,34 @@ function startVoiceInput(){
 }
 function handleAICommand(qRaw){
   let q=norm(qRaw);
-  if(q.includes("حدث")||q.includes("تحديث")||q.includes("refresh")){ forceRefresh(); aiSay("🔄 تمام، بحدث بيانات ورقة "+currentSheet+" دلوقتي..."); return; }
-  if(q.includes("لايف")||q.includes("موقع")||q.includes("خريطه")){ showTab('live'); openQuickLink('live'); aiSay("📍 فتحتلك صفحة اللايف، وكمان فتحت صفحة اللايف الأصلية في تاب جديد."); return; }
-  if(q.includes("تطبيق")||q.includes("ابليكيشن")){ showTab('repapp'); openQuickLink('rep'); aiSay("📱 فتحتلك تطبيق المناديب الأصلي."); return; }
-  if(q.includes("بوليص")||q.includes("ايصال")||q.includes("ocr")||q.includes("قراءه")){ showTab('ocr'); aiSay("🧾 فتحتلك صفحة البوالص. دوس تحميل أرقام عمود G الأول، وبعدين اختر الصور ودوس بدء القراءة. أنا هطابق بآخر 7 أرقام أوتوماتيك."); return; }
-  if(q.includes("ارباح")||q.includes("ربح")||q.includes("مكسب")){ let s=$('#stat-net-profit').textContent; let sales=$('#stat-sales').textContent; let exp=$('#stat-expenses').textContent; aiSay(`💰 في ورقة <b>${currentSheet}</b>:<br>• المبيعات: <b>${sales}</b><br>• شحن المندوب: <b>${exp}</b><br>• صافي الربح: <b>${s}</b><br>${parseNum(s)<0 ? "⚠️ الصافي بالسالب، راجع المصاريف!" : "✅ الوضع كويس، استمر!"}`); return; }
+  if(q.includes("حدث")||q.includes("تحديث")||q.includes("refresh")){ forceRefresh(); aiSay("تمام، بحدث بيانات ورقة "+currentSheet+" دلوقتي..."); return; }
+  if(q.includes("لايف")||q.includes("موقع")||q.includes("خريطه")){ showTab('live'); openQuickLink('live'); aiSay("فتحتلك صفحة اللايف، وكمان فتحت صفحة اللايف الأصلية في تاب جديد."); return; }
+  if(q.includes("تطبيق")||q.includes("ابليكيشن")){ showTab('repapp'); openQuickLink('rep'); aiSay("فتحتلك تطبيق المناديب الأصلي."); return; }
+  if(q.includes("بوليص")||q.includes("ايصال")||q.includes("ocr")||q.includes("قراءه")){ showTab('ocr'); aiSay("فتحتلك صفحة البوالص. دوس تحميل أرقام عمود G الأول، وبعدين اختر الصور ودوس بدء القراءة. أنا هطابق بآخر 7 أرقام أوتوماتيك."); return; }
+  if(q.includes("ارباح")||q.includes("ربح")||q.includes("مكسب")){ let s=$('#stat-net-profit').textContent; let sales=$('#stat-sales').textContent; let exp=$('#stat-expenses').textContent; aiSay(`في ورقة ${currentSheet}: المبيعات: ${sales} ، شحن المندوب: ${exp} ، صافي الربح: ${s}`); return; }
   if(q.includes("افضل")||q.includes("احسن")||q.includes("اعلي")||q.includes("توب")){
     let best=null, bestRate=-1; for(let n in globalRepsData){ let d=globalRepsData[n]; let rate=d.totalCount?Math.round(d.deliveredCount/d.totalCount*100):0; if(d.totalCount>=5 && rate>bestRate){bestRate=rate; best={name:n, ...d, rate};} }
-    if(best) aiSay(`🏆 أفضل مندوب في ${currentSheet} هو <b>${best.name}</b><br>• إجمالي: ${best.totalCount} أوردر<br>• تم: ${best.deliveredCount}<br>• النسبة: ${best.rate}%<br>• إجمالي السعر: ${best.totalAmountJ.toLocaleString()} ج.م`); else aiSay("لسه مفيش بيانات كفاية عشان أحدد أفضل مندوب.");
+    if(best) aiSay(`أفضل مندوب في ${currentSheet} هو ${best.name} ، إجمالي: ${best.totalCount} أوردر ، تم: ${best.deliveredCount} ، النسبة: ${best.rate}%`); else aiSay("لسه مفيش بيانات كفاية عشان أحدد أفضل مندوب.");
     return;
   }
   if(q.includes("اسوء")||q.includes("اسوا")||q.includes("اضعف")||q.includes("سيئ")){
     let worst=null, worstRate=101; for(let n in globalRepsData){ let d=globalRepsData[n]; let rate=d.totalCount?Math.round(d.deliveredCount/d.totalCount*100):0; if(d.totalCount>=5 && rate<worstRate){worstRate=rate; worst={name:n, ...d, rate};} }
-    if(worst) aiSay(`📉 أسوأ مندوب في ${currentSheet} هو <b>${worst.name}</b><br>• النسبة: ${worst.rate}% فقط (${worst.deliveredCount}/${worst.totalCount})<br>⚠️ محتاج متابعة فورية!`); else aiSay("مفيش مندوب ضعيف، كلهم كويسين ✅");
+    if(worst) aiSay(`أسوأ مندوب في ${currentSheet} هو ${worst.name} ، النسبة: ${worst.rate}% فقط ، محتاج متابعة فورية!`); else aiSay("مفيش مندوب ضعيف، كلهم كويسين.");
     return;
   }
   if(q.includes("مشكله")||q.includes("مشكلة")||q.includes("تحذير")||q.includes("فيه ايه")){
     let problems=[]; for(let n in globalRepsData){ let d=globalRepsData[n]; let rate=d.totalCount?Math.round(d.deliveredCount/d.totalCount*100):0; if(d.totalCount>=10 && rate<30) problems.push(`${n} نسبته ${rate}%`); }
-    if(problems.length) aiSay(`⚠️ لقيت ${problems.length} مشكلة:<br>• ${problems.join("<br>• ")}`); else aiSay("✅ مفيش مشاكل كبيرة دلوقتي، كل المناديب فوق 30%، والربح كويس.");
+    if(problems.length) aiSay(`لقيت ${problems.length} مشكلة: ${problems.join(" ، ")}`); else aiSay("مفيش مشاكل كبيرة دلوقتي، كل المناديب فوق 30%، والربح كويس.");
     return;
   }
-  if(q.includes("كم")&&q.includes("مندوب")){ let c=Object.keys(globalRepsData).length; aiSay(`👥 عندك <b>${c}</b> مندوب في ورقة ${currentSheet}.`); return; }
+  if(q.includes("كم")&&q.includes("مندوب")){ let c=Object.keys(globalRepsData).length; aiSay(`عندك ${c} مندوب في ورقة ${currentSheet}.`); return; }
   if(q.includes("غير")&&q.includes("شهر")||q.includes("ورقه")||q.includes("ورقة")){
-    let m=qRaw.match(/1\/\d+\/202\d/); if(m){ selectSheet(m[0]); aiSay(`📅 تمام، غيرت الورقة لـ <b>${m[0]}</b>، وبحمل بياناتها دلوقتي...`); } else { aiSay("📅 قولي الشهر بالظبط زي كده: <b>غير الشهر لـ 1/10/2026</b>"); }
+    let m=qRaw.match(/1\/\d+\/202\d/); if(m){ selectSheet(m[0]); aiSay(`تمام، غيرت الورقة لـ ${m[0]}، وبحمل بياناتها دلوقتي...`); } else { aiSay("قولي الشهر بالظبط زي كده: غير الشهر لـ 1/10/2026"); }
     return;
   }
-  if(q.includes("ازيك")||q.includes("عامل ايه")||q.includes("اهلا")||q.includes("سلام")){ aiSay("أهلاً بيك! 😊 أنا أمي، مساعدك الذكي. أنا صاحي ومركز معاك في كل حاجة. عايز تعرف الأرباح؟ ولا تشوف أفضل مندوب؟ ولا أفتحلك اللايف؟"); return; }
-  if(q.includes("شكرا")||q.includes("تمام")||q.includes("ممتاز")){ aiSay("العفو! 😊 أنا موجود هنا على طول، لو احتجت أي حاجة قولي بس."); return; }
-  aiSay(`🤔 فهمتك، بس عايز توضيح أكتر. أنا بعرف أعمل:<br>• أقولك الأرباح والمناديب والمشاكل<br>• أنفذ أوامر زي: حدث، افتح اللايف، غير الشهر<br>• أساعدك في البوالص والمطابقة<br>جرب تقولي: <b>كم الأرباح؟</b>`);
+  if(q.includes("ازيك")||q.includes("عامل ايه")||q.includes("اهلا")||q.includes("سلام")){ aiSay("أهلاً بيك! أنا أمي، مساعدك الذكي. أنا صاحي ومركز معاك في كل حاجة. عايز تعرف الأرباح؟ ولا تشوف أفضل مندوب؟ ولا أفتحلك اللايف؟"); return; }
+  if(q.includes("شكرا")||q.includes("تمام")||q.includes("ممتاز")){ aiSay("العفو! أنا موجود هنا على طول، لو احتجت أي حاجة قولي بس."); return; }
+  aiSay(`فهمتك، بس عايز توضيح أكتر. أنا بعرف أعمل: أقولك الأرباح والمناديب والمشاكل، أنفذ أوامر زي: حدث، افتح اللايف، غير الشهر، أساعدك في البوالص والمطابقة. جرب تقولي: كم الأرباح؟`);
 }
 function globalSearchFilter(q){q=(q||"").toLowerCase();document.querySelectorAll('#reps-table-body tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?"":"none");}
 function onRepSearchInput(){
@@ -485,31 +456,26 @@ function backToRepsList(){document.querySelectorAll('.content').forEach(s=>s.cla
 function filterRepsTable(){let v=$('#repFilterInput').value.toLowerCase();document.querySelectorAll('#reps-table-body tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(v)?"":"none")}
 function previewOCRFiles(){let files=document.getElementById('ocrFiles').files;let lim=parseInt($('#ocrLimit').value||20);let show=Math.min(files.length,lim);let h="";for(let i=0;i<show;i++){let url=URL.createObjectURL(files[i]);h+=`<div class="ocr-card" id="ocr-card-${i}"><img src="${url}"><div>صورة ${i+1}</div><div id="ocr-phone-${i}" style="color:#f59e0b">بانتظار...</div><div id="ocr-name-${i}" style="color:#94a3b8;font-size:11px"></div><div id="ocr-price-${i}" style="color:#38bdf8;font-weight:800"></div><div id="ocr-match-${i}" style="color:#22c55e;font-size:11px"></div></div>`}document.getElementById('ocr-preview').innerHTML=h}
 function extractPrice(text){let m=text.match(/(\d{2,5})\s*(ج|EGP|جنيه|LE)/); if(m) return m[1]; let nums=(text.match(/\b\d{2,5}\b/g)||[]); return nums.length? nums[nums.length-1] : "";}
-function extractName(text){let lines=text.split("\n").map(s=>s.trim()).filter(s=>s.length>2 && !/^\d+$/.test(s));let arabic=lines.filter(l=>/[\u0600-\u06FF]/.test(l));return arabic[0]||lines[0]||"";}
-// ===== قراءة ضيقة - أرقام فقط - آخر 7 أرقام =====
-function cropImageToZone(file, zone){
+async function getWorker(){
+  if(tesseractWorker) return tesseractWorker;
+  tesseractWorker = await Tesseract.createWorker('eng', 1, { tessedit_char_whitelist: '0123456789', tessedit_pageseg_mode: '6' });
+  return tesseractWorker;
+}
+function fastResize(file){
   return new Promise((resolve)=>{
     let img = new Image();
     let url = URL.createObjectURL(file);
     img.onload = ()=>{
+      let scale = Math.min(1, 1000 / Math.max(img.width, img.height));
       let canvas = document.createElement('canvas');
-      let sx=0, sy=0, sw=img.width, sh=img.height;
-      if(zone===1){ sy = img.height*0.35; sh = img.height*0.65; }
-      if(zone===2){ sy = img.height*0.25; sh = img.height*0.50; }
-      if(zone===3){ sy = 0; sh = img.height*0.45; }
-      canvas.width = sw*3;
-      canvas.height = sh*3;
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
       let ctx = canvas.getContext('2d');
-      ctx.fillStyle="#fff"; ctx.fillRect(0,0,canvas.width,canvas.height);
-      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
-      let imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
-      let d = imgData.data;
-      for(let i=0;i<d.length;i+=4){
-        let gray = (d[i]*0.3 + d[i+1]*0.59 + d[i+2]*0.11);
-        let bw = gray > 145 ? 255 : 0;
-        d[i]=bw; d[i+1]=bw; d[i+2]=bw;
-      }
-      ctx.putImageData(imgData,0,0);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      let d = ctx.getImageData(0,0,canvas.width,canvas.height);
+      let px = d.data;
+      for(let i=0;i<px.length;i+=4){ let g = (px[i]*0.3 + px[i+1]*0.59 + px[i+2]*0.11); let bw = g > 145 ? 255 : 0; px[i]=bw; px[i+1]=bw; px[i+2]=bw; }
+      ctx.putImageData(d,0,0);
       canvas.toBlob(b=>resolve(b), 'image/png');
     };
     img.src = url;
@@ -518,16 +484,13 @@ function cropImageToZone(file, zone){
 function extractLast7Only(text){
   let onlyDigits = String(text||"").replace(/[^0-9]/g," ");
   let parts = onlyDigits.split(/\s+/).filter(x=>x.length>=7);
-  let candidates = [];
-  for(let p of parts){
-    for(let i=0;i<=p.length-7;i++){
-      candidates.push(p.slice(i, i+7));
-    }
-  }
-  return candidates;
+  let cands = [];
+  for(let p of parts){ for(let i=0;i<=p.length-7;i++){ cands.push(p.slice(i,i+7)); } }
+  return cands;
 }
 async function startOCR(){
-  if(!sheetPhones.length){ $('#ocr-progress-text').textContent="⏳ بحمل أرقام عمود G الأول..."; await loadSheetPhones(true); }
+  if(!sheetPhones.length){ $('#ocr-progress-text').textContent="⏳ بحمل أرقام عمود G..."; await loadSheetPhones(true); }
+  if(!sheetPhones.length){ alert("أرقام عمود G لسه 0 - لازم تعمل Deploy New version للسكريبت الأول، أو دوس تحميل أرقام عمود G تاني"); return; }
   let files=document.getElementById('ocrFiles').files;
   let rep=$('#ocrRepName').value||selectedRepApp||"";
   let sheet=currentSheet;
@@ -535,78 +498,57 @@ async function startOCR(){
   let lim=parseInt($('#ocrLimit').value||20);
   let total=Math.min(files.length,lim);
   ocrResults=[]; $('#btnSaveToSheet').disabled=true;
-  $('#ocr-progress-text').textContent=`⏳ بقرا أرقام بس - نطاق ضيق - وبطابق بآخر 7 أرقام من عمود G...`;
+  let worker = await getWorker();
+  $('#ocr-progress-text').textContent=`⏳ قراءة سريعة - مرة واحدة لكل صورة...`;
   let matchedCount=0;
+  let startTime = Date.now();
   for(let i=0;i<total;i++){
     try{
-      let txtAll = "";
-      let foundMatch = null;
-      let foundDigits = "";
-      let triedZones = [1,2,0,3];
-      for(let zone of triedZones){
-        if(foundMatch) break;
-        let zoneBlob = await cropImageToZone(files[i], zone);
-        let res = await Tesseract.recognize(zoneBlob,'eng',{
-          tessedit_char_whitelist: '0123456789',
-          tessedit_pageseg_mode: '6',
-        });
-        let txt = res.data.text||"";
-        txtAll += "\n[منطقة "+zone+"] "+txt;
-        let cands = extractLast7Only(txt);
-        for(let c of cands){
-          if(sheetPhonesMap[c]){ foundMatch = sheetPhonesMap[c]; foundDigits=c; break; }
-        }
-      }
-      if(!foundMatch){
-        let fullBlob = await cropImageToZone(files[i], 0);
-        let res2 = await Tesseract.recognize(fullBlob,'eng+ara',{ tessedit_pageseg_mode: '6' });
-        txtAll += "\n[كامل] "+(res2.data.text||"");
-        let cands2 = extractLast7Only(res2.data.text||"");
-        for(let c of cands2){ if(sheetPhonesMap[c]){ foundMatch=sheetPhonesMap[c]; foundDigits=c; break; } }
-      }
+      let smallBlob = await fastResize(files[i]);
+      let res = await worker.recognize(smallBlob);
+      let txt = res.data.text||"";
+      let foundMatch=null, foundDigits="";
+      let cands = extractLast7Only(txt);
+      for(let c of cands){ if(sheetPhonesMap[c]){ foundMatch=sheetPhonesMap[c]; foundDigits=c; break; } }
       let finalPhone = foundMatch ? foundMatch.full : "لم يتم العثور";
       let matchedClient = foundMatch ? foundMatch.client : "";
       if(foundMatch) matchedCount++;
-      let price = extractPrice(txtAll);
-      ocrResults.push({ index:i, fileName:files[i].name, phone:finalPhone, price:price, name:matchedClient, rep:rep, sheet:sheet, text:txtAll, matched:!!foundMatch, matchInfo:foundMatch?{match:foundMatch, foundDigits:foundDigits}:null, sheetRow:foundMatch?foundMatch.row:null, sheetClient:matchedClient });
+      let price = extractPrice(txt);
+      ocrResults.push({ index:i, fileName:files[i].name, phone:finalPhone, price:price, name:matchedClient, rep:rep, sheet:sheet, text:txt, matched:!!foundMatch, sheetRow:foundMatch?foundMatch.row:null, sheetClient:matchedClient });
       let card=document.getElementById(`ocr-card-${i}`);
       let ph=document.getElementById(`ocr-phone-${i}`);
       let nm=document.getElementById(`ocr-name-${i}`);
       let pr=document.getElementById(`ocr-price-${i}`);
       let mt=document.getElementById(`ocr-match-${i}`);
-      if(foundMatch){
-        card.classList.add('matched');
-        ph.textContent="📞 "+finalPhone; ph.style.color="#22c55e";
-        if(mt) mt.textContent=`✅ طابق آخر 7: ${foundDigits} = ${matchedClient}`;
-        if(nm) nm.textContent="👤 "+matchedClient;
-      } else {
-        card.classList.add('fail');
-        ph.textContent="❌ مفيش مطابقة - آخر 7 مش موجودين في عمود G"; ph.style.color="#ef4444";
-        if(mt) mt.textContent="حاول تصور أوضح أو اكتب آخر 7 يدوي";
-      }
+      if(foundMatch){ card.classList.add('matched'); ph.textContent="📞 "+finalPhone; ph.style.color="#22c55e"; if(mt) mt.textContent=`✅ طابق آخر 7: ${foundDigits} = ${matchedClient}`; if(nm) nm.textContent="👤 "+matchedClient; }
+      else { card.classList.add('fail'); ph.textContent="❌ مفيش مطابقة"; ph.style.color="#ef4444"; if(mt) mt.textContent="اكتب آخر 7 يدوي تحت"; }
       if(pr) pr.textContent=price? "💰 "+price+" ج.م":"";
+      let elapsed = Math.round((Date.now()-startTime)/1000);
       $('#ocr-bar').style.width=((i+1)/total*100)+"%";
-      $('#ocr-progress-text').textContent=`⏳ ${i+1}/${total} - طابقنا ${matchedCount} بآخر 7 أرقام`;
+      $('#ocr-progress-text').textContent=`⏳ ${i+1}/${total} - طابقنا ${matchedCount} - الوقت: ${elapsed} ثانية`;
     }catch(e){ ocrResults.push({index:i,fileName:files[i].name,phone:"خطأ",rep:rep,sheet:sheet}); }
   }
-  $('#ocr-progress-text').textContent=`✅ تم - طابقنا ${matchedCount} من ${total} بآخر 7 أرقام من عمود G`;
-  $('#ocr-results').innerHTML=ocrResults.map(r=>`<div style="background:#0f172a;padding:10px;border-radius:10px;margin:5px 0;font-size:13px">📷 صورة ${r.index+1} | 👤 ${r.sheetClient||r.name||"-"} | 📞 ${r.phone} ${r.matched?`✅ طابق آخر 7 (صف ${r.sheetRow})`:"⚠️ مش مطابق"} | 💰 ${r.price||"-"} ج.م | 👤 المندوب: <b style="color:#38bdf8">${r.rep}</b> ${!r.matched?'<button onclick="manualPhone('+r.index+')" style="background:#f59e0b;border:none;padding:4px 8px;border-radius:6px;cursor:pointer;font-weight:800">✏️ اكتب آخر 7 يدوي</button>':''}</div>`).join("");
+  $('#ocr-progress-text').textContent=`✅ تم في ${Math.round((Date.now()-startTime)/1000)} ثانية - طابقنا ${matchedCount} من ${total} بآخر 7 أرقام`;
+  $('#ocr-results').innerHTML=ocrResults.map(r=>`<div style="background:#0f172a;padding:10px;border-radius:10px;margin:5px 0;font-size:13px">📷 صورة ${r.index+1} | 👤 ${r.sheetClient||r.name||"-"} | 📞 ${r.phone} ${r.matched?`✅ طابق آخر 7 (صف ${r.sheetRow})`:"⚠️ مش مطابق"} | 💰 ${r.price||"-"} ج.م | <input id="manual7-${r.index}" placeholder="اكتب آخر 7 هنا" style="width:110px;padding:6px;background:#1e293b;border:1px solid #f59e0b;border-radius:6px;color:#fff" onkeypress="if(event.key==='Enter') manualPhoneFast(${r.index})"> <button onclick="manualPhoneFast(${r.index})" style="background:#f59e0b;border:none;padding:6px 10px;border-radius:6px;cursor:pointer;font-weight:800">✏️ طابق</button></div>`).join("");
   $('#btnSaveToSheet').disabled=false;
-  if(matchedCount>0) aiSay(`خلصت قراءة البوالص! طابقت ${matchedCount} بوليصة بآخر 7 أرقام من عمود G.`);
-  else aiWarn("خلصت القراءة بس مفيش ولا بوليصة طابقت عمود G، جرب تصور أوضح أو اكتب آخر 7 أرقام يدوي");
-  toast(matchedCount>0?`تم ✅ - طابقنا ${matchedCount} بآخر 7`:"مفيش مطابقة");
+  if(matchedCount>0) aiSay(`خلصت قراءة البوالص! طابقت ${matchedCount} بوليصة.`);
+  else aiWarn("مفيش ولا بوليصة طابقت - اكتب آخر 7 أرقام يدوي في الخانة اللي جنب كل صورة");
 }
-function manualPhone(idx){
-  let p=prompt("اكتب أي 7 أرقام من رقم التليفون (آخر 7 أرقام):");
+function manualPhoneFast(idx){
+  let inp = document.getElementById('manual7-'+idx);
+  let p = inp ? inp.value : prompt("اكتب آخر 7 أرقام:");
   if(!p) return; p=p.replace(/[^0-9]/g,'');
-  if(p.length>=7){
-    let last7=p.slice(-7);
-    let match=sheetPhonesMap[last7];
-    if(match){ ocrResults[idx].phone=match.full; ocrResults[idx].matched=true; ocrResults[idx].sheetClient=match.client; ocrResults[idx].sheetRow=match.row; toast(`✅ طابق! العميل: ${match.client} - ${match.full}`); startOCRResultsRefresh(); }
-    else { ocrResults[idx].phone=p; toast("⚠️ الرقم مش موجود في عمود G، بس حفظته زي ما كتبته"); startOCRResultsRefresh(); }
-  } else alert("اكتب على الأقل 7 أرقام");
+  if(p.length<7){ alert("اكتب 7 أرقام على الأقل"); return; }
+  let last7=p.slice(-7);
+  let match=sheetPhonesMap[last7];
+  if(match){ ocrResults[idx].phone=match.full; ocrResults[idx].matched=true; ocrResults[idx].sheetClient=match.client; ocrResults[idx].sheetRow=match.row; toast(`✅ طابق! ${match.client} - ${match.full}`); aiSay(`تمام، طابقت البوليصة دي مع ${match.client}`); }
+  else { toast("⚠️ آخر 7 مش موجود في عمود G - اتأكد من الرقم"); return; }
+  let card=document.getElementById(`ocr-card-${idx}`);
+  if(card){ card.classList.remove('fail'); card.classList.add('matched'); }
+  let ph=document.getElementById(`ocr-phone-${idx}`); if(ph){ ph.textContent="📞 "+match.full; ph.style.color="#22c55e"; }
+  let mt=document.getElementById(`ocr-match-${idx}`); if(mt) mt.textContent=`✅ طابق يدوي: ${match.client}`;
 }
-function startOCRResultsRefresh(){ $('#ocr-results').innerHTML=ocrResults.map(r=>`<div style="background:#0f172a;padding:10px;border-radius:10px;margin:5px 0;font-size:13px">📷 صورة ${r.index+1} | 👤 ${r.sheetClient||r.name||"-"} | 📞 ${r.phone} ${r.matched?"✅ طابق":"⚠️"} | 💰 ${r.price||"-"} ج.م</div>`).join(""); }
+function manualPhone(idx){ manualPhoneFast(idx); }
 async function saveOCRToSheet(){
   let rep=$('#ocrRepName').value||selectedRepApp||"";let sheet=currentSheet;
   let valid=ocrResults.filter(r=>r.phone&&r.phone.startsWith("01"));
@@ -623,8 +565,6 @@ if('speechSynthesis' in window){
   window.speechSynthesis.onvoiceschanged = ()=>{ window.speechSynthesis.getVoices(); };
   window.speechSynthesis.getVoices();
 }
-setTimeout(()=>{ speakText("أهلاً بيك! أنا أمي، مساعدك الذكي. أنا موجود هنا عشان أساعدك في كل حاجة في النظام."); }, 2000);
-setTimeout(()=>{ if(!aiOpen) aiSay("أهلاً بيك! 🤖 أنا أمي، مساعدك الذكي. أنا شايف كل حاجة في النظام دلوقتي. لو فيه مشكلة هقولك بصوتي على طول. دوس عليا واسألني أي حاجة!", false); },2500);
 </script>
 </body>
 </html>
