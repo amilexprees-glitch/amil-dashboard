@@ -92,6 +92,29 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <button data-tab="branches">🏢 الرواسل</button>
 <button data-tab="ocr">🧾 قراءة الإيصالات OCR</button>
 </div>
+
+<!-- ===== لينكات سريعة - محفوظة جوة النظام ===== -->
+<div style="margin-top:14px;background:#111827;border:1px solid #38bdf8;padding:12px;border-radius:14px">
+  <b style="font-size:13px">🔗 لينكات سريعة</b>
+  <div style="margin-top:10px">
+    <label style="font-size:11px;color:#94a3b8">📱 لينك تطبيق المناديب:</label>
+    <input id="linkRepApp" class="filter-input" style="margin:4px 0;font-size:11px" value="https://amilexprees-glitch.github.io/amial-rep-app/rep-app.html?v=3.4&_b=v3.5-20261121&_t=1795252276860" oninput="saveQuickLinks()">
+    <div style="display:flex;gap:6px">
+      <button class="btn btn-p" style="flex:1;justify-content:center" onclick="openQuickLink('rep')">📱 فتح التطبيق</button>
+      <button class="btn btn-g" onclick="copyQuickLink('rep')">📋 نسخ</button>
+    </div>
+  </div>
+  <div style="margin-top:12px">
+    <label style="font-size:11px;color:#94a3b8">📍 لينك اللايف لوكيشن:</label>
+    <input id="linkLive" class="filter-input" style="margin:4px 0;font-size:11px" value="https://amilexprees-glitch.github.io/amial-rep-app/live-map.html" oninput="saveQuickLinks()">
+    <div style="display:flex;gap:6px">
+      <button class="btn btn-wa" style="flex:1;justify-content:center" onclick="openQuickLink('live')">📍 فتح اللايف</button>
+      <button class="btn btn-g" onclick="copyQuickLink('live')">📋 نسخ</button>
+    </div>
+  </div>
+  <div style="font-size:11px;color:#22c55e;margin-top:8px">✅ اللينكات محفوظة جوة النظام</div>
+</div>
+
 <div style="margin-top:16px;background:#111827;border:1px solid var(--line);padding:12px;border-radius:14px;font-size:12px;line-height:1.7"><b>📄 الورقة النشطة:</b><div id="currentSheetLabel" style="color:#38bdf8;font-weight:900;font-size:15px">1/11/2026</div><div id="sheetDebug" style="color:#22c55e">جاري التحقق...</div></div>
 </aside>
 <main class="main">
@@ -103,17 +126,20 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <span id="connection-status" class="cloud-badge"><span class="cloud-dot"></span><span id="cloudText">☁️ متصل بالسحابة</span></span>
 <span class="tag" id="sheet-count">—</span>
 <button class="btn btn-p" onclick="forceRefresh()">🔄 تحديث</button>
+<button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح اللايف</button>
+<button class="btn btn-p" onclick="openQuickLink('rep')">📱 فتح التطبيق</button>
 </div>
 </div>
 
 <section id="dashboard" class="content active">
 <div class="stats"><div class="stat"><div class="label">التسليم في ورقة <span class="sheet-name-label">1/11/2026</span></div><div class="value" id="stat-delivered-count" style="color:#38bdf8">0</div></div><div class="stat"><div class="label">المبيعات K</div><div class="value" id="stat-sales">0</div></div><div class="stat"><div class="label">شحن المندوب R</div><div class="value" id="stat-expenses" style="color:#ef4444">0</div></div><div class="stat"><div class="label">صافي الربح</div><div class="value" id="stat-net-profit" style="color:#22c55e">0</div></div></div>
 <div class="stats"><div class="stat"><div class="label">صافي (سبت+أحد+اثنين)</div><div class="value" id="stat-group-1">0</div></div><div class="stat"><div class="label">صافي (ثلاثاء+أربعاء+خميس)</div><div class="value" id="stat-group-2">0</div></div></div>
-<div class="card"><h3>🟢 المناديب الأونلاين الآن</h3><div id="liveQuick"></div><button class="btn btn-p" style="margin-top:10px" onclick="showTab('live')">عرض الخريطة لايف →</button></div>
+<div class="card"><h3>🟢 المناديب الأونلاين الآن</h3><div id="liveQuick"></div><button class="btn btn-p" style="margin-top:10px" onclick="showTab('live')">عرض الخريطة لايف →</button> <button class="btn btn-wa" style="margin-top:10px" onclick="openQuickLink('live')">📍 فتح صفحة اللايف الأصلية</button></div>
 </section>
 
 <section id="live" class="content">
-<div class="card"><h3 style="margin:0">🟢 المناديب لايف - خريطة حقيقية</h3><p style="color:var(--muted)">ابحث عن أي مندوب بالاسم</p>
+<div class="card"><h3 style="margin:0">🟢 المناديب لايف - خريطة حقيقية</h3><p style="color:var(--muted)">ابحث عن أي مندوب بالاسم - أو افتح صفحة اللايف الأصلية</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-wa" onclick="openQuickLink('live')">📍 فتح صفحة اللايف الأصلية ↗</button><button class="btn btn-g" onclick="copyQuickLink('live')">📋 نسخ لينك اللايف</button></div>
 <input id="liveSearch" class="search-box-big" placeholder="🔍 ابحث عن مندوب... اكتب اسمه هنا" oninput="renderLive()"/>
 <div id="liveSuggest" class="suggest-box"></div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-p" onclick="refreshLive()">🔄 تحديث اللايف</button><button class="btn btn-wa" onclick="openAllMaps()">🗺️ فتح كل المواقع</button><button class="btn btn-g" onclick="clearLiveSearch()">✕ مسح البحث</button></div>
@@ -124,6 +150,7 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 
 <section id="repapp" class="content">
 <div class="card"><h3 style="margin:0">📱 تطبيق المناديب - مربوط بالشيت</h3><p style="color:var(--muted)">ابحث عن المندوب بالاسم، وهتظهر أوردراته من ورقة الشهر المختارة</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn btn-p" onclick="openQuickLink('rep')">📱 فتح تطبيق المناديب الأصلي ↗</button><button class="btn btn-g" onclick="copyQuickLink('rep')">📋 نسخ لينك التطبيق</button></div>
 <input id="repAppRepSearch" class="search-box-big" placeholder="🔍 ابحث عن المندوب... اكتب اسمه هنا" oninput="onRepSearchInput()"/>
 <div id="repSuggest" class="suggest-box"></div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><input id="repAppSearch" class="select-input" style="width:260px;margin:0" placeholder="🔍 ابحث في أوردرات المندوب..." oninput="renderRepApp()"/><button class="btn btn-p" onclick="renderRepApp()">عرض</button><span class="tag" id="repAppSelectedLabel" style="font-size:13px;padding:8px 12px">اختر مندوب من البحث فوق</span></div>
@@ -137,10 +164,10 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <section id="rep-detail-page" class="content"><button class="btn btn-red" onclick="backToRepsList()" style="margin-bottom:12px">← عودة</button><div class="card"><h3 id="pageRepTitle"></h3><div class="sheet-wrap"><table><thead><tr><th>المندوب</th><th>التاريخ</th><th>عدد</th><th>المسلمة</th><th>السعر</th><th>شحن المندوب</th><th>الصافي</th><th>الوارد</th><th>صورة</th><th>المعلقات</th><th>المحاسب</th><th>واتساب</th><th>إجراءات</th></tr></thead><tbody id="page-detail-table-body"></tbody></table></div></div></section>
 <section id="profits" class="content"><div class="card"><h3>الأرباح - <span class="sheet-name-label">1/11/2026</span></h3><div class="stats"><div class="stat"><div class="label">شحن المكتب</div><div class="value" id="profit-net-office">0</div></div><div class="stat"><div class="label">شحن المندوب</div><div class="value" id="profit-expenses-val" style="color:#ef4444">0</div></div></div></div></section>
 <section id="branches" class="content"><div class="card"><h3>الرواسل</h3><div class="sheet-wrap"><table><thead><tr><th>الراسل</th><th>العدد</th><th>الإجمالي</th></tr></thead><tbody id="senders-table-body"></tbody></table></div></div></section>
-<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة الإيصالات OCR</h3><p style="color:var(--muted)">الورقة = الشهر المختار فوق أوتوماتيك.</p>
+<section id="ocr" class="content"><div class="card" style="border-color:#f59e0b"><h3>🧾 قراءة الإيصالات OCR - محسّنة</h3><p style="color:var(--muted)">الورقة = الشهر المختار فوق أوتوماتيك. بننضف الصورة الأول عشان خط اليد يبان أوضح. لو الرقم متقراش، دوس ✏️ اكتب الرقم يدوي.</p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"><div><label>📅 ورقة الشهر:</label><input id="ocrSheet" class="select-input" readonly></div><div><label>👤 المندوب:</label><input id="ocrRepName" class="select-input" placeholder="اكتب اسم المندوب..." list="ocrRepsList"/><datalist id="ocrRepsList"></datalist></div></div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><label>عدد الصور:</label><input type="number" id="ocrLimit" value="20" class="filter-input"></div><div><label>اختر الصور:</label><input type="file" id="ocrFiles" accept="image/*" multiple class="filter-input" onchange="previewOCRFiles()"></div></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-amber" onclick="startOCR()">🧠 بدء القراءة</button><button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في ورقة الشهر (عمود M)</button></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-amber" onclick="startOCR()">🧠 بدء القراءة (بتنضيف الصورة)</button><button class="btn btn-wa" id="btnSaveToSheet" onclick="saveOCRToSheet()" disabled>💾 حفظ في ورقة الشهر (عمود M)</button></div>
 <div style="margin-top:12px"><span id="ocr-progress-text">جاهز...</span><div class="progress" style="margin-top:6px"><i id="ocr-bar" style="width:0%"></i></div></div><div id="ocr-preview" class="ocr-grid"></div><div id="ocr-results" style="margin-top:12px"></div></div></section>
 </main>
 </div>
@@ -148,6 +175,8 @@ th{background:#0f172a;color:#bfdbfe;position:sticky;top:0}
 <div id="toast" class="toast"></div>
 <script>
 const WEB_APP_URL="https://script.google.com/macros/s/AKfycbyXSyNzl0cRNpCGBhSjy6z2A7zM9dqVne_NNXUpYHKwX1RQchd7B_2HBtAN8-1zKWn0/exec";
+const LINK_REP_APP="https://amilexprees-glitch.github.io/amial-rep-app/rep-app.html?v=3.4&_b=v3.5-20261121&_t=1795252276860";
+const LINK_LIVE="https://amilexprees-glitch.github.io/amial-rep-app/live-map.html";
 const MONTHS=[
  {v:"1/4/2026",label:"📅 أبريل 2026 - 1/4/2026"},
  {v:"1/5/2026",label:"📅 مايو 2026 - 1/5/2026"},
@@ -173,6 +202,25 @@ function showTab(tab){document.querySelectorAll('.nav button').forEach(b=>b.clas
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
 function buildMonthPicker(){let sel=$('#monthSelect');sel.innerHTML=MONTHS.map(m=>`<option value="${m.v}" ${m.v===currentSheet?'selected':''}>${m.label}</option>`).join('');let ocr=$('#ocrSheet'); if(ocr) ocr.value=currentSheet;}
 function setCloud(on){document.querySelectorAll('.cloud-badge').forEach(b=>b.classList.toggle('offline',!on));let t1=$('#cloudText'), t2=$('#cloudTextSidebar');if(t1) t1.textContent = on ? "☁️ متصل بالسحابة" : "☁️ غير متصل - حاول التحديث";if(t2) t2.textContent = on ? "☁️ متصل بالسحابة" : "☁️ غير متصل - حاول التحديث";}
+// ===== لينكات سريعة =====
+function saveQuickLinks(){ localStorage.setItem('amial_link_rep', $('#linkRepApp').value.trim()); localStorage.setItem('amial_link_live', $('#linkLive').value.trim()); }
+function loadQuickLinks(){
+  let savedRep = localStorage.getItem('amial_link_rep');
+  let savedLive = localStorage.getItem('amial_link_live');
+  if($('#linkRepApp')) $('#linkRepApp').value = savedRep || LINK_REP_APP;
+  if($('#linkLive')) $('#linkLive').value = savedLive || LINK_LIVE;
+}
+function openQuickLink(type){
+  let url = type==='rep' ? ($('#linkRepApp')?$('#linkRepApp').value.trim():LINK_REP_APP) : ($('#linkLive')?$('#linkLive').value.trim():LINK_LIVE);
+  if(!url){ alert("مفيش لينك"); return; }
+  if(!url.startsWith('http')) url='https://'+url;
+  window.open(url,'_blank');
+}
+function copyQuickLink(type){
+  let url = type==='rep' ? $('#linkRepApp').value.trim() : $('#linkLive').value.trim();
+  if(!url){ alert("مفيش لينك للنسخ"); return; }
+  navigator.clipboard.writeText(url).then(()=>toast("✅ تم نسخ اللينك"));
+}
 function resetStatsUI(){
   $('#stat-delivered-count').textContent="⏳";
   $('#stat-sales').textContent="⏳";
@@ -184,7 +232,6 @@ function resetStatsUI(){
   $('#profit-expenses-val').textContent="⏳";
   globalRepsData={};
 }
-// ===== V9: بيجيب ملخص خفيف بس =====
 function selectSheet(sheetName){
   if(sheetName===currentSheet && lastLoadedSheet===sheetName) return;
   currentSheet=sheetName;
@@ -202,28 +249,19 @@ function selectSheet(sheetName){
   loadSummary(myRequest, sheetName);
   toast("تم اختيار ورقة: "+sheetName);
 }
-function forceRefresh(){
-  sheetRequestId++;
-  loadSummary(sheetRequestId, currentSheet);
-  toast("🔄 جاري تحديث "+currentSheet);
-}
+function forceRefresh(){ sheetRequestId++; loadSummary(sheetRequestId, currentSheet); toast("🔄 جاري تحديث "+currentSheet); }
 function loadSummary(passedRequestId, passedSheet){
-  if(isLoading) return; // منع الطلبات المتكررة فوق بعض - ده كان سبب الفصل
+  if(isLoading) return;
   let myRequest = passedRequestId !== undefined ? passedRequestId : ++sheetRequestId;
   let requestedSheet = passedSheet || currentSheet;
   isLoading=true;
-  // لا نغير حالة الاتصال أثناء التحميل - عشان ميظهرش غير متصل كل شوية
   let url=`${WEB_APP_URL}?action=getSummary&sheetName=${encodeURIComponent(requestedSheet)}&_t=${Date.now()}`;
-  // timeout 25 ثانية
   let controller = new AbortController();
   let timeoutId = setTimeout(()=>controller.abort(), 25000);
   fetch(url, {signal: controller.signal}).then(r=>r.json()).then(res=>{
     clearTimeout(timeoutId); isLoading=false;
     if(myRequest !== sheetRequestId) return;
-    if(!res || res.status!=="success"){
-      $('#sheetDebug').textContent=`⚠️ تعذر تحميل ${requestedSheet}`;
-      setCloud(false); return;
-    }
+    if(!res || res.status!=="success"){ $('#sheetDebug').textContent=`⚠️ تعذر تحميل ${requestedSheet}`; setCloud(false); return; }
     if(res.sheetFound===false){
       $('#sheetDebug').textContent=`⚠️ ورقة ${requestedSheet} مش موجودة`;
       $('#sheet-count').textContent=`📄 ${requestedSheet} • 0 صف`;
@@ -240,8 +278,6 @@ function loadSummary(passedRequestId, passedSheet){
     clearTimeout(timeoutId); isLoading=false;
     if(myRequest !== sheetRequestId) return;
     $('#sheetDebug').textContent=`⚠️ تعذر الاتصال - دوس تحديث`;
-    // منحطش غير متصل غير لو فشل فعلا، ومش أثناء التحميل
-    // setCloud(false);
     toast("تعذر التحميل، دوس تحديث تاني");
   });
 }
@@ -261,9 +297,7 @@ function processSummary(res, useSheet){
   globalRepsData={};
   (res.reps||[]).forEach(r=>{
     globalRepsData[r.name]={totalCount:r.total, deliveredCount:r.delivered, totalAmountJ:r.amountJ, totalRepShippingR:r.shippingR, days:{}};
-    (r.days||[]).forEach(d=>{
-      globalRepsData[r.name].days[d.day]={dayName:d.day, date:d.date, count:d.count, deliveredCount:d.delivered, amountJ:d.amountJ, deliveredSalesK:d.sales, shippingR:d.shipping};
-    });
+    (r.days||[]).forEach(d=>{ globalRepsData[r.name].days[d.day]={dayName:d.day, date:d.date, count:d.count, deliveredCount:d.delivered, amountJ:d.amountJ, deliveredSalesK:d.sales, shippingR:d.shipping}; });
   });
   let rh=""; for(let r in globalRepsData){let d=globalRepsData[r]; let rate=d.totalCount?Math.round(d.deliveredCount/d.totalCount*100):0; rh+=`<tr><td><b>${r}</b></td><td>${d.totalCount}</td><td style="color:#22c55e;font-weight:800">${d.deliveredCount}</td><td>${d.totalAmountJ.toLocaleString()} ج.م</td><td style="color:#ef4444">${d.totalRepShippingR.toLocaleString()} ج.م</td><td>${rate}%</td><td><button class="btn btn-p" onclick="openRepDetailPage('${r}')">📂 فتح</button></td></tr>`}
   $('#reps-table-body').innerHTML=rh||`<tr><td colspan="7" style="text-align:center">لا توجد بيانات في ورقة ${useSheet}</td></tr>`;
@@ -273,7 +307,6 @@ function processSummary(res, useSheet){
   if(!selectedRepApp && reps.length) selectedRepApp=reps[0];
   updateRepSuggest(); updateLiveSuggest();
   if(activeRepDetailName&&globalRepsData[activeRepDetailName]) renderRepDetailTable(activeRepDetailName,false);
-  // تطبيق المندوب بيحتاج التفاصيل - هنجيبها عند الطلب فقط، مش كل مرة
   renderRepAppFromSummary();
 }
 function globalSearchFilter(q){q=(q||"").toLowerCase();document.querySelectorAll('#reps-table-body tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?"":"none");}
@@ -307,7 +340,6 @@ function refreshLive(){let stored=JSON.parse(localStorage.getItem('amial_live_re
 function renderLive(){
   liveSearchQuery=norm($('#liveSearch')?$('#liveSearch').value:"");
   let filtered=liveReps.filter(r=> !liveSearchQuery || norm(r.name).includes(liveSearchQuery));
-  let online=filtered.filter(r=>Date.now()-r.lastSeen<60000).length;
   $('#liveCount').textContent=liveReps.filter(r=>Date.now()-r.lastSeen<60000).length+" أونلاين";
   document.getElementById('liveQuick').innerHTML=filtered.map(r=>`<div style="display:flex;justify-content:space-between;background:#0f172a;padding:8px 10px;border-radius:10px;margin:4px 0"><span>🟢 <b>${r.name}</b> - ${r.area}</span><span style="color:#22c55e">${r.delivered}/${r.orders} تم</span></div>`).join("") || `<p style="color:#94a3b8">اكتب اسم المندوب فوق للبحث</p>`;
   if(liveMap){
@@ -319,7 +351,7 @@ function renderLive(){
     });
     if(bounds.length) liveMap.fitBounds(bounds,{padding:[30,30]});
   }
-  if(!liveReps.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:30px">لا يوجد مناديب فاتحين الآن<br>أول ما المندوب يفتح الأبليكيشن، هيظهر هنا فوراً</div>`;return}
+  if(!liveReps.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:30px">لا يوجد مناديب فاتحين الآن<br><button class="btn btn-wa" onclick="openQuickLink('live')" style="margin-top:10px">📍 افتح صفحة اللايف الأصلية</button></div>`;return}
   if(!filtered.length){document.getElementById('liveGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#f87171;padding:20px">مفيش مندوب بالاسم ده فاتح دلوقتي</div>`;return}
   let h="";
   filtered.forEach(r=>{
@@ -348,26 +380,84 @@ function previewOCRFiles(){let files=document.getElementById('ocrFiles').files;l
 function extractPhone(text){let cleaned=text.replace(/[\s\-\(\)]/g,'');let m=cleaned.match(/(?:\+?20|0)?1[0125][0-9]{8}/g);if(m){let p=m[0];if(p.startsWith("20"))p="0"+p.slice(2);if(!p.startsWith("0"))p="0"+p;return p}let a=cleaned.match(/[0-9]{10,11}/g);return a?a[0]:null}
 function extractPrice(text){let m=text.match(/(\d{2,5})\s*(ج|EGP|جنيه|LE)/); if(m) return m[1]; let nums=(text.match(/\b\d{2,5}\b/g)||[]); return nums.length? nums[nums.length-1] : "";}
 function extractName(text){let lines=text.split("\n").map(s=>s.trim()).filter(s=>s.length>2 && !/^\d+$/.test(s));let arabic=lines.filter(l=>/[\u0600-\u06FF]/.test(l));return arabic[0]||lines[0]||"";}
+// ===== OCR محسّن - تنضيف الصورة قبل القراءة =====
+function preprocessImage(file){
+  return new Promise((resolve)=>{
+    let img = new Image();
+    let url = URL.createObjectURL(file);
+    img.onload = ()=>{
+      let canvas = document.createElement('canvas');
+      canvas.width = img.width * 2;
+      canvas.height = img.height * 2;
+      let ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      let imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+      let d = imgData.data;
+      for(let i=0;i<d.length;i+=4){
+        let gray = (d[i]*0.3 + d[i+1]*0.59 + d[i+2]*0.11);
+        let contrast = gray > 140 ? 255 : 0;
+        d[i]=contrast; d[i+1]=contrast; d[i+2]=contrast;
+      }
+      ctx.putImageData(imgData,0,0);
+      canvas.toBlob(b=>resolve(b), 'image/png');
+    };
+    img.src = url;
+  });
+}
+function extractPhoneSmart(text){
+  let cleaned = text.replace(/[\s\-\(\)\[\]]/g,'');
+  cleaned = cleaned.replace(/[OoQ]/g,'0').replace(/[lI|]/g,'1').replace(/S/g,'5').replace(/B/g,'8');
+  let m = cleaned.match(/01[0125][0-9]{8}/g);
+  if(m) return m[0];
+  let m2 = cleaned.match(/1[0125][0-9]{8}/g);
+  if(m2) return "0"+m2[0];
+  let m3 = cleaned.match(/[0-9]{11}/g);
+  if(m3) return m3[0];
+  return null;
+}
 async function startOCR(){
   let files=document.getElementById('ocrFiles').files;let rep=$('#ocrRepName').value||selectedRepApp||"";let sheet=currentSheet;
   if(!files.length){alert("اختر الصور");return}
-  let lim=parseInt($('#ocrLimit').value||20);let total=Math.min(files.length,lim);ocrResults=[];$('#btnSaveToSheet').disabled=true;$('#ocr-progress-text').textContent=`⏳ قراءة ${total} صورة لورقة ${sheet} - المندوب ${rep}...`;
+  let lim=parseInt($('#ocrLimit').value||20);let total=Math.min(files.length,lim);ocrResults=[];$('#btnSaveToSheet').disabled=true;$('#ocr-progress-text').textContent=`⏳ بننضف وبنقرا ${total} صورة...`;
   for(let i=0;i<total;i++){
     try{
-      let res=await Tesseract.recognize(files[i],'eng+ara',{});
-      let txt=res.data.text||"";
-      let phone=extractPhone(txt); let price=extractPrice(txt); let name=extractName(txt);
-      ocrResults.push({index:i,fileName:files[i].name,phone:phone||"لم يتم العثور",price:price,name:name,rep:rep,sheet:sheet,text:txt});
+      let cleanBlob = await preprocessImage(files[i]);
+      let res1 = await Tesseract.recognize(cleanBlob,'eng+ara',{ tessedit_pageseg_mode: '6' });
+      let txt1 = res1.data.text||"";
+      let phone = extractPhoneSmart(txt1);
+      if(!phone){
+        let res2 = await Tesseract.recognize(cleanBlob,'eng',{ tessedit_char_whitelist: '0123456789+', tessedit_pageseg_mode: '6' });
+        phone = extractPhoneSmart(res2.data.text||"");
+        txt1 += "\n" + (res2.data.text||"");
+      }
+      let price=extractPrice(txt1); let name=extractName(txt1);
+      ocrResults.push({index:i,fileName:files[i].name,phone:phone||"لم يتم العثور",price:price,name:name,rep:rep,sheet:sheet,text:txt1});
       let card=document.getElementById(`ocr-card-${i}`);let ph=document.getElementById(`ocr-phone-${i}`);let nm=document.getElementById(`ocr-name-${i}`);let pr=document.getElementById(`ocr-price-${i}`);
-      if(phone){card.classList.add('ok');ph.textContent="📞 "+phone;ph.style.color="#22c55e"}else{card.classList.add('fail');ph.textContent="❌ لم يتم العثور";ph.style.color="#ef4444"}
+      if(phone){card.classList.add('ok');ph.textContent="📞 "+phone;ph.style.color="#22c55e"}else{card.classList.add('fail');ph.textContent="❌ لم يتم العثور - راجع يدوي";ph.style.color="#ef4444"}
       if(nm) nm.textContent=name? "👤 "+name.slice(0,30):"";
       if(pr) pr.textContent=price? "💰 "+price+" ج.م":"";
       $('#ocr-bar').style.width=((i+1)/total*100)+"%";
+      $('#ocr-progress-text').textContent=`⏳ ${i+1}/${total} - وجدنا ${ocrResults.filter(r=>r.phone.startsWith("01")).length} رقم لحد دلوقتي`;
     }catch(e){ocrResults.push({index:i,fileName:files[i].name,phone:"خطأ",rep:rep,sheet:sheet})}
   }
-  $('#ocr-progress-text').textContent=`✅ تم - وجدنا ${ocrResults.filter(r=>r.phone.startsWith("01")).length} رقم لورقة ${sheet} - المندوب ${rep}`;
-  $('#ocr-results').innerHTML=ocrResults.map(r=>`<div style="background:#0f172a;padding:10px;border-radius:10px;margin:5px 0;font-size:13px">📷 صورة ${r.index+1} | 👤 ${r.name||"-"} | 📞 ${r.phone} | 💰 ${r.price||"-"} ج.م | 👤 المندوب: <b style="color:#38bdf8">${r.rep}</b></div>`).join("");
-  $('#btnSaveToSheet').disabled=false;toast("تمت القراءة ✅ - راجع البيانات قبل الحفظ");
+  let found = ocrResults.filter(r=>r.phone.startsWith("01")).length;
+  $('#ocr-progress-text').textContent=`✅ تم - وجدنا ${found} رقم من ${total} لورقة ${sheet} - المندوب ${rep} ${found<total ? ' - الباقي خط يد صعب، راجعه يدوي' : ''}`;
+  $('#ocr-results').innerHTML=ocrResults.map(r=>`<div style="background:#0f172a;padding:10px;border-radius:10px;margin:5px 0;font-size:13px">📷 صورة ${r.index+1} | 👤 ${r.name||"-"} | 📞 ${r.phone} | 💰 ${r.price||"-"} ج.م | 👤 المندوب: <b style="color:#38bdf8">${r.rep}</b> ${r.phone==="لم يتم العثور" ? '<button onclick="manualPhone('+r.index+')" style="background:#f59e0b;border:none;padding:4px 8px;border-radius:6px;cursor:pointer;font-weight:800">✏️ اكتب الرقم يدوي</button>' : ''}</div>`).join("");
+  $('#btnSaveToSheet').disabled=false;
+  toast(found>0 ? `تمت القراءة ✅ - وجدنا ${found} رقم` : "مفيش أرقام اتقرت - الإيصالات خط يد، جرب تصور أوضح");
+}
+function manualPhone(idx){
+  let p = prompt("اكتب رقم تليفون الإيصال ده (11 رقم يبدأ بـ 01):");
+  if(!p) return;
+  p = p.replace(/[^0-9]/g,'');
+  if(p.length===11 && p.startsWith("01")){
+    ocrResults[idx].phone = p;
+    toast("✅ تم حفظ الرقم يدوي: "+p);
+    startOCRResultsRefresh();
+  } else alert("الرقم لازم يكون 11 رقم ويبدأ بـ 01");
+}
+function startOCRResultsRefresh(){
+  $('#ocr-results').innerHTML=ocrResults.map(r=>`<div style="background:#0f172a;padding:10px;border-radius:10px;margin:5px 0;font-size:13px">📷 صورة ${r.index+1} | 👤 ${r.name||"-"} | 📞 ${r.phone} | 💰 ${r.price||"-"} ج.م</div>`).join("");
 }
 async function saveOCRToSheet(){
   let rep=$('#ocrRepName').value||selectedRepApp||"";let sheet=currentSheet;
@@ -381,10 +471,9 @@ async function saveOCRToSheet(){
   }catch(e){toast("تم إرسال الطلب - تحقق من الشيت")}
 }
 buildMonthPicker();
+loadQuickLinks();
 loadSummary(0, "1/11/2026");
 refreshLive();
-// مفيش تحديث تلقائي كل 30 ثانية - ده كان سبب الفصل والثقل
-// التحديث يدوي بزرار 🔄 فقط
 </script>
 </body>
 </html>
